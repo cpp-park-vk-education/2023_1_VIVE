@@ -1,19 +1,33 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "SFML/System.hpp"
-#include "SFML/Audio.hpp"
+#include "Physics.hpp"
 
-class Player
+class Player : public Physics
 {
 private:
+    // Form
     sf::RectangleShape shape;
 
-public:
-    Player();
-    virtual ~Player();
+    // Physics
+    sf::Vector2f m_velocity;
+    float m_speed = 200.0f;
+    float m_jumpHeight = 500.0f;
+    float m_friction = 0.9f;
 
-    // Functions
-    void update();
-    void render();
+    void move(float deltaTime) override;
+    void handleCollisions() override;
+
+    // Core
+    void initShape();
+
+public:
+    Player(float gravity=9.8f);
+
+    // Movement functions
+    void moveLeft();
+    void moveRight();
+    void jump();
+    void stop();
+
+    void update(float deltaTime) override;
 };

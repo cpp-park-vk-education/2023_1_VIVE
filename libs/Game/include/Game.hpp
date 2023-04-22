@@ -8,7 +8,12 @@ private:
     sf::RenderWindow window;
     sf::Event event;
 
+    // Entities
+    Player *player;
+
+    // Initions
     void initWindow();
+    void initPlayer();
 
 public:
     Game();

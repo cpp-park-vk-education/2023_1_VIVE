@@ -5,4 +5,4 @@ target_include_directories(Player PUBLIC include)
 install(TARGETS Player DESTINATION lib)
 install(FILES include/Player.hpp DESTINATION include)
 
-target_link_libraries(Player sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(Player Physics)
