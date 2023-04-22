@@ -5,14 +5,17 @@
 class Game
 {
 private:
-    sf::RenderWindow *window;
+    sf::RenderWindow window;
+    sf::Event event;
+
+    void initWindow();
 
 public:
-    Game(sf::RenderWindow *window);
+    Game();
     virtual ~Game();
 
     // Accessors
-    inline sf::RenderWindow &getWindow() { return *window; }
+    inline sf::RenderWindow &getWindow() { return window; }
 
     // Setters
 
