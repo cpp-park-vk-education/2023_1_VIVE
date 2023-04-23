@@ -1,8 +1,6 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "SFML/System.hpp"
-#include "SFML/Audio.hpp"
+#include "Player.hpp"
 
 class Game
 {
@@ -11,9 +9,11 @@ private:
     sf::Event event;
 
     // Entities
+    Player *player;
 
     // Initions
     void initWindow();
+    void initPlayer();
 
 public:
     Game();
@@ -25,6 +25,9 @@ public:
     // Setters
 
     // Functions
+    void updatePlayer();
+    void renderPlayer();
+
     void update();
     void render();
 };

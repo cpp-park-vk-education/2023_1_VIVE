@@ -6,13 +6,29 @@ void Game::initWindow()
     window.setFramerateLimit(60);
 }
 
+void Game::initPlayer()
+{
+    player = new Player(sf::Vector2(50.f, 100.f), sf::Vector2(0.f, 0.f));
+}
+
 Game::Game()
 {
     initWindow();
+    initPlayer();
 }
 
 Game::~Game()
 {
+}
+
+void Game::updatePlayer()
+{
+    player->update();
+}
+
+void Game::renderPlayer()
+{
+    player->render(window);
 }
 
 void Game::update()
@@ -33,5 +49,6 @@ void Game::render()
     window.clear();
 
     // Render game
+    renderPlayer();
     window.display();
 }

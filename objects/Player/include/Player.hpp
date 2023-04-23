@@ -1,23 +1,22 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "SFML/System.hpp"
-#include "SFML/Audio.hpp"
+#include "Entity.hpp"
 
-class Player
+class Player : public Entity
 {
 private:
     // Form
-    sf::RectangleShape shape;
 
     // Physics
 
-    // Core
-    void initShape();
+    // Initions
 
 public:
-    Player();
+    Player(sf::Vector2f hit_box_size, sf::Vector2f hit_box_position);
 
     // Movement functions
 
+    // Functions
+    void update() override;
+    void render(sf::RenderTarget &target) override;
 };
