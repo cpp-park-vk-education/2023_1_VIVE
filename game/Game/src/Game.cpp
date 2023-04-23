@@ -6,20 +6,13 @@ void Game::initWindow()
     window.setFramerateLimit(60);
 }
 
-void Game::initPlayer()
-{
-    player = new Player();
-}
-
 Game::Game()
 {
     initWindow();
-    initPlayer();
 }
 
 Game::~Game()
 {
-    delete player;
 }
 
 void Game::update()
