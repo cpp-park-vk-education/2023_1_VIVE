@@ -1,12 +1,15 @@
 #include "Player.hpp"
 
-
-
+void Player::initShape(sf::Vector2f size)
+{
+    shape.setFillColor(sf::Color::White);
+    shape.setSize(size);
+}
 
 Player::Player(sf::Vector2f hit_box_size, sf::Vector2f hit_box_position)
-    :   Entity(hit_box_size, hit_box_position)
+    : Entity(hit_box_size, hit_box_position)
 {
-    hit_box.setFillColor(sf::Color::White);
+    initShape(hit_box_size);
 }
 
 void Player::update()

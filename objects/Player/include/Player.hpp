@@ -6,10 +6,12 @@ class Player : public Entity
 {
 private:
     // Form
+    sf::RectangleShape shape;
 
     // Physics
 
     // Initions
+    void initShape(sf::Vector2f size) override;
 
 public:
     Player(sf::Vector2f hit_box_size, sf::Vector2f hit_box_position);

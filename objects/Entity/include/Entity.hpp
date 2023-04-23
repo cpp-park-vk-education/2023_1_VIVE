@@ -12,6 +12,9 @@ protected:
     sf::Vector2f hit_box_size;
     sf::Vector2f hit_box_position;
 
+    // Initions
+    virtual void initShape(sf::Vector2f size) = 0;
+
 public:
     Entity(sf::Vector2f hit_box_size, sf::Vector2f hit_box_position);
     virtual ~Entity();
