@@ -42,6 +42,8 @@ void Game::update()
                  event.key.code == sf::Keyboard::Escape)
             window.close();
     }
+
+    updatePlayer();
 }
 
 void Game::render()

@@ -12,13 +12,17 @@ private:
 
     // Initions
     void initShape(sf::Vector2f size) override;
+    void initPhysics();
 
 public:
     Player(sf::Vector2f hit_box_size, sf::Vector2f hit_box_position);
 
-    // Movement functions
-
     // Functions
-    void update() override;
+    void accelerate(const float dir_x, const float dir_y);
+    void move(sf::Vector2f velocity) override;
+
+    void updatePhysics() override;
+    void updateMovement() override;
+
     void render(sf::RenderTarget &target) override;
 };
