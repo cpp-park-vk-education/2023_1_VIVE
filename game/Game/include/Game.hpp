@@ -22,11 +22,10 @@ public:
     // Accessors
     inline sf::RenderWindow &getWindow() { return window; }
 
-    // Setters
-
     // Functions
     void updatePlayer();
     void renderPlayer();
+    void updateCollision();
 
     void update();
     void render();

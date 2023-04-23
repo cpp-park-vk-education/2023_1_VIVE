@@ -17,11 +17,12 @@ private:
 public:
     Player(sf::Vector2f hit_box_size, sf::Vector2f hit_box_position);
 
+    // Modifiers
+    void setPosition(float const x, float const y) override;
+
     // Functions
-    void accelerate(const float dir_x, const float dir_y);
     void move(sf::Vector2f velocity) override;
 
-    void updatePhysics() override;
     void updateMovement() override;
 
     void render(sf::RenderTarget &target) override;
