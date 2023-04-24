@@ -21,9 +21,9 @@ Game::~Game()
 {
 }
 
-void Game::updatePlayer()
+void Game::updatePlayer(const float delta_time)
 {
-    player->update();
+    player->update(delta_time, window);
 }
 
 void Game::renderPlayer()
@@ -31,18 +31,18 @@ void Game::renderPlayer()
     player->render(window);
 }
 
-void Game::updateCollision()
-{
-    // Collision bottom of the screen
-    if (player->getPosition().y + player->getGlobalBounds().height >
-        window.getSize().y)
-    {
-        player->resetVelocityY();
-        player->setPosition(
-            player->getPosition().x,
-            window.getSize().y - player->getGlobalBounds().height);
-    }
-}
+// void Game::updateCollision()
+// {
+//     // Collision bottom of the screen
+//     if (player->getPosition().y + player->getGlobalBounds().height >
+//         window.getSize().y)
+//     {
+//         player->resetVelocityY();
+//         player->setPosition(
+//             player->getPosition().x,
+//             window.getSize().y - player->getGlobalBounds().height);
+//     }
+// }
 
 void Game::update()
 {
@@ -55,9 +55,10 @@ void Game::update()
                  event.key.code == sf::Keyboard::Escape)
             window.close();
     }
+    delta_time = clock.restart().asSeconds();
 
-    updatePlayer();
-    updateCollision();
+    updatePlayer(delta_time);
+    // updateCollision();
 }
 
 void Game::render()

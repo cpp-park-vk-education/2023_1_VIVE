@@ -8,12 +8,18 @@ void Player::initShape(sf::Vector2f size)
 
 void Player::initPhysics()
 {
-    velocity_max = 15.f;
-    velocity_min = 1.f;
-    acceleration = 2.f;
-    drag = 0.8f;
-    gravity = 9.8f;
-    velocity_max_y = 20.f;
+    speed = 50;
+    max_speed = 400;
+    gravity_acceleration = 1000;
+    jump_speed = 200;
+    moving = false;
+    is_jumping = false;
+    jump_time = 0;
+    max_jump_time = 0.1;
+
+    displacement = sf::Vector2(0.f, 0.f);
+    velocity = sf::Vector2(0.f, 0.f);
+    acceleration = sf::Vector2(0.f, gravity_acceleration);
 }
 
 Player::Player(sf::Vector2f hit_box_size, sf::Vector2f hit_box_position)
@@ -35,20 +41,106 @@ void Player::move(sf::Vector2f velocity)
     hit_box.move(velocity);
 }
 
-void Player::updateMovement()
+void Player::updateMovement(const float delta_time, sf::RenderWindow &window)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+    displacement = sf::Vector2f(0, 0);
+
+    // Получаем время, прошедшее с предыдущего кадра
+    bool moving = false;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-        accelerate(-1.f, 0.f);
+        acceleration.x = -speed / delta_time;
+
+        // Ограничиваем скорость персонажа
+        if (velocity.x < -max_speed)
+        {
+            velocity.x = -max_speed;
+        }
+        moving = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-        accelerate(1.f, 0.f);
+        acceleration.x = speed / delta_time;
+
+        // Ограничиваем скорость персонажа
+        if (velocity.x > max_speed)
+        {
+            velocity.x = max_speed;
+        }
+        moving = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+
+    // Обрабатываем торможение персонажа
+    if (!moving)
     {
-        accelerate(0.f, -2.f);
+        velocity.x = 0;
     }
+
+    // Обрабатываем прыжок персонажа
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !is_jumping)
+    {
+        // Проверяем, находится ли персонаж на земле
+        if (getPosition().y + getGlobalBounds().height >= window.getSize().y)
+        {
+            is_jumping = true;
+            jump_time = 0;
+            velocity.y = -jump_speed;
+        }
+    }
+
+    if (is_jumping)
+    {
+        jump_time += delta_time;
+        if (jump_time < max_jump_time)
+        {
+            acceleration.y = gravity_acceleration - jump_speed / max_jump_time;
+        }
+        else
+        {
+            is_jumping = false;
+            acceleration.y = gravity_acceleration;
+        }
+    }
+
+    // Обновляем ускорение, скорость и позицию персонажа
+    velocity += acceleration * delta_time;
+    displacement = velocity * delta_time;
+
+    move(displacement);
+
+    acceleration.x = 0;
+}
+
+void Player::updateCollision(sf::RenderWindow &window)
+{
+    // Ограничиваем движение персонажа по горизонтали
+    if (getPosition().x < 0)
+    {
+        setPosition(0, getPosition().y);
+    }
+    if (getPosition().x + getGlobalBounds().width > window.getSize().x)
+    {
+        setPosition(window.getSize().x - getGlobalBounds().width, getPosition().y);
+    }
+
+    // Ограничиваем движение персонажа по вертикали
+    if (getPosition().y + getGlobalBounds().height > window.getSize().y)
+    {
+        setPosition(getPosition().x, window.getSize().y - getGlobalBounds().height);
+        is_jumping = false;
+        velocity.y = 0.f;
+    }
+    if (getPosition().y < 0)
+    {
+        setPosition(getPosition().x, 0);
+    }
+}
+
+void Player::update(const float delta_time, sf::RenderWindow &window)
+{
+    updateMovement(delta_time, window);
+    updateCollision(window);
 }
 
 void Player::render(sf::RenderTarget &target)

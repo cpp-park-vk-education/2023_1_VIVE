@@ -17,7 +17,7 @@ private:
 
     // Timer
     sf::Clock clock;
-    float deltaTime;
+    float delta_time;
 
 public:
     Game();
@@ -27,9 +27,9 @@ public:
     inline sf::RenderWindow &getWindow() { return window; }
 
     // Functions
-    void updatePlayer();
+    void updatePlayer(const float delta_time);
     void renderPlayer();
-    void updateCollision();
+    // void updateCollision();
 
     void update();
     void render();

@@ -19,30 +19,31 @@ const sf::Vector2f Entity::getPosition() const
     return hit_box.getPosition();
 }
 
-void Entity::resetVelocityY()
-{
-    velocity.y = 0.f;
-}
+// void Entity::resetVelocityY()
+// {
+//     velocity.y = 0.f;
+// }
 
-void Entity::accelerate(const float dir_x, const float dir_y)
-{
-    // Horizontal acceleration
-    velocity.x += dir_x * acceleration;
+// void Entity::accelerate(const float dir_x, const float dir_y)
+// {
+//     // Horizontal acceleration
+//     velocity.x += dir_x * acceleration;
 
-    // Vertical acceleration
-    velocity.y += dir_y * gravity;
+//     // Vertical acceleration
+//     velocity.y += dir_y * gravity;
 
-    // Limit velocity
-    if (std::abs(velocity.x) > velocity_max)
-    {
-        velocity.x = velocity_max * ((velocity.x < 0.f) ? -1.f : 1.f);
-    }
-    if (std::abs(velocity.y) > velocity_max_y)
-    {
-        velocity.y = velocity_max_y * ((velocity.y < 0.f) ? -1.f : 1.f);
-    }
+//     // Limit velocity
+//     if (std::abs(velocity.x) > velocity_max)
+//     {
+//         velocity.x = velocity_max * ((velocity.x < 0.f) ? -1.f : 1.f);
+//     }
+//     if (std::abs(velocity.y) > velocity_max_y)
+//     {
+//         velocity.y = velocity_max_y * ((velocity.y < 0.f) ? -1.f : 1.f);
+//     }
 
-}
+// }
+
 void Entity::initHitBox(sf::Vector2f size, sf::Vector2f position)
 {
     hit_box.setSize(size);
@@ -51,31 +52,31 @@ void Entity::initHitBox(sf::Vector2f size, sf::Vector2f position)
     hit_box.setOutlineThickness(2);
 }
 
-void Entity::updatePhysics()
-{
-    // Gravity
-    velocity.y += 1.f * gravity;
+// void Entity::updatePhysics()
+// {
+//     // Gravity
+//     velocity.y += 1.f * gravity;
 
-    // Limit gravity
-    if (std::abs(velocity.y) > velocity_max_y)
-    {
-        velocity.y = velocity_max_y * ((velocity.y < 0.f) ? -1.f : 1.f);
-    }
+//     // Limit gravity
+//     if (std::abs(velocity.y) > velocity_max_y)
+//     {
+//         velocity.y = velocity_max_y * ((velocity.y < 0.f) ? -1.f : 1.f);
+//     }
 
-    // Movement
-    velocity *= drag;
+//     // Movement
+//     velocity *= drag;
 
-    // Limit deceleration
-    if (std::abs(velocity.x) < velocity_min)
-        velocity.x = 0.f;
-    if (std::abs(velocity.y) < velocity_min)
-        velocity.y = 0.f;
+//     // Limit deceleration
+//     if (std::abs(velocity.x) < velocity_min)
+//         velocity.x = 0.f;
+//     if (std::abs(velocity.y) < velocity_min)
+//         velocity.y = 0.f;
 
-    move(velocity);
-}
+//     move(velocity);
+// }
 
-void Entity::update()
-{
-    updateMovement();
-    updatePhysics();
-}
+// void Entity::update()
+// {
+//     updateMovement();
+//     updatePhysics();
+// }

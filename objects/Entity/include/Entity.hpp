@@ -11,13 +11,21 @@ protected:
     sf::RectangleShape hit_box;
 
     // Physics
+    sf::Vector2f displacement;
     sf::Vector2f velocity;
-    float velocity_max;
-    float velocity_min;
-    float acceleration;
-    float drag;
-    float gravity;
-    float velocity_max_y;
+    sf::Vector2f acceleration;
+
+    // Speed
+    float speed;
+    float max_speed;
+    bool moving;
+
+    // Gravity
+    float gravity_acceleration;
+    float jump_speed;
+    bool is_jumping;
+    float jump_time;
+    float max_jump_time;
 
     // Initions
     virtual void initPhysics() = 0;
@@ -34,15 +42,16 @@ public:
 
     // Modifiers
     virtual void setPosition(float const x, float const y) = 0;
-    void resetVelocityY();
+    // void resetVelocityY();
 
     // Functions
-    virtual void accelerate(const float dir_x, const float dir_y);
+    // virtual void accelerate(const float dir_x, const float dir_y);
     virtual void move(sf::Vector2f velocity) = 0;
 
-    virtual void updatePhysics();
-    virtual void updateMovement() = 0;
+    // virtual void updatePhysics();
+    virtual void updateMovement(const float delta_time, sf::RenderWindow &window) = 0;
+    virtual void updateCollision(sf::RenderWindow &window) = 0;
 
-    virtual void update();
+    virtual void update(const float delta_time, sf::RenderWindow &window) = 0;
     virtual void render(sf::RenderTarget &target) = 0;
 };

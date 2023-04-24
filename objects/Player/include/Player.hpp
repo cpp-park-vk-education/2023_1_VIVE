@@ -23,7 +23,9 @@ public:
     // Functions
     void move(sf::Vector2f velocity) override;
 
-    void updateMovement() override;
+    void updateMovement(const float delta_time, sf::RenderWindow &window) override;
+    void updateCollision(sf::RenderWindow &window);
 
+    void update(const float delta_time, sf::RenderWindow &window) override;
     void render(sf::RenderTarget &target) override;
 };
