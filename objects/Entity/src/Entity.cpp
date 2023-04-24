@@ -26,14 +26,22 @@ void Entity::resetVelocityY()
 
 void Entity::accelerate(const float dir_x, const float dir_y)
 {
-    // Acceleration
+    // Horizontal acceleration
     velocity.x += dir_x * acceleration;
+
+    // Vertical acceleration
+    velocity.y += dir_y * gravity;
 
     // Limit velocity
     if (std::abs(velocity.x) > velocity_max)
     {
         velocity.x = velocity_max * ((velocity.x < 0.f) ? -1.f : 1.f);
     }
+    if (std::abs(velocity.y) > velocity_max_y)
+    {
+        velocity.y = velocity_max_y * ((velocity.y < 0.f) ? -1.f : 1.f);
+    }
+
 }
 void Entity::initHitBox(sf::Vector2f size, sf::Vector2f position)
 {

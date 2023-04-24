@@ -45,6 +45,10 @@ void Player::updateMovement()
     {
         accelerate(1.f, 0.f);
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+    {
+        accelerate(0.f, -2.f);
+    }
 }
 
 void Player::render(sf::RenderTarget &target)

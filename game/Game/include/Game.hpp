@@ -15,6 +15,10 @@ private:
     void initWindow();
     void initPlayer();
 
+    // Timer
+    sf::Clock clock;
+    float deltaTime;
+
 public:
     Game();
     virtual ~Game();
