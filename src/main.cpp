@@ -34,12 +34,16 @@ int main()
 
     // Устанавливаем скорость персонажа
     float playerSpeed = 10;
+    float maxSpeed = 100;
+
+    // Устанавливаем силу трения
+    float friction = 300;
 
     // Устанавливаем гравитацию
-    float gravityAcceleration = 300;
+    float gravityAcceleration = 500;
 
     // Устанавливаем скорость прыжка
-    float jumpSpeed = 100;
+    float jumpSpeed = 200;
 
     // Устанавливаем состояние прыжка
     bool isJumping = false;
@@ -54,7 +58,6 @@ int main()
     sf::Clock clock;
 
     // float horizontalSpeed = 0.f;
-
 
     // Устанавливаем смещение, скорость и ускорение
     sf::Vector2f displacement(0.f, 0.f);
@@ -79,13 +82,76 @@ int main()
         // Получаем время, прошедшее с предыдущего кадра
         float deltaTime = clock.restart().asSeconds();
 
+        bool moving = false;
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
             acceleration.x = -playerSpeed / deltaTime;
+
+            // Вычитаем силу трения, если персонаж движется в противоположную сторону
+            // if (velocity.x > 0)
+            // {
+            //     velocity.x -= friction * deltaTime;
+            //     if (velocity.x < 0)
+            //     {
+            //         velocity.x = 0;
+            //     }
+            // }
+
+            // Ограничиваем скорость персонажа
+            if (velocity.x < -maxSpeed)
+            {
+                velocity.x = -maxSpeed;
+            }
+            moving = true;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
             acceleration.x = playerSpeed / deltaTime;
+
+            // Вычитаем силу трения, если персонаж движется в противоположную сторону
+            // if (velocity.x < 0)
+            // {
+            //     velocity.x += friction * deltaTime;
+            //     if (velocity.x > 0)
+            //     {
+            //         velocity.x = 0;
+            //     }
+            // }
+
+            // Ограничиваем скорость персонажа
+            if (velocity.x > maxSpeed)
+            {
+                velocity.x = maxSpeed;
+            }
+            moving = true;
+        }
+
+        // Обрабатываем торможение персонажа
+        if (!moving)
+        {
+            velocity.x = 0;
+
+            // Вычитаем силу торможения, если персонаж движется вправо
+            // if (velocity.x > 0)
+            // {
+            //     acceleration.x -= friction / deltaTime;
+            //     if (velocity.x - acceleration.x * deltaTime < 0)
+            //     {
+            //         velocity.x = 0;
+            //         acceleration.x = 0;
+            //     }
+            // }
+            // // Вычитаем силу торможения, если персонаж движется влево
+            // if (velocity.x < 0)
+            // {
+            //     acceleration.x += friction / deltaTime;
+            //     if (velocity.x + acceleration.x * deltaTime > 0)
+            //     {
+            //         velocity.x = 0;
+            //         acceleration.x = 0;
+            //     }
+            // }
         }
 
         // Обрабатываем прыжок персонажа
