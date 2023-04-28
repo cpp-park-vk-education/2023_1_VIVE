@@ -1,33 +1,30 @@
 #include "Game.hpp"
 
-void Game::initWindow()
-{
+#include <iostream>
+
+void Game::initWindow() {
     window.create(sf::VideoMode(800, 600), "Atomic God");
     window.setFramerateLimit(60);
 }
 
-void Game::initPlayer()
-{
+void Game::initPlayer() {
     player = new Player(sf::Vector2(50.f, 100.f), sf::Vector2(0.f, 0.f));
 }
 
-Game::Game()
-{
+Game::Game() : menu(&window) {
     initWindow();
     initPlayer();
+    menu.open();
 }
 
-Game::~Game()
-{
+Game::~Game() {
 }
 
-void Game::updatePlayer(const float delta_time)
-{
+void Game::updatePlayer(const float delta_time) {
     player->update(delta_time, window);
 }
 
-void Game::renderPlayer()
-{
+void Game::renderPlayer() {
     player->render(window);
 }
 
@@ -44,16 +41,15 @@ void Game::renderPlayer()
 //     }
 // }
 
-void Game::update()
-{
+void Game::update() {
     // Polling window events
-    while (window.pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed)
+    while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed ||
+            event.type == sf::Event::KeyPressed &&
+            event.key.code == sf::Keyboard::Escape) {
             window.close();
-        else if (event.type == sf::Event::KeyPressed &&
-                 event.key.code == sf::Keyboard::Escape)
-            window.close();
+        }
+        menu.update(event);
     }
     delta_time = clock.restart().asSeconds();
 
@@ -61,11 +57,13 @@ void Game::update()
     // updateCollision();
 }
 
-void Game::render()
-{
-    window.clear();
-
-    // Render game
-    renderPlayer();
+void Game::render() {
+    window.clear(sf::Color::Green);
+    if (menu.isOpen()) {
+        menu.render();
+    } else  {
+        // Render Game
+        renderPlayer();
+    }
     window.display();
 }

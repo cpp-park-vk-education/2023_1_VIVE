@@ -1,12 +1,13 @@
 #pragma once
-
 #include "Player.hpp"
+#include "Menu.hpp"
 
 class Game
 {
 private:
     sf::RenderWindow window;
     sf::Event event;
+    Menu menu;
 
     // Entities
     Player *player;
