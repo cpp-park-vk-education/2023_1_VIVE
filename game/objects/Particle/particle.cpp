@@ -5,7 +5,7 @@ void Particle::move(sf::Vector2f displacement)
 }
 
 Particle::Particle(const sf::Vector2f size, const sf::Vector2f position)
-    : MovableObject(size, position)
+    : MovableObject(size, position), exists_(false)
 {
 }
 
@@ -19,6 +19,11 @@ void Particle::create()
 
 void Particle::pop()
 {
+}
+
+bool Particle::doesExist() const
+{
+    return false;
 }
 
 void Particle::update()

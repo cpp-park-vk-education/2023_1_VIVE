@@ -12,6 +12,7 @@ class Particle : public MovableObject
 {
 protected:
     TYPE type_;
+    bool exists_;
 
 public:
     Particle(const sf::Vector2f size, const sf::Vector2f position);
@@ -19,6 +20,7 @@ public:
 
     void create();
     void pop();
+    bool doesExist() const;
 
     // IObject overrides
     void update() override;
