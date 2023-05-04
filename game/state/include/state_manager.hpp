@@ -9,7 +9,7 @@ class StateManager {
 public:
     void changeState(EnState newState);
     void getHeap();
-    void readMessage(const Message* msg);
+    void readMessage(const Message& msg);
 
 private:
     EnState curState_;

@@ -1,4 +1,4 @@
 add_library(game SHARED src/game.cpp)
 
 target_include_directories(game PUBLIC include)
-target_link_libraries(game state client menu Player ${SFML_INCLUDE_DIRS})
+target_link_libraries(game state client Player ${SFML_INCLUDE_DIRS})

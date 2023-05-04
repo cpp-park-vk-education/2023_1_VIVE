@@ -5,6 +5,16 @@
 #include "iobject.hpp"
 #include "Player.hpp"
 
+class Tile {
+
+};
+class Enemy {
+
+};
+class Boss {
+
+};
+
 class SubLevel {
 public:
     std::vector<IObject> getObjects();

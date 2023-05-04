@@ -6,8 +6,9 @@
 
 class ReadFromServerSignal {
 public:
-    explicit ReadFromServerSignal(const boost::signals2::signal<void(const Message&)>& signal);
+    void connect(boost::function<void(const Message&)> func);
 
 private:
+
     boost::signals2::signal <void(const Message&)> signal_;
 };
