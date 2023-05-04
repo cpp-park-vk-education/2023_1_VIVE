@@ -3,3 +3,5 @@ set(TILE "tile")
 add_library(${TILE} SHARED tile.cpp tile.hpp)
 
 target_link_libraries(${TILE} physical_object)
+
+add_subdirectory(tests/)
