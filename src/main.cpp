@@ -1,18 +1,10 @@
-#include "Game.hpp"
+#include "game.hpp"
 
 int main() {
     // Init game
     Game game;
 
-    // Game loop
-    while (game.getWindow().isOpen())
-    {
-        // Update
-        game.update();
-
-        // Render
-        game.render();
-    }
+    game.run();
 
     return 0;
 }
