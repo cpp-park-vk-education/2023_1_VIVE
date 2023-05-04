@@ -10,7 +10,7 @@ protected:
     HitBox hitbox_;
 
 public:
-    PhysicalObject();
+    PhysicalObject(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~PhysicalObject();
 
     virtual void setPosition(const float x, const float y) = 0;

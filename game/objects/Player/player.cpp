@@ -1,6 +1,11 @@
 #include "player.hpp"
 
-Player::Player()
+void Player::move(sf::Vector2f displacement)
+{
+}
+
+Player::Player(const sf::Vector2f size, const sf::Vector2f position)
+    : Entity(size, position)
 {
 }
 
@@ -37,5 +42,21 @@ int Player::getCoinsCount()
 }
 
 void Player::updateCoinsCount()
+{
+}
+
+void Player::update()
+{
+}
+
+void Player::render()
+{
+}
+
+void Player::setPosition(const float x, const float y)
+{
+}
+
+void Player::updateMovement(const float delta_time)
 {
 }

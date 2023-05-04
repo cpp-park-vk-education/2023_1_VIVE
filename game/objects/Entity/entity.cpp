@@ -1,6 +1,7 @@
 #include "entity.hpp"
 
-Entity::Entity()
+Entity::Entity(const sf::Vector2f size, const sf::Vector2f position)
+    : MovableObject(size, position)
 {
 }
 

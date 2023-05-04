@@ -11,7 +11,7 @@ public:
     IObject();
     virtual ~IObject();
 
-    virtual uint8_t getPriority() = 0;
+    virtual uint8_t getPriority() const;
     virtual void update() = 0;
     virtual void render() = 0;
 };

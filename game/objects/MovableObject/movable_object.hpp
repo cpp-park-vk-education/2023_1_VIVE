@@ -2,7 +2,7 @@
 
 #include "physical_object.hpp"
 
-class MovableObject : PhysicalObject
+class MovableObject : public PhysicalObject
 {
 protected:
     sf::Vector2f displacement_;
@@ -16,7 +16,7 @@ protected:
     virtual void move(sf::Vector2f displacement) = 0;
 
 public:
-    MovableObject(/* args */);
+    MovableObject(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~MovableObject();
 
     virtual void updateMovement(const float delta_time) = 0;

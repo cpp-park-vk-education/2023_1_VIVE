@@ -1,6 +1,11 @@
 #include "boss.hpp"
 
-Boss::Boss()
+void Boss::move(sf::Vector2f displacement)
+{
+}
+
+Boss::Boss(const sf::Vector2f size, const sf::Vector2f position)
+    : Entity(size, position)
 {
 }
 
@@ -16,4 +21,20 @@ ParticleSet Boss::getCoinParticles()
 ParticleSet Boss::getExpParticles()
 {
     return ParticleSet();
+}
+
+void Boss::update()
+{
+}
+
+void Boss::render()
+{
+}
+
+void Boss::setPosition(const float x, const float y)
+{
+}
+
+void Boss::updateMovement(const float delta_time)
+{
 }

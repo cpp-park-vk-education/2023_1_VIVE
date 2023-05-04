@@ -4,3 +4,4 @@ add_library(${COLLISION_HANDLER} SHARED collision_handler.cpp collision_handler.
 
 target_link_libraries(${COLLISION_HANDLER} physical_object)
 
+add_subdirectory(tests/)

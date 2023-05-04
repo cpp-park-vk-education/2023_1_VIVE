@@ -16,7 +16,7 @@ protected:
     bool is_jumping_;
 
 public:
-    Entity();
+    Entity(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~Entity();
 
     int getHP();

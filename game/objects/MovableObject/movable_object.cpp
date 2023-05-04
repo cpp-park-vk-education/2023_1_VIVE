@@ -1,6 +1,8 @@
 #include "movable_object.hpp"
 
-MovableObject::MovableObject()
+MovableObject::MovableObject(const sf::Vector2f size,
+    const sf::Vector2f position)
+    : PhysicalObject(size, position)
 {
 }
 

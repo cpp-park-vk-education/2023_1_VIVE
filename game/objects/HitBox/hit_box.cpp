@@ -1,6 +1,6 @@
 #include "hit_box.hpp"
 
-HitBox::HitBox()
+HitBox::HitBox(const sf::Vector2f size, const sf::Vector2f position)
 {
 }
 

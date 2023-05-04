@@ -4,7 +4,7 @@
 
 #include <string>
 
-class Player : Entity
+class Player : public Entity
 {
 protected:
     std::string name_;
@@ -14,8 +14,11 @@ protected:
     int curr_lvl_;
     int coins_count_;
 
+    // MovableObject overrides
+    void move(sf::Vector2f displacement) override;
+
 public:
-    Player();
+    Player(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~Player();
 
     int getExp();
@@ -25,5 +28,15 @@ public:
     void updateCurrLvl();
     int getCoinsCount();
     void updateCoinsCount();
+
+    // IObject overrides
+    void update() override;
+    void render() override;
+
+    // PhysicalObject overrides
+    void setPosition(const float x, const float y) override;
+
+    // MovableObject overrides
+    void updateMovement(const float delta_time) override;
 };
 
