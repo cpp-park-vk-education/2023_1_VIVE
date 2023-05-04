@@ -14,4 +14,5 @@ public:
     virtual ~PhysicalObject();
 
     virtual void setPosition(const float x, const float y) = 0;
+    virtual sf::Vector2f getPosition() = 0;
 };

@@ -16,4 +16,5 @@ public:
 
     // PhysicalObject overrides
     void setPosition(const float x, const float y) override;
+    sf::Vector2f getPosition() override;
 };

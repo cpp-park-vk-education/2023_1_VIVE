@@ -7,7 +7,7 @@
 #include "boss.hpp"
 #include "particle.hpp"
 
-TEST(CheckCollisonTest, PlayerWithPlayerTrue)
+TEST(CheckCollisonTest, PlayerCollidesWithPlayer)
 {
     CollisionHandler collision_handler;
 
@@ -15,12 +15,11 @@ TEST(CheckCollisonTest, PlayerWithPlayerTrue)
     Player player_2(sf::Vector2f(1.f, 1.f), sf::Vector2f(0.5f, 0.5f));
 
     bool actual = collision_handler.checkCollision(player_1, player_2);
-    bool expected = true;
 
-    EXPECT_EQ(actual, expected);
+    EXPECT_TRUE(actual);
 }
 
-TEST(CheckCollisonTest, PlayerWithTileTrue)
+TEST(CheckCollisonTest, PlayerCollidesWithTile)
 {
     CollisionHandler collision_handler;
 
@@ -28,12 +27,11 @@ TEST(CheckCollisonTest, PlayerWithTileTrue)
     Tile tile(sf::Vector2f(1.f, 1.f), sf::Vector2f(0.5f, 0.5f));
 
     bool actual = collision_handler.checkCollision(player, tile);
-    bool expected = true;
 
-    EXPECT_EQ(actual, expected);
+    EXPECT_TRUE(actual);
 }
 
-TEST(CheckCollisonTest, PlayerWithParticleTrue)
+TEST(CheckCollisonTest, PlayerCollidesWithParticle)
 {
     CollisionHandler collision_handler;
 
@@ -41,12 +39,11 @@ TEST(CheckCollisonTest, PlayerWithParticleTrue)
     Particle particle(sf::Vector2f(1.f, 1.f), sf::Vector2f(0.5f, 0.5f));
 
     bool actual = collision_handler.checkCollision(player, particle);
-    bool expected = true;
 
-    EXPECT_EQ(actual, expected);
+    EXPECT_TRUE(actual);
 }
 
-TEST(CheckCollisonTest, PlayerWithEnemyTrue)
+TEST(CheckCollisonTest, PlayerCollidesWithEnemy)
 {
     CollisionHandler collision_handler;
 
@@ -54,12 +51,11 @@ TEST(CheckCollisonTest, PlayerWithEnemyTrue)
     Enemy enemy(sf::Vector2f(1.f, 1.f), sf::Vector2f(0.5f, 0.5f));
 
     bool actual = collision_handler.checkCollision(player, enemy);
-    bool expected = true;
 
-    EXPECT_EQ(actual, expected);
+    EXPECT_TRUE(actual);
 }
 
-TEST(CheckCollisonTest, PlayerWithBossTrue)
+TEST(CheckCollisonTest, PlayerCollidesWithBoss)
 {
     CollisionHandler collision_handler;
 
@@ -67,12 +63,11 @@ TEST(CheckCollisonTest, PlayerWithBossTrue)
     Boss boss(sf::Vector2f(1.f, 1.f), sf::Vector2f(0.5f, 0.5f));
 
     bool actual = collision_handler.checkCollision(player, boss);
-    bool expected = true;
 
-    EXPECT_EQ(actual, expected);
+    EXPECT_TRUE(actual);
 }
 
-TEST(CheckCollisonTest, PlayerWithTileFalse)
+TEST(CheckCollisonTest, PlayerNotCollidesWithTile)
 {
     CollisionHandler collision_handler;
 
@@ -80,12 +75,11 @@ TEST(CheckCollisonTest, PlayerWithTileFalse)
     Tile tile(sf::Vector2f(1.f, 1.f), sf::Vector2f(0.0f, 0.0f));
 
     bool actual = collision_handler.checkCollision(player, tile);
-    bool expected = true;
 
-    EXPECT_EQ(actual, expected);
+    EXPECT_TRUE(actual);
 }
 
-TEST(CheckCollisonTest, PlayerWithTileFullIn)
+TEST(CheckCollisonTest, PlayerCollidesWithTileFullIn)
 {
     CollisionHandler collision_handler;
 
@@ -93,8 +87,7 @@ TEST(CheckCollisonTest, PlayerWithTileFullIn)
     Tile tile(sf::Vector2f(2.f, 2.f), sf::Vector2f(0.f, 0.f));
 
     bool actual = collision_handler.checkCollision(player, tile);
-    bool expected = false;
 
-    EXPECT_EQ(actual, expected);
+    EXPECT_TRUE(actual);
 }
 

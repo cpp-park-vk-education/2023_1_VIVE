@@ -35,6 +35,11 @@ void Boss::setPosition(const float x, const float y)
 {
 }
 
+sf::Vector2f Boss::getPosition()
+{
+    return sf::Vector2f();
+}
+
 void Boss::updateMovement(const float delta_time)
 {
 }

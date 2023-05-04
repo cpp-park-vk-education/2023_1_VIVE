@@ -57,6 +57,11 @@ void Player::setPosition(const float x, const float y)
 {
 }
 
+sf::Vector2f Player::getPosition()
+{
+    return sf::Vector2f();
+}
+
 void Player::updateMovement(const float delta_time)
 {
 }

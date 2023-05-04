@@ -14,9 +14,6 @@ protected:
     int curr_lvl_;
     int coins_count_;
 
-    // MovableObject overrides
-    void move(sf::Vector2f displacement) override;
-
 public:
     Player(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~Player();
@@ -35,8 +32,10 @@ public:
 
     // PhysicalObject overrides
     void setPosition(const float x, const float y) override;
+    sf::Vector2f getPosition() override;
 
     // MovableObject overrides
+    void move(sf::Vector2f displacement) override;
     void updateMovement(const float delta_time) override;
 };
 

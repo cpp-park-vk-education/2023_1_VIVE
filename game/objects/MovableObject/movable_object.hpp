@@ -13,11 +13,11 @@ protected:
     float max_speed_;
     float speed_;
 
-    virtual void move(sf::Vector2f displacement) = 0;
 
 public:
     MovableObject(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~MovableObject();
 
+    virtual void move(sf::Vector2f displacement) = 0;
     virtual void updateMovement(const float delta_time) = 0;
 };

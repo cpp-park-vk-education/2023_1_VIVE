@@ -20,3 +20,8 @@ void Tile::render()
 void Tile::setPosition(const float x, const float y)
 {
 }
+
+sf::Vector2f Tile::getPosition()
+{
+    return sf::Vector2f();
+}
