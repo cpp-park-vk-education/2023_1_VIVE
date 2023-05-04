@@ -19,3 +19,8 @@ void ParticleSet::render()
 void ParticleSet::generate()
 {
 }
+
+bool ParticleSet::doesExist() const
+{
+    return false;
+}
