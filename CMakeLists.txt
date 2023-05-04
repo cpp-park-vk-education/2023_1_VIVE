@@ -16,6 +16,17 @@ include_directories(${Boost_INCLUDE_DIRS})
 # Подключаем Protobuf
 find_package(Protobuf REQUIRED)
 
+option(BUILD_TESTS "Build tests" ON)
+
+# Подключаем GTest
+find_package(GTest CONFIG REQUIRED)
+set(GTest_LIBRARIES GTest::gtest_main)
+
+if (BUILD_TESTS)
+    include(GoogleTest)
+    enable_testing()
+endif()
+
 add_executable(${PROJECT_NAME} src/main.cpp)
 
 # Линкуем внешние библиотеки
