@@ -1,0 +1,5 @@
+add_subdirectory(IAssetManager/)
+add_subdirectory(assetManager/)
+
+target_include_directories(i_asset_manager PUBLIC IAssetManager)
+target_include_directories(asset_manager PUBLIC assetManager)

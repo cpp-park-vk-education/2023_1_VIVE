@@ -1,0 +1,5 @@
+add_subdirectory(IAnimatable)
+add_subdirectory(EntityAnimation)
+
+target_include_directories(i_animatable PUBLIC IAnimatable)
+target_include_directories(entity_animation PUBLIC EntityAnimation)
