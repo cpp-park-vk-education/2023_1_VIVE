@@ -31,3 +31,11 @@ void ClientConnection::do_read_body() {
 void ClientConnection::do_write() {
 
 }
+
+void ClientConnection::async_connect(char *ip, unsigned short port) {
+
+}
+
+bool ClientConnection::connected() {
+    return false;
+}
