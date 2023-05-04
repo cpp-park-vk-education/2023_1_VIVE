@@ -21,7 +21,7 @@ add_executable(${PROJECT_NAME} src/main.cpp)
 # Линкуем внешние библиотеки
 target_link_libraries(${PROJECT_NAME} ${SFML_INCLUDE_DIRS} ${Boost_LIBRARIES} ${Protobuf_LIBRARIES})
 
-add_subdirectory(messages)
-add_subdirectory(server)
+add_subdirectory(Messages)
+#add_subdirectory(server)
 add_subdirectory(game)
 target_link_libraries(${PROJECT_NAME} game)

@@ -1,7 +1,5 @@
-add_subdirectory(Game)
-add_subdirectory(Menu)
-add_subdirectory(Button)
-
-target_include_directories(game PUBLIC Game)
-target_include_directories(menu PUBLIC Menu)
-target_include_directories(button PUBLIC Button)
+add_subdirectory(client)
+add_subdirectory(game_engine)
+add_subdirectory(objects)
+add_subdirectory(level)
+add_subdirectory(state)
