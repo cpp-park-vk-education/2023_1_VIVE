@@ -9,3 +9,8 @@ PhysicalObject::PhysicalObject(const sf::Vector2f size,
 PhysicalObject::~PhysicalObject()
 {
 }
+
+HitBox PhysicalObject::getHitBox() const
+{
+    return hitbox_;
+}

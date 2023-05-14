@@ -14,6 +14,10 @@ protected:
     int curr_lvl_;
     int coins_count_;
 
+    // Initions
+    void initSprite() override;
+    void initPhysics() override;
+
 public:
     Player(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~Player();
@@ -26,16 +30,15 @@ public:
     int getCoinsCount();
     void updateCoinsCount();
 
-    // IObject overrides
-    void update() override;
-    void render() override;
+    // Object overrides
+    void update(const sf::Event &event, const float delta_time) override;
+    void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 
     // PhysicalObject overrides
-    void setPosition(const float x, const float y) override;
+    void setPosition(const sf::Vector2f position) override;
     sf::Vector2f getPosition() override;
 
     // MovableObject overrides
-    void move(sf::Vector2f displacement) override;
+    void move(const sf::Vector2f displacement) override;
     void updateMovement(const float delta_time) override;
 };
-

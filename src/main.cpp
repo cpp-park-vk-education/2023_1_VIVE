@@ -2,7 +2,7 @@
 
 int main() {
     // Init game
-    Game game;
+    GameEngine game;
 
     game.run();
 

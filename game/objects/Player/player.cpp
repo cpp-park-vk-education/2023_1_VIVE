@@ -1,12 +1,38 @@
 #include "player.hpp"
 
-void Player::move(sf::Vector2f displacement)
+void Player::initSprite()
 {
+    sprite_.setFillColor(sf::Color::White);
+    sprite_.setSize(hitbox_.getSize());
+    sprite_.setPosition(hitbox_.getPosition());
+}
+
+void Player::initPhysics()
+{
+    drag_ = 500;
+    gravity_acceleration_ = 1000;
+
+    max_speed_ = 400;
+    speed_ = 50;
+
+    jump_speed_ = 200;
+
+    jump_time_ = 0;
+    jump_time_max_ = 0.1;
+
+    is_jumping_ = false;
+    is_moving = false;
+
+    displacement_ = sf::Vector2f(0.f, 0.f);
+    velocity_ = sf::Vector2f(0.f, 0.f);
+    acceleration_ = sf::Vector2f(0.f, gravity_acceleration_);
 }
 
 Player::Player(const sf::Vector2f size, const sf::Vector2f position)
     : Entity(size, position)
 {
+    initSprite();
+    initPhysics();
 }
 
 Player::~Player()
@@ -45,16 +71,20 @@ void Player::updateCoinsCount()
 {
 }
 
-void Player::update()
+void Player::update(const sf::Event &event, const float delta_time)
 {
+    updateMovement(delta_time);
 }
 
-void Player::render()
+void Player::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
+    target.draw(sprite_);
 }
 
-void Player::setPosition(const float x, const float y)
+void Player::setPosition(const sf::Vector2f position)
 {
+    sprite_.setPosition(position);
+    hitbox_.setPosition(position);
 }
 
 sf::Vector2f Player::getPosition()
@@ -62,6 +92,81 @@ sf::Vector2f Player::getPosition()
     return sf::Vector2f();
 }
 
+void Player::move(const sf::Vector2f displacement)
+{
+    sprite_.move(displacement);
+    hitbox_.move(displacement);
+}
+
 void Player::updateMovement(const float delta_time)
 {
+    displacement_ = sf::Vector2f(0.f, 0.f);
+
+    is_moving = false;
+
+    // Moving left
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+        acceleration_.x = -speed_ / delta_time;
+
+        // Ограничиваем скорость персонажа
+        if (velocity_.x < -max_speed_)
+        {
+            velocity_.x = -max_speed_;
+        }
+        is_moving = true;
+    }
+
+    // Moving right
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+        acceleration_.x = speed_ / delta_time;
+
+        // Ограничиваем скорость персонажа
+        if (velocity_.x > max_speed_)
+        {
+            velocity_.x = max_speed_;
+        }
+        is_moving = true;
+    }
+
+    // Обрабатываем торможение персонажа
+    if (!is_moving)
+    {
+        velocity_.x = 0;
+    }
+
+    // Обрабатываем прыжок персонажа
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !is_jumping_)
+    {
+        // Проверяем, находится ли персонаж на земле
+        // if (hitbox_.getPosition().y + hitbox_.getGlobalBounds().height >= window.getSize().y)
+        // {
+        //     is_jumping = true;
+        //     jump_time = 0;
+        //     velocity.y = -jump_speed;
+        // }
+    }
+
+    if (is_jumping_)
+    {
+        jump_time_ += delta_time;
+        if (jump_time_ < jump_time_max_)
+        {
+            acceleration_.y = gravity_acceleration_ - jump_speed_ / jump_time_max_;
+        }
+        else
+        {
+            is_jumping_ = false;
+            acceleration_.y = gravity_acceleration_;
+        }
+    }
+
+    // Обновляем ускорение, скорость и позицию персонажа
+    velocity_ += acceleration_ * delta_time;
+    displacement_ = velocity_ * delta_time;
+
+    move(displacement_);
+
+    acceleration_.x = 0;
 }

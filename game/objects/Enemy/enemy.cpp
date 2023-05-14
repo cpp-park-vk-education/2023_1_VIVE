@@ -1,6 +1,6 @@
 #include "enemy.hpp"
 
-void Enemy::move(sf::Vector2f displacement)
+void Enemy::move(const sf::Vector2f displacement)
 {
 }
 
@@ -23,15 +23,15 @@ ParticleSet Enemy::getExpParticles()
     return ParticleSet();
 }
 
-void Enemy::update()
+void Enemy::update(const sf::Event &event, const float delta_time)
 {
 }
 
-void Enemy::render()
+void Enemy::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
 }
 
-void Enemy::setPosition(const float x, const float y)
+void Enemy::setPosition(const sf::Vector2f size)
 {
 }
 

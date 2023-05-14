@@ -1,6 +1,6 @@
 #include "particle.hpp"
 
-void Particle::move(sf::Vector2f displacement)
+void Particle::move(const sf::Vector2f displacement)
 {
 }
 
@@ -26,15 +26,15 @@ bool Particle::doesExist() const
     return false;
 }
 
-void Particle::update()
+void Particle::update(const sf::Event &event, const float delta_time)
 {
 }
 
-void Particle::render()
+void Particle::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
 }
 
-void Particle::setPosition(const float x, const float y)
+void Particle::setPosition(const sf::Vector2f size)
 {
 }
 

@@ -2,22 +2,45 @@
 
 HitBox::HitBox(const sf::Vector2f size, const sf::Vector2f position)
 {
+    shape_.setSize(size);
+    setPosition(position);
 }
 
 HitBox::~HitBox()
 {
 }
 
-sf::FloatRect HitBox::getGlobalBounds()
+sf::FloatRect HitBox::getGlobalBounds() const
 {
-    return sf::FloatRect();
+    return shape_.getGlobalBounds();
 }
 
-sf::Vector2f HitBox::getPosition()
+sf::Vector2f HitBox::getPosition() const
 {
-    return sf::Vector2f();
+    return shape_.getPosition();
 }
 
-void HitBox::setPosition(const float x, const float y)
+sf::Vector2f HitBox::getSize() const
 {
+    return shape_.getSize();
+}
+
+sf::RectangleShape HitBox::getShape() const
+{
+    return shape_;
+}
+
+void HitBox::setPosition(const sf::Vector2f position)
+{
+    shape_.setPosition(position);
+}
+
+void HitBox::setSize(const sf::Vector2f size)
+{
+    shape_.setSize(size);
+}
+
+void HitBox::move(const sf::Vector2f displacement)
+{
+    shape_.move(displacement);
 }

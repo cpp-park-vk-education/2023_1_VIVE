@@ -1,6 +1,6 @@
 #pragma once
 
-#include "i_object.hpp"
+#include "object.hpp"
 #include "SFML/Graphics.hpp"
 
 class Item

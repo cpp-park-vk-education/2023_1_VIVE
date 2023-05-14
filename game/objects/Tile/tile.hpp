@@ -6,15 +6,20 @@ class Tile : public PhysicalObject
 {
 protected:
     int type_;
+
+    // Initions
+    void initSprite() override;
+    void  initPhysics() override;
+
 public:
     Tile(const sf::Vector2f size, const sf::Vector2f position);
     ~Tile();
 
-    // IObject overrides
-    void update() override;
-    void render() override;
+    // Object overrides
+    void update(const sf::Event &event, const float delta_time) override;
+    void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 
     // PhysicalObject overrides
-    void setPosition(const float x, const float y) override;
+    void setPosition(const sf::Vector2f size) override;
     sf::Vector2f getPosition() override;
 };

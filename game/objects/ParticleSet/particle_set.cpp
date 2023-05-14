@@ -8,11 +8,11 @@ ParticleSet::~ParticleSet()
 {
 }
 
-void ParticleSet::update()
+void ParticleSet::update(const sf::Event &event, const float delta_time)
 {
 }
 
-void ParticleSet::render()
+void ParticleSet::draw() const
 {
 }
 

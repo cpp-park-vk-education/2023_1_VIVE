@@ -14,8 +14,8 @@ public:
     ParticleSet();
     virtual ~ParticleSet();
 
-    void update();
-    void render();
+    void update(const sf::Event &event, const float delta_time);
+    void draw() const;
     void generate();
     bool doesExist() const;
 };
