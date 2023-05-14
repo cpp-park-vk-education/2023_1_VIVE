@@ -2,17 +2,27 @@
 
 #include <vector>
 
+#include "SFML/Graphics.hpp"
+
 #include "boost/heap/priority_queue.hpp"
+
 #include "Player.hpp"
 #include "iobject.hpp"
+#include "message.hpp"
+
+class State;
+
+using StateShPtr = std::shared_ptr<State>;
 
 class State {
 public:
+//    virtual void readMessage(const Message& msg);
+    virtual void update(const sf::Event& event) = 0;
     void updateHeap();
-    std::vector<IObjectShPtr> getHeap();
-    void setHeap(std::vector<IObjectShPtr> objects);
+    std::vector<DrawableShPtr> getHeap();
+    void setHeap(std::vector<DrawableShPtr> objects);
 
-private:
+protected:
     std::vector<Player> players_;
-    std::vector<IObjectShPtr> objects_;
+    std::vector<DrawableShPtr> objects_;
 };

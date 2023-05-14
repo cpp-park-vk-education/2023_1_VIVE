@@ -4,7 +4,6 @@
 
 #include "client_connection.hpp"
 #include "message.hpp"
-#include "read_from_server_signal.hpp"
 
 #include "boost/asio.hpp"
 

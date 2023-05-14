@@ -30,7 +30,7 @@ endif()
 add_executable(${PROJECT_NAME} src/main.cpp)
 
 # Линкуем внешние библиотеки
-target_link_libraries(${PROJECT_NAME} ${SFML_INCLUDE_DIRS} ${Boost_LIBRARIES} ${Protobuf_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${Protobuf_LIBRARIES})
 
 add_subdirectory(Messages)
 #add_subdirectory(server)

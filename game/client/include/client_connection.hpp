@@ -4,7 +4,6 @@
 
 #include "message.hpp"
 #include "serializer.hpp"
-#include "read_from_server_signal.hpp"
 
 #include "boost/asio.hpp"
 

@@ -1,10 +1,12 @@
 #pragma once
 
+#include "state.hpp"
+
 class PlayerUI {
 
 };
 
-class GameState {
+class GameState : public State {
 public:
     void updatePUI();
 
