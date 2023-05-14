@@ -87,11 +87,6 @@ void Player::setPosition(const sf::Vector2f position)
     hitbox_.setPosition(position);
 }
 
-sf::Vector2f Player::getPosition()
-{
-    return sf::Vector2f();
-}
-
 void Player::move(const sf::Vector2f displacement)
 {
     sprite_.move(displacement);
@@ -140,12 +135,12 @@ void Player::updateMovement(const float delta_time)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !is_jumping_)
     {
         // Проверяем, находится ли персонаж на земле
-        // if (hitbox_.getPosition().y + hitbox_.getGlobalBounds().height >= window.getSize().y)
-        // {
-        //     is_jumping = true;
-        //     jump_time = 0;
-        //     velocity.y = -jump_speed;
-        // }
+        if (velocity_.y == 0)
+        {
+            is_jumping_ = true;
+            jump_time_ = 0;
+            velocity_.y = -jump_speed_;
+        }
     }
 
     if (is_jumping_)

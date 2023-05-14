@@ -36,7 +36,6 @@ public:
 
     // PhysicalObject overrides
     void setPosition(const sf::Vector2f position) override;
-    sf::Vector2f getPosition() override;
 
     // MovableObject overrides
     void move(const sf::Vector2f displacement) override;

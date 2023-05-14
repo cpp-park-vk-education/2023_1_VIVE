@@ -7,6 +7,7 @@
 
 #include "player.hpp"
 #include "tile.hpp"
+#include "collision_handler.hpp"
 
 #include <memory>
 #include <vector>
@@ -18,8 +19,10 @@ private:
     sf::Event event_;
 
     // Objects
-    std::unique_ptr<Player> player_;
-    std::vector<std::unique_ptr<Tile>> tiles_;
+    Player *player_;
+    std::vector<Tile *> tiles_;
+
+    CollisionHandler *collision_handler_;
 
     // Inits
     void initWindow();
@@ -29,6 +32,7 @@ private:
     // Updates
     void updatePlayer(const float delta_time);
     void updateTiles();
+    void updateCollision();
     void update();
 
     // Draws

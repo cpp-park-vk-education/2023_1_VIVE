@@ -15,8 +15,12 @@ public:
     PhysicalObject(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~PhysicalObject();
 
+    // Setters
     virtual void setPosition(const sf::Vector2f size) = 0;
-    virtual sf::Vector2f getPosition() = 0;
+
+    // Getters
+    sf::Vector2f getPosition() const;
+    sf::FloatRect getGlobalBounds() const;
 
     HitBox getHitBox() const;
 };

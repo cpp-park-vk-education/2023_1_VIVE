@@ -44,3 +44,8 @@ void HitBox::move(const sf::Vector2f displacement)
 {
     shape_.move(displacement);
 }
+
+bool intersects(const HitBox &hitbox1, const HitBox &hitbox2)
+{
+    return hitbox1.getGlobalBounds().intersects(hitbox2.getGlobalBounds());
+}

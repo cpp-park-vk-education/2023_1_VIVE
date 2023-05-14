@@ -10,6 +10,16 @@ PhysicalObject::~PhysicalObject()
 {
 }
 
+sf::Vector2f PhysicalObject::getPosition() const
+{
+    return hitbox_.getPosition();
+}
+
+sf::FloatRect PhysicalObject::getGlobalBounds() const
+{
+    return hitbox_.getGlobalBounds();
+}
+
 HitBox PhysicalObject::getHitBox() const
 {
     return hitbox_;

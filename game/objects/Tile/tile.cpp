@@ -37,7 +37,3 @@ void Tile::setPosition(const sf::Vector2f size)
 {
 }
 
-sf::Vector2f Tile::getPosition()
-{
-    return sf::Vector2f();
-}

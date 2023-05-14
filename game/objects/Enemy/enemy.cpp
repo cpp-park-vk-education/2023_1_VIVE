@@ -35,11 +35,6 @@ void Enemy::setPosition(const sf::Vector2f size)
 {
 }
 
-sf::Vector2f Enemy::getPosition()
-{
-    return sf::Vector2f();
-}
-
 void Enemy::updateMovement(const float delta_time)
 {
 }

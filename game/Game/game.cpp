@@ -15,6 +15,8 @@ void GameEngine::update()
     updatePlayer(delta_time);
     
     updateTiles();
+
+    updateCollision();
 }
 
 void GameEngine::drawPlayer()
@@ -48,8 +50,7 @@ void GameEngine::initWindow()
 
 void GameEngine::initPlayer()
 {
-    player_ = std::make_unique<Player>(sf::Vector2(25.f, 50.f),
-                                       sf::Vector2(300.f, 100.f));
+    player_ = new Player(sf::Vector2(25.f, 50.f), sf::Vector2(300.f, 100.f));
 }
 
 void GameEngine::initTiles()
@@ -62,8 +63,7 @@ void GameEngine::initTiles()
     for (size_t i{}; i < tiles_count; ++i)
     {
         sf::Vector2f tile_coords(x + i * 25, y);
-        tiles_.push_back(std::make_unique<Tile>(tile_size,
-                                                tile_coords));
+        tiles_.push_back(new Tile(tile_size, tile_coords));
     }
 }
 
@@ -80,11 +80,18 @@ void GameEngine::updateTiles()
     }
 }
 
+void GameEngine::updateCollision()
+{
+    collision_handler_->checkPlayerTilesCollision(player_, tiles_);
+}
+
 GameEngine::GameEngine()
 {
     initWindow();
     initPlayer();
     initTiles();
+
+    collision_handler_ = new CollisionHandler();
 }
 
 GameEngine::~GameEngine()

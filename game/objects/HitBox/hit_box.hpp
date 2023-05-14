@@ -25,3 +25,5 @@ public:
     void setSize(const sf::Vector2f size);
     void move(const sf::Vector2f displacement);
 };
+
+bool intersects(const HitBox& hitbox1, const HitBox& hitbox2);
