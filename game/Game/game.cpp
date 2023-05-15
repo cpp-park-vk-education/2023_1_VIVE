@@ -109,11 +109,16 @@ void GameEngine::initEnemies()
 
 void GameEngine::updatePlayer(const float delta_time)
 {
+    // std::cout << "Update Player" << std::endl;
+
     player_->update(event_, delta_time);
+    player_->updateAttack(event_, enemies_.front());
 }
 
 void GameEngine::updateTiles()
 {
+    // std::cout << "Update Tiles" << std::endl;
+
     for (const auto &tile : tiles_)
     {
         tile->update(event_, 0);
@@ -122,6 +127,8 @@ void GameEngine::updateTiles()
 
 void GameEngine::updateParticles(const float delta_time)
 {
+    // std::cout << "Update Particles" << std::endl;
+
     coin_particles_->update(event_, delta_time);
 }
 
@@ -137,6 +144,8 @@ void GameEngine::updateCollision()
 
 void GameEngine::updateEnemies(const float delta_time)
 {
+    // std::cout << "Update Enemies" << std::endl;
+
     for (const auto &enemy : enemies_)
     {
         enemy->update(event_, delta_time, player_);

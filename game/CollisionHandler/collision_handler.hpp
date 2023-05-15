@@ -26,6 +26,9 @@ private:
     void checkParticleTileCollision(Particle *particle,
                                    std::vector<Tile *> &tiles);
 
+    void checkParticleSetTileCollision(ParticleSet *particles,
+                                       std::vector<Tile *> &tiles);
+
     void checkEnemyTileCollision(Enemy *enemy, std::vector<Tile *> &tiles);
 
 public:

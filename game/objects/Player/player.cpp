@@ -30,6 +30,9 @@ void Player::initPhysics()
 
 void Player::initStats()
 {
+    alive_ = true;
+    damage_ = 1;
+    damage_radius_ = 25;
 }
 
 Player::Player(const sf::Vector2f size, const sf::Vector2f position)
@@ -152,4 +155,26 @@ void Player::updateMovement(const float delta_time)
     move(displacement_);
 
     acceleration_.x = 0;
+}
+
+void Player::updateHP(const unsigned int damage)
+{
+    size_t new_hp = hp_ - damage;
+    if (new_hp < 0)
+    {
+        hp_ = 0;
+        alive_ = false;
+    }
+    else
+    {
+        hp_ = new_hp;
+    }
+}
+
+void Player::updateAttack(const sf::Event &event, Entity *target)
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+    {
+        attack(target);
+    }
 }

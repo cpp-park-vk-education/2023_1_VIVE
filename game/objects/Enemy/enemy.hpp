@@ -3,6 +3,8 @@
 #include "entity.hpp"
 #include "particle_set.hpp"
 
+#include <iostream>
+
 class Enemy : public Entity
 {
 protected:
@@ -10,6 +12,8 @@ protected:
     ParticleSet *exp_particles_;
     ParticleSet *coin_particles_;
     float sight_radius_;
+
+    void spawnParticles();
 
     // Initions
     void initSprite() override;
@@ -29,9 +33,16 @@ public:
     void updateMovement(const float delta_time) override;
     void updateMovement(const float delta_time, Entity *target);
 
+    // Entity overrides
+    virtual void updateHP(const unsigned int damage) override;
+    virtual void updateAttack(const sf::Event &event, Entity *target);
+
     // Getters
-    ParticleSet &getCoinParticles();
-    ParticleSet &getExpParticles();
+    ParticleSet *getCoinParticles();
+    ParticleSet *getExpParticles();
+
+
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 };
 
 using EnemyShPtr = std::shared_ptr<Enemy>;

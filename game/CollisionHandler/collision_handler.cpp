@@ -26,12 +26,31 @@ void CollisionHandler::checkParticleTileCollision(Particle *particle,
     }
 }
 
+void CollisionHandler::checkParticleSetTileCollision(ParticleSet *particles, std::vector<Tile *> &tiles)
+{
+    for (auto &particle : *particles)
+    {
+        checkParticleTileCollision(particle, tiles);
+    }
+}
+
 void CollisionHandler::checkEnemyTileCollision(Enemy *enemy,
                                                std::vector<Tile *> &tiles)
 {
     for (const auto &tile : tiles)
     {
-        handleCollision(enemy, tile);
+        if (!enemy->isDead())
+        {
+            handleCollision(enemy, tile);
+        }
+        else
+        {
+            ParticleSet *coin_particles = enemy->getCoinParticles();
+            ParticleSet *exp_particles = enemy->getExpParticles();
+
+            checkParticleSetTileCollision(coin_particles, tiles);
+            checkParticleSetTileCollision(exp_particles, tiles);
+        }
     }
 }
 
@@ -47,10 +66,7 @@ void CollisionHandler::run(std::vector<Player *> &players,
     }
 
     // Checking Particle/Tile collision
-    for (auto &particle : *particles)
-    {
-        checkParticleTileCollision(particle, tiles);
-    }
+    checkParticleSetTileCollision(particles, tiles);
 
     // Checking Enemy/Tile collision
     for (auto &enemy : enemies)

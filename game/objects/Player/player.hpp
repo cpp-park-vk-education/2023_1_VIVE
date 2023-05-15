@@ -5,7 +5,6 @@
 #include <string>
 #include <memory>
 
-
 class Player : public Entity
 {
 protected:
@@ -38,6 +37,10 @@ public:
 
     // MovableObject overrides
     void updateMovement(const float delta_time) override;
+
+    // Entity overrides
+    virtual void updateAttack(const sf::Event &event, Entity *target);
+    virtual void updateHP(const unsigned int damage);
 };
 
 using PlayerShPtr = std::shared_ptr<Player>;
