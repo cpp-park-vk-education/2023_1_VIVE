@@ -35,7 +35,7 @@ public:
 
     // Entity overrides
     virtual void updateHP(const unsigned int damage) override;
-    virtual void updateAttack(const sf::Event &event, Entity *target);
+    virtual void updateAttack(const sf::Event &event, Entity *target, const float delta_time);
 
     // Getters
     ParticleSet *getCoinParticles();

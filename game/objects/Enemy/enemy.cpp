@@ -97,7 +97,8 @@ void Enemy::updateHP(const unsigned int damage)
     }
 }
 
-void Enemy::updateAttack(const sf::Event &event, Entity *target)
+void Enemy::updateAttack(const sf::Event &event, Entity *target,
+                         const float delta_time)
 {
 }
 

@@ -34,12 +34,13 @@ public:
 
     // Object overrides
     void update(const sf::Event &event, const float delta_time) override;
+    void update(const sf::Event &event, Entity *target, const float delta_time);
 
     // MovableObject overrides
     void updateMovement(const float delta_time) override;
 
     // Entity overrides
-    virtual void updateAttack(const sf::Event &event, Entity *target);
+    virtual void updateAttack(const sf::Event &event, Entity *target, const float delta_time);
     virtual void updateHP(const unsigned int damage);
 };
 

@@ -13,6 +13,10 @@ protected:
     uint16_t hp_max_;
     uint16_t mana_;
     uint16_t mana_max_;
+
+    // Attacks
+    float attack_cooldown_;
+    float sec_since_last_hit_;
     unsigned int damage_;
     float damage_radius_;
     bool attacking_;
@@ -41,5 +45,5 @@ public:
     int getHPMax() const;
 
     virtual void updateHP(const unsigned int damage) = 0;
-    virtual void updateAttack(const sf::Event &event, Entity *target) = 0;
+    virtual void updateAttack(const sf::Event &event, Entity *target, const float delta_time) = 0;
 };

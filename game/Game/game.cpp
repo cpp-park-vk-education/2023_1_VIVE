@@ -112,7 +112,7 @@ void GameEngine::updatePlayer(const float delta_time)
     // std::cout << "Update Player" << std::endl;
 
     player_->update(event_, delta_time);
-    player_->updateAttack(event_, enemies_.front());
+    player_->updateAttack(event_, enemies_.front(), delta_time);
 }
 
 void GameEngine::updateTiles()

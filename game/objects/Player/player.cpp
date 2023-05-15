@@ -34,6 +34,11 @@ void Player::initStats()
     attacking_ = false;
     damage_ = 30;
     damage_radius_ = 25;
+    attack_cooldown_ = 1;
+    sec_since_last_hit_ = attack_cooldown_;
+
+    hp_ = 100;
+    hp_max_ = hp_;
 }
 
 Player::Player(const sf::Vector2f size, const sf::Vector2f position)
@@ -81,6 +86,12 @@ void Player::updateCoinsCount()
 }
 
 void Player::update(const sf::Event &event, const float delta_time)
+{
+    updateMovement(delta_time);
+}
+
+void Player::update(const sf::Event &event, Entity *target,
+                    const float delta_time)
 {
     updateMovement(delta_time);
 }
@@ -166,12 +177,19 @@ void Player::updateHP(const unsigned int damage)
     }
 }
 
-void Player::updateAttack(const sf::Event &event, Entity *target)
+void Player::updateAttack(const sf::Event &event, Entity *target,
+                          const float delta_time)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && !attacking_)
+    if (sec_since_last_hit_ <= attack_cooldown_)
+    {
+        sec_since_last_hit_ += delta_time;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && !attacking_ &&
+                                   sec_since_last_hit_ > attack_cooldown_)
     {
         attacking_ = true;
         attack(target);
+        sec_since_last_hit_ = 0;
     }
     else if (attacking_ && !sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
     {
