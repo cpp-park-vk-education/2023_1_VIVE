@@ -3,30 +3,11 @@
 #include "status_expirience.hpp"
 #include "navigation_icons.hpp"
 #include "status_weapon.hpp"
+#include <SFML/Graphics.hpp>
 #include "status_money.hpp"
 #include "status_bar.hpp"
-#include <SFML/Graphics.hpp>
+#include "object.hpp"
 #include <memory>
-
-class Object : public sf::Drawable {
-public:
-    uint8_t getPriority() const {
-        return priority_;
-    }
-
-    Object() {
-    }
-
-    virtual ~Object() {
-    }
-
-    virtual void initSprite() = 0;
-    virtual void update(const sf::Event& event) = 0;
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-protected:
-    uint8_t priority_;
-    sf::Sprite sprite_;
-};
 
 class PUI : public Object {
 public:
@@ -40,7 +21,7 @@ public:
     PUI& operator=(PUI&&) = delete;
 
     virtual void initSprite() override;
-    virtual void update(const sf::Event& event) override;
+    virtual void update(const sf::Event& event, const float delta_time) override;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     void updateCoordinates(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);

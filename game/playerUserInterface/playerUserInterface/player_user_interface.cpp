@@ -1,6 +1,7 @@
 #include "player_user_interface.hpp"
 
 PUI::PUI(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates) {
+    priority_ = PRIORITY::PLAYER_USER_INTERFACE;
     weapon_status_ = std::make_unique<StatusWeapon>(camera_size, camera_coordinates);
     status_expirience_ = std::make_unique<StatusExpirience>(camera_size, camera_coordinates);
     money_status_ = std::make_unique<StatusMoney>(camera_size, camera_coordinates);
@@ -17,7 +18,7 @@ void PUI::initSprite() {
 
 }
 
-void PUI::update(const sf::Event& event) {
+void PUI::update(const sf::Event& event, const float delta_time) {
 
 }
 

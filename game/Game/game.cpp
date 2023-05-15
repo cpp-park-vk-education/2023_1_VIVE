@@ -14,6 +14,10 @@ void GameEngine::update()
 
     updatePlayer(delta_time);
 
+    updateCamera();
+
+    updatePUI();
+
     // if (player_->getPosition().x > 400)
     // {
     //     coin_particles_->generate();
@@ -24,6 +28,10 @@ void GameEngine::update()
     updateEnemies(delta_time);
 
     updateCollision();
+}
+
+void GameEngine::drawBG() {
+    window_.draw(bg_);
 }
 
 void GameEngine::drawPlayer()
@@ -56,18 +64,47 @@ void GameEngine::draw()
 {
     window_.clear();
 
+    drawBG();
+
     // Render game
     drawTiles();
     drawEnemies();
     // drawParticles();
     drawPlayer();
+
+    player_user_interface_->draw(window_, sf::RenderStates());
+
     window_.display();
 }
 
-void GameEngine::initWindow()
-{
-    window_.create(sf::VideoMode(800, 600), "Atomic God");
+void GameEngine::initBG() {
+    bg_.setTexture(AssetManager::getInstance()->getTexture("green_world_temple"));
+    bg_.setScale(3.0f, 3.0f);
+}
+
+void GameEngine::initAssets() {
+    AssetManager::getInstance()->loadAssets("level_1");
+}
+
+void GameEngine::initWindow() {
+    window_.create(sf::VideoMode::getDesktopMode(), "Atomic God");
     window_.setFramerateLimit(60);
+}
+
+void GameEngine::initCamera() {
+    sf::Vector2u window_size = window_.getSize();
+    sf::Vector2f camera_size = sf::Vector2f(window_size.x, window_size.y);
+    sf::FloatRect camera_restriction_ = bg_.getGlobalBounds();
+
+    camera_ = new CameraTarget(camera_size, camera_restriction_);
+    camera_->setFollowByCoordinates(player_->getCenter().x, player_->getCenter().y);
+}
+
+void GameEngine::initPUI() {
+    player_user_interface_ = new PUI(camera_->getCameraSize(), camera_->getTopLeftCameraCoordinates());
+    player_user_interface_->updateMaxStatusBar(false, player_->getHPMax());
+    player_user_interface_->updateBar(false, player_->getHP());
+    player_user_interface_->updateMoney(player_->getCoinsCount());
 }
 
 void GameEngine::initPlayer()
@@ -115,6 +152,17 @@ void GameEngine::updatePlayer(const float delta_time)
     player_->updateAttack(event_, enemies_.front(), delta_time);
 }
 
+void GameEngine::updateCamera() {
+    window_.setView(camera_->getView());
+    camera_->setFollowByCoordinates(player_->getCenter().x, player_->getCenter().y);
+}
+
+void GameEngine::updatePUI() {
+    player_user_interface_->updateCoordinates(camera_->getCameraCenter(), camera_->getTopLeftCameraCoordinates());
+    player_user_interface_->updateBar(false, player_->getHP());
+    player_user_interface_->updateMoney(player_->getCoinsCount());
+}
+
 void GameEngine::updateTiles()
 {
     // std::cout << "Update Tiles" << std::endl;
@@ -160,7 +208,11 @@ void GameEngine::updateEnemies(const float delta_time)
 GameEngine::GameEngine()
 {
     initWindow();
+    initAssets();
+    initBG();
     initPlayer();
+    initCamera();
+    initPUI();
     initTiles();
     // initParticles();
     initEnemies();

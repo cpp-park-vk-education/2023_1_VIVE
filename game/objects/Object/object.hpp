@@ -9,13 +9,22 @@
 
 const float BASE_SIZE = 24;
 
+enum PRIORITY:uint8_t {
+    BACKGROUND,
+    TILES,
+    ENEMIES,
+    PARTICLES,
+    PLAYER,
+    PLAYER_USER_INTERFACE,
+};
+
 class Object : public sf::Drawable
 {
 protected:
     // TODO change to sf::Sprite
     sf::RectangleShape sprite_;
 
-    unsigned int priority_;
+    uint8_t priority_;
 
     // Inits
     void virtual initSprite() = 0;
@@ -26,7 +35,7 @@ public:
     Object();
     virtual ~Object();
 
-    unsigned int getPriority() const;
+    uint8_t getPriority() const;
 };
 
 using ObjectShPtr = std::shared_ptr<Object>;

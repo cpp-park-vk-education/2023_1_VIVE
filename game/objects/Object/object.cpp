@@ -13,7 +13,7 @@ Object::~Object()
 {
 }
 
-unsigned int Object::getPriority() const
+uint8_t Object::getPriority() const
 {
     return priority_;
 }
