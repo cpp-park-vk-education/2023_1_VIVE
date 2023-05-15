@@ -31,13 +31,15 @@ private:
 
     void checkEnemyTileCollision(Enemy *enemy, std::vector<Tile *> &tiles);
 
+    void checkPlayerParticleCollision(Player *player, Particle *particle);
+
 public:
     CollisionHandler();
     ~CollisionHandler();
 
     void run(std::vector<Player *> &players,
              std::vector<Tile *> &tiles,
-             ParticleSet *particles,
+            //  ParticleSet *particles,
              std::vector<Enemy *> &enemies);
 };
 

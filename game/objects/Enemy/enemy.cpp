@@ -49,10 +49,14 @@ void Enemy::initStats()
 
 void Enemy::initParticles()
 {
-    coin_particles_ = new ParticleSet(5, sf::Vector2f(10, 10),
+    int coin_particles_count = random_int(5, 10);
+    int exp_particles_count = random_int(5, 10);
+    coin_particles_ = new ParticleSet(coin_particles_count,
+                                      sf::Vector2f(10, 10),
                                       getCenter(), TYPE::COIN);
 
-    exp_particles_ = new ParticleSet(5, sf::Vector2f(10, 10),
+    exp_particles_ = new ParticleSet(exp_particles_count,
+                                     sf::Vector2f(10, 10),
                                      getCenter(), TYPE::EXP);
 }
 
@@ -179,4 +183,12 @@ void Enemy::updateMovement(const float delta_time, Entity *target)
         slowDown();
         updateMovement(delta_time);
     }
+}
+
+int random_int(const int max, const int min)
+{
+    std::random_device rd; 
+    std::mt19937 gen(rd()); // generator
+    std::uniform_real_distribution<> dis(min, max); 
+    return dis(gen);
 }

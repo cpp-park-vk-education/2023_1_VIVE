@@ -39,6 +39,8 @@ void Player::initStats()
 
     hp_ = 100;
     hp_max_ = hp_;
+
+    coins_count_ = 0;
 }
 
 Player::Player(const sf::Vector2f size, const sf::Vector2f position)
@@ -55,11 +57,12 @@ Player::~Player()
 
 int Player::getExp()
 {
-    return 0;
+    return exp_;
 }
 
-void Player::updateExp()
+void Player::updateExp(const uint16_t exp)
 {
+    exp_ += exp;
 }
 
 int Player::getExpMax()
@@ -78,15 +81,18 @@ void Player::updateCurrLvl()
 
 int Player::getCoinsCount()
 {
-    return 0;
+    return coins_count_;
 }
 
-void Player::updateCoinsCount()
+void Player::updateCoinsCount(const uint16_t coins_count)
 {
+    coins_count_ += coins_count;
 }
 
 void Player::update(const sf::Event &event, const float delta_time)
 {
+    std::cout << "Coins: " << getCoinsCount()
+              << " Exp: " << getExp() << std::endl;
     updateMovement(delta_time);
 }
 
@@ -185,7 +191,7 @@ void Player::updateAttack(const sf::Event &event, Entity *target,
         sec_since_last_hit_ += delta_time;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && !attacking_ &&
-                                   sec_since_last_hit_ > attack_cooldown_)
+        sec_since_last_hit_ > attack_cooldown_)
     {
         attacking_ = true;
         attack(target);

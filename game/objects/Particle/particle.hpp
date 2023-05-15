@@ -37,7 +37,10 @@ public:
 
     void create();
     void pop();
+
+    // Getters
     bool doesExist() const;
+    TYPE getType() const;
 
     // Object overrides
     void update(const sf::Event &event, const float delta_time) override;

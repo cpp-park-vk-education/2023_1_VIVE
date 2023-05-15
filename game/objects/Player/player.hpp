@@ -4,6 +4,7 @@
 
 #include <string>
 #include <memory>
+#include <iostream>
 
 class Player : public Entity
 {
@@ -25,12 +26,12 @@ public:
     virtual ~Player();
 
     int getExp();
-    void updateExp();
+    void updateExp(const uint16_t exp);
     int getExpMax();
     int getCurrLvl();
     void updateCurrLvl();
     int getCoinsCount();
-    void updateCoinsCount();
+    void updateCoinsCount(const uint16_t coins_count);
 
     // Object overrides
     void update(const sf::Event &event, const float delta_time) override;

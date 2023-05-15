@@ -14,12 +14,12 @@ void GameEngine::update()
 
     updatePlayer(delta_time);
 
-    if (player_->getPosition().x > 400)
-    {
-        coin_particles_->generate();
-    }
+    // if (player_->getPosition().x > 400)
+    // {
+    //     coin_particles_->generate();
+    // }
 
-    updateParticles(delta_time);
+    // updateParticles(delta_time);
     updateTiles();
     updateEnemies(delta_time);
 
@@ -59,7 +59,7 @@ void GameEngine::draw()
     // Render game
     drawTiles();
     drawEnemies();
-    drawParticles();
+    // drawParticles();
     drawPlayer();
     window_.display();
 }
@@ -137,7 +137,7 @@ void GameEngine::updateCollision()
     std::vector<Player *> players;
     players.push_back(player_);
 
-    collision_handler_->run(players, tiles_, coin_particles_, enemies_);
+    collision_handler_->run(players, tiles_, enemies_);
 
     players.clear();
 }
@@ -157,7 +157,7 @@ GameEngine::GameEngine()
     initWindow();
     initPlayer();
     initTiles();
-    initParticles();
+    // initParticles();
     initEnemies();
 
     collision_handler_ = new CollisionHandler();

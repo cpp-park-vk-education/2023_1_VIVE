@@ -55,11 +55,17 @@ void Particle::create()
 void Particle::pop()
 {
     exists_ = false;
+    hitbox_.remove();
 }
 
 bool Particle::doesExist() const
 {
     return exists_;
+}
+
+TYPE Particle::getType() const
+{
+    return type_;
 }
 
 void Particle::update(const sf::Event &event, const float delta_time)
@@ -89,10 +95,8 @@ void Particle::updateMovement(const float delta_time)
 
 float random_float(const float max, const float min)
 {
-    // unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::random_device rd; 
-    std::mt19937 gen(rd()); // создание генератора случайных чисел
+    std::mt19937 gen(rd()); // generator
     std::uniform_real_distribution<float> dis(min, max); 
     return dis(gen);
-    // return min + float(rand()) / RAND_MAX * (max - min);
 }

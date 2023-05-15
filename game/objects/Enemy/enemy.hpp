@@ -41,8 +41,9 @@ public:
     ParticleSet *getCoinParticles();
     ParticleSet *getExpParticles();
 
-
     virtual void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 };
+
+int random_int(const int max, const int min);
 
 using EnemyShPtr = std::shared_ptr<Enemy>;
