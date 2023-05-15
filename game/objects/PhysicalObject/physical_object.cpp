@@ -21,6 +21,11 @@ sf::Vector2f PhysicalObject::getPosition() const
     return hitbox_.getPosition();
 }
 
+sf::Vector2f PhysicalObject::getCenter() const
+{
+    return hitbox_.getCenter();
+}
+
 sf::FloatRect PhysicalObject::getGlobalBounds() const
 {
     return hitbox_.getGlobalBounds();

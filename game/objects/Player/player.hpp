@@ -19,6 +19,7 @@ protected:
     // Initions
     void initSprite() override;
     void initPhysics() override;
+    void initStats() override;
 
 public:
     Player(const sf::Vector2f size, const sf::Vector2f position);

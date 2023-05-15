@@ -9,10 +9,10 @@ void Enemy::initSprite()
 
 void Enemy::initPhysics()
 {
-    drag_ = 0.8;
+    drag_ = 0.85;
     gravity_acceleration_ = 1000;
 
-    max_speed_ = 400;
+    max_speed_ = 200;
     speed_ = 50;
 
     jump_speed_ = 200;
@@ -28,13 +28,18 @@ void Enemy::initPhysics()
     acceleration_ = sf::Vector2f(0.f, gravity_acceleration_);
 }
 
+void Enemy::initStats()
+{
+    sight_radius_ = 200;
+}
+
 void Enemy::initParticles()
 {
     coin_particles_ = new ParticleSet(5, sf::Vector2f(10, 10),
                                       sf::Vector2f(400.f, 200.f), TYPE::COIN);
 
     exp_particles_ = new ParticleSet(5, sf::Vector2f(10, 10),
-                                      sf::Vector2f(400.f, 200.f), TYPE::EXP);
+                                     sf::Vector2f(400.f, 200.f), TYPE::EXP);
 }
 
 Enemy::Enemy(const sf::Vector2f size, const sf::Vector2f position)
@@ -42,6 +47,7 @@ Enemy::Enemy(const sf::Vector2f size, const sf::Vector2f position)
 {
     initSprite();
     initPhysics();
+    initStats();
 }
 
 Enemy::~Enemy()
@@ -65,10 +71,45 @@ void Enemy::update(const sf::Event &event, const float delta_time)
     updateMovement(delta_time);
 }
 
+void Enemy::update(const sf::Event &event, const float delta_time,
+                   Entity *target)
+{
+    updateMovement(delta_time, target);
+}
+
 void Enemy::updateMovement(const float delta_time)
 {
     displacement_ = velocity_ * delta_time;
     move(displacement_);
 
     velocity_ = velocity_ + acceleration_ * delta_time;
+
+    // Limit velocity.x
+    if (std::abs(velocity_.x) > max_speed_)
+    {
+        velocity_.x = (velocity_.x / std::abs(velocity_.x)) * max_speed_;
+    }
+}
+
+void Enemy::updateMovement(const float delta_time, Entity *target)
+{
+    // Calculate direction vector to target
+    sf::Vector2f direction = target->getCenter() - getCenter();
+
+    // Normalize direction vector
+    float length = std::sqrt(direction.x * direction.x +
+                             direction.y * direction.y);
+    direction /= length;
+
+    if (length < sight_radius_ && length > BASE_SIZE * 2)
+    {
+        acceleration_.x = (speed_ * direction.x) / delta_time;
+        updateMovement(delta_time);
+    }
+    else
+    {
+        acceleration_.x = 0;
+        slowDown();
+        updateMovement(delta_time);
+    }
 }

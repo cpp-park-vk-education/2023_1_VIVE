@@ -30,6 +30,13 @@ sf::RectangleShape HitBox::getShape() const
     return shape_;
 }
 
+sf::Vector2f HitBox::getCenter() const
+{
+    float x = getPosition().x + getGlobalBounds().width / 2;
+    float y = getPosition().y + getGlobalBounds().height / 2;
+    return sf::Vector2f(x, y);
+}
+
 void HitBox::setPosition(const sf::Vector2f position)
 {
     shape_.setPosition(position);

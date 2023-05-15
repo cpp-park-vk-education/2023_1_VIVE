@@ -19,6 +19,7 @@ public:
     sf::Vector2f getPosition() const;
     sf::Vector2f getSize() const;
     sf::RectangleShape getShape() const;
+    sf::Vector2f getCenter() const;
 
     // Setters
     void setPosition(const sf::Vector2f position);

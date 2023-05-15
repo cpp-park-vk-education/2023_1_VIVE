@@ -15,6 +15,9 @@ protected:
     float jump_speed_;
     bool is_jumping_;
 
+    // Initions
+    virtual void initStats() = 0;
+
 public:
     Entity(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~Entity();

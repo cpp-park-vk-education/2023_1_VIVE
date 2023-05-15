@@ -9,10 +9,12 @@ protected:
     int type_;
     ParticleSet *exp_particles_;
     ParticleSet *coin_particles_;
+    float sight_radius_;
 
     // Initions
     void initSprite() override;
     void initPhysics() override;
+    void initStats() override;
     void initParticles();
 
 public:
@@ -21,9 +23,11 @@ public:
 
     // Object overrides
     void update(const sf::Event &event, const float delta_time) override;
+    void update(const sf::Event &event, const float delta_time, Entity *target);
 
     // MovableObject overrides
     void updateMovement(const float delta_time) override;
+    void updateMovement(const float delta_time, Entity *target);
 
     // Getters
     ParticleSet &getCoinParticles();

@@ -139,7 +139,7 @@ void GameEngine::updateEnemies(const float delta_time)
 {
     for (const auto &enemy : enemies_)
     {
-        enemy->update(event_, delta_time);
+        enemy->update(event_, delta_time, player_);
     }
 }
 

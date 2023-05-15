@@ -16,6 +16,7 @@ private:
     bool checkAABBCollision(const PhysicalObject *obj1,
                             const PhysicalObject *obj2);
 
+    // TODO think about combining theese methods
     void handleCollision(MovableObject *movable_obj,
                          const PhysicalObject *static_obj);
 

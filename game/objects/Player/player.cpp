@@ -28,11 +28,16 @@ void Player::initPhysics()
     acceleration_ = sf::Vector2f(0.f, gravity_acceleration_);
 }
 
+void Player::initStats()
+{
+}
+
 Player::Player(const sf::Vector2f size, const sf::Vector2f position)
     : Entity(size, position)
 {
     initSprite();
     initPhysics();
+    initStats();
 }
 
 Player::~Player()
