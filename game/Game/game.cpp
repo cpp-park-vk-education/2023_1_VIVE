@@ -79,7 +79,7 @@ void GameEngine::draw()
 
 void GameEngine::initBG() {
     bg_.setTexture(AssetManager::getInstance()->getTexture("green_world_temple"));
-    bg_.setScale(3.0f, 3.0f);
+    bg_.setScale(2.0f, 2.0f);
 }
 
 void GameEngine::initAssets() {
