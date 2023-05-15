@@ -15,6 +15,7 @@ protected:
     uint16_t mana_max_;
     unsigned int damage_;
     float damage_radius_;
+    bool attacking_;
     bool alive_;
 
     // Physics

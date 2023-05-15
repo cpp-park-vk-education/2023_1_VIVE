@@ -31,7 +31,8 @@ void Player::initPhysics()
 void Player::initStats()
 {
     alive_ = true;
-    damage_ = 1;
+    attacking_ = false;
+    damage_ = 30;
     damage_radius_ = 25;
 }
 
@@ -116,12 +117,6 @@ void Player::updateMovement(const float delta_time)
         is_moving = true;
     }
 
-    // Обрабатываем торможение персонажа
-    // if (!is_moving)
-    // {
-    //     velocity_.x = 0;
-    // }
-
     // Обрабатываем прыжок персонажа
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !is_jumping_)
     {
@@ -173,8 +168,13 @@ void Player::updateHP(const unsigned int damage)
 
 void Player::updateAttack(const sf::Event &event, Entity *target)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && !attacking_)
     {
+        attacking_ = true;
         attack(target);
+    }
+    else if (attacking_ && !sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+    {
+        attacking_ = false;
     }
 }
