@@ -3,6 +3,8 @@
 #include "entity.hpp"
 
 #include <string>
+#include <memory>
+#include <iostream>
 
 class Player : public Entity
 {
@@ -14,28 +16,33 @@ protected:
     int curr_lvl_;
     int coins_count_;
 
+    // Initions
+    void initSprite() override;
+    void initPhysics() override;
+    void initStats() override;
+
 public:
     Player(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~Player();
 
     int getExp();
-    void updateExp();
+    void updateExp(const uint16_t exp);
     int getExpMax();
     int getCurrLvl();
     void updateCurrLvl();
     int getCoinsCount();
-    void updateCoinsCount();
+    void updateCoinsCount(const uint16_t coins_count);
 
-    // IObject overrides
-    void update() override;
-    void render() override;
-
-    // PhysicalObject overrides
-    void setPosition(const float x, const float y) override;
-    sf::Vector2f getPosition() override;
+    // Object overrides
+    void update(const sf::Event &event, const float delta_time) override;
+    void update(const sf::Event &event, Entity *target, const float delta_time);
 
     // MovableObject overrides
-    void move(sf::Vector2f displacement) override;
     void updateMovement(const float delta_time) override;
+
+    // Entity overrides
+    virtual void updateAttack(const sf::Event &event, Entity *target, const float delta_time);
+    virtual void updateHP(const unsigned int damage);
 };
 
+using PlayerShPtr = std::shared_ptr<Player>;

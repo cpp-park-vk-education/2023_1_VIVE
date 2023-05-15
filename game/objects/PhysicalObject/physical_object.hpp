@@ -1,18 +1,33 @@
 #pragma once
 
-#include "i_object.hpp"
+#include "object.hpp"
 #include "hit_box.hpp"
 
-class PhysicalObject : public IObject
+#include <memory>
+
+
+class PhysicalObject : public Object
 {
 protected:
-    sf::Sprite sprite_;
     HitBox hitbox_;
+
+    // Initions
+    void virtual initPhysics() = 0;
 
 public:
     PhysicalObject(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~PhysicalObject();
 
-    virtual void setPosition(const float x, const float y) = 0;
-    virtual sf::Vector2f getPosition() = 0;
+    // Setters
+    virtual void setPosition(const sf::Vector2f position);
+
+    // Getters
+    virtual sf::Vector2f getPosition() const;
+    virtual sf::Vector2f getCenter() const;
+    virtual sf::FloatRect getGlobalBounds() const;
+    virtual bool doesExist() const;
+
+    HitBox getHitBox() const;
 };
+
+using PhysicalObjectShPtr = std::shared_ptr<PhysicalObject>;
