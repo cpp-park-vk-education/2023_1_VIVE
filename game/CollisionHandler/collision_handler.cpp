@@ -81,5 +81,6 @@ void CollisionHandler::handleCollision(MovableObject *movable_obj,
             // std::cout << "player_pos_y = " << player->getPosition().y << std::endl;
 
             movable_obj->setVelocity(sf::Vector2f(movable_obj->getVelocity().x, 0));
+            movable_obj->slowDown();
         }
 }

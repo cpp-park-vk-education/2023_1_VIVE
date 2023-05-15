@@ -14,6 +14,11 @@ void GameEngine::update()
 
     updatePlayer(delta_time);
 
+    if (player_->getPosition().x > 400)
+    {
+        coin_particles_->generate();
+    }
+
     updateParticles(delta_time);
 
     updateTiles();
@@ -95,7 +100,7 @@ void GameEngine::initTiles()
 void GameEngine::initParticles()
 {
     coin_particles_ = new ParticleSet(10, sf::Vector2f(10, 10),
-                                      sf::Vector2f(300.f, 100.f), COIN);
+                                      sf::Vector2f(400.f, 200.f), COIN);
 }
 
 void GameEngine::updatePlayer(const float delta_time)
@@ -113,7 +118,6 @@ void GameEngine::updateTiles()
 
 void GameEngine::updateParticles(const float delta_time)
 {
-    coin_particles_->generate();
     coin_particles_->update(event_, delta_time);
 }
 

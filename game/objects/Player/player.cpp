@@ -9,7 +9,7 @@ void Player::initSprite()
 
 void Player::initPhysics()
 {
-    drag_ = 500;
+    drag_ = 0.8;
     gravity_acceleration_ = 1000;
 
     max_speed_ = 400;
@@ -114,10 +114,10 @@ void Player::updateMovement(const float delta_time)
     }
 
     // Обрабатываем торможение персонажа
-    if (!is_moving)
-    {
-        velocity_.x = 0;
-    }
+    // if (!is_moving)
+    // {
+    //     velocity_.x = 0;
+    // }
 
     // Обрабатываем прыжок персонажа
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !is_jumping_)

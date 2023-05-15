@@ -16,6 +16,18 @@ void MovableObject::move(const sf::Vector2f displacement)
     hitbox_.move(displacement);
 }
 
+void MovableObject::slowDown()
+{
+    if (std::abs(velocity_.x) > 0.01 * max_speed_)
+    {
+        velocity_.x *= drag_;
+    }
+    else
+    {
+        velocity_.x = 0;
+    }
+}
+
 void MovableObject::setVelocity(const sf::Vector2f &velocity)
 {
     velocity_ = velocity;

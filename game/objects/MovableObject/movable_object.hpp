@@ -22,6 +22,7 @@ public:
 
     virtual void move(const sf::Vector2f displacement);
     virtual void updateMovement(const float delta_time) = 0;
+    virtual void slowDown();
 
     // Setters
     void setVelocity(const sf::Vector2f &velocity);

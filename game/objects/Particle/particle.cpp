@@ -9,13 +9,15 @@ void Particle::initSprite()
 
 void Particle::initPhysics()
 {
-    drag_ = 500;
+    drag_ = 0.9;
     gravity_acceleration_ = 1000;
 
     max_speed_ = 200;
     speed_ = 100;
     float init_velocity_x = random_float(-max_speed_, max_speed_);
+    std::cout << " x = " << init_velocity_x;
     float init_velocity_y = random_float(-max_speed_, max_speed_);
+    std::cout << " y = " << init_velocity_y;
     sf::Vector2f init_velocity(init_velocity_x, init_velocity_y);
 
     is_moving = false;
@@ -78,10 +80,13 @@ void Particle::updateMovement(const float delta_time)
     velocity_ = velocity_ + acceleration_ * delta_time;
 }
 
+
 float random_float(const float max, const float min)
 {
-    std::random_device rd; // инициализация генератора случайных чисел
+    // unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::random_device rd; 
     std::mt19937 gen(rd()); // создание генератора случайных чисел
     std::uniform_real_distribution<float> dis(min, max); 
-    return min + float(rand()) / RAND_MAX * (max - min);
+    return dis(gen);
+    // return min + float(rand()) / RAND_MAX * (max - min);
 }
