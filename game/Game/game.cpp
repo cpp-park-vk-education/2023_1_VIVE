@@ -105,6 +105,7 @@ void GameEngine::initPUI() {
     player_user_interface_->updateMaxStatusBar(false, player_->getHPMax());
     player_user_interface_->updateBar(false, player_->getHP());
     player_user_interface_->updateMoney(player_->getCoinsCount());
+    player_user_interface_->updateExpirienceCurrentPoints(player_->getExp());
 }
 
 void GameEngine::initPlayer()
@@ -161,6 +162,7 @@ void GameEngine::updatePUI() {
     player_user_interface_->updateCoordinates(camera_->getCameraCenter(), camera_->getTopLeftCameraCoordinates());
     player_user_interface_->updateBar(false, player_->getHP());
     player_user_interface_->updateMoney(player_->getCoinsCount());
+    player_user_interface_->updateExpirienceCurrentPoints(player_->getExp());
 }
 
 void GameEngine::updateTiles()
