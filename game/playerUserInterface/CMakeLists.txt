@@ -1,9 +1,0 @@
-add_subdirectory(playerUserInterface/)
-add_subdirectory(INavigationIcons/)
-add_subdirectory(IStatus/)
-add_subdirectory(IStatusBar/)
-
-target_include_directories(player_user_interface PUBLIC playerUserInterface)
-target_include_directories(i_navigation_icons PUBLIC INavigationIcons)
-target_include_directories(i_status PUBLIC IStatus)
-target_include_directories(i_status_bar PUBLIC IStatusBar)

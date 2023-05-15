@@ -1,19 +1,55 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "i_navigation_icons.hpp"
-#include "i_status_bar.hpp"
-#include "i_status.hpp"
+#include "../statusExpirience/status_expirience.hpp"
+#include "../navigationIcons/navigation_icons.hpp"
+#include "../statusWeapon/status_weapon.hpp"
+#include "../statusMoney/status_money.hpp"
+#include "../statusBar/status_bar.hpp"
+#include <SFML/Graphics.hpp>
+#include <memory>
 
-class StatusPlayerBar : public IStatusBar {
+class Object : public sf::Drawable {
 public:
-    bool changePositionSprites(sf::Window& window) override;
-    sf::Sprite getSprite() override;
-    bool setStatus(int status) override;
-private:
-    bool is_mana_bar_;
+    uint8_t getPriority() const {
+        return priority_;
+    }
+
+    Object() {
+    }
+
+    virtual ~Object() {
+    }
+
+    virtual void initSprite() = 0;
+    virtual void update(const sf::Event& event) = 0;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+protected:
+    uint8_t priority_;
+    sf::Sprite sprite_;
 };
 
-class StatusWeapon : public IStatus {
+class PUI : public Object {
+public:
+    PUI(const sf::Vector2u& camera_size);
+    virtual ~PUI() override;
 
+    PUI() = delete;
+    PUI(const PUI&) = delete;
+    PUI(PUI&&) = delete;
+    PUI& operator=(const PUI&) = delete;
+    PUI& operator=(PUI&&) = delete;
+
+    virtual void initSprite() override;
+    virtual void update(const sf::Event& event) override;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+    void updateBar(bool is_mana_bar, uint8_t status);
+
+private:
+    std::unique_ptr<StatusWeapon> weapon_status_;
+    std::unique_ptr<StatusExpirience> status_expirience_;
+    std::unique_ptr<StatusMoney> money_status_;
+    std::unique_ptr<NavigationIcons> navigation_icons_;
+    std::unique_ptr<StatusPlayerBar> health_bar_;
+    std::unique_ptr<StatusPlayerBar> mana_bar_;
 };

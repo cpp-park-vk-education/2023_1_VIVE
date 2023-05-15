@@ -1,6 +1,0 @@
-add_subdirectory(playerUserInterface/)
-add_subdirectory(animation/)
-add_subdirectory(cameraTarget/)
-add_subdirectory(gameSound/)
-add_subdirectory(managerForAssets/)
-add_subdirectory(settings/)
