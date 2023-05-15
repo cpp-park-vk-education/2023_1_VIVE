@@ -8,9 +8,12 @@ public:
     InitMultiplayerState();
 
     void update(const sf::Event &event) override;
-    void readMessage(const Message& msg);
+    void readMessage(const proto::Message& msg);
+    void sendServerAboutInit();
 
 private:
+    void initObjects_();
+
     sf::Font fnt_;
     std::shared_ptr<sf::Text> template_;
     std::shared_ptr<sf::Text> code_;

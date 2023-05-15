@@ -9,7 +9,11 @@ InitMultiplayerState::InitMultiplayerState() {
     if (!fnt_.loadFromFile("fonts/EightBits.ttf")) {
         std::cout << "error" << std::endl;
     }
+    sendServerAboutInit();
+    initObjects_();
+}
 
+void InitMultiplayerState::initObjects_() {
     return_ = std::make_shared<Button>();
     return_->setParams("Return", 60, "fonts/EightBits.ttf", 5, 15, sf::Color::Red);
     return_->setPosition(20, 20);
@@ -42,7 +46,6 @@ InitMultiplayerState::InitMultiplayerState() {
     copy_->setPosition(300, 500);
     copy_->setFillColor(sf::Color::Red);
     copy_->setFont(fnt_);
-
 }
 
 void InitMultiplayerState::update(const sf::Event &event) {
@@ -79,7 +82,11 @@ void InitMultiplayerState::update(const sf::Event &event) {
     }
 }
 
-void InitMultiplayerState::readMessage(const Message &msg) {
+void InitMultiplayerState::readMessage(const proto::Message &msg) {
     // ...
     is_waiting_ = false;
+}
+
+void InitMultiplayerState::sendServerAboutInit() {
+//    GameEngine::getClient()->write()
 }

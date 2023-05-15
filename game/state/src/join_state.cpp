@@ -60,3 +60,7 @@ void JoinState::update(const sf::Event &event) {
     objects_.push_back(template_);
     objects_.push_back(input_field_);
 }
+
+void JoinState::readMessage(const proto::Message &msg) {
+
+}

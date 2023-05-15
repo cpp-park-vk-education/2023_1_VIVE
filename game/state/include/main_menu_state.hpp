@@ -16,6 +16,7 @@ public:
     MainMenuState();
 
     void update(const sf::Event &event) override;
+    void readMessage(const proto::Message& msg) override;
 
 private:
     void handlePressedButton(const ButtonShPtr& btn, StateManager* manager, const sf::Event& event);

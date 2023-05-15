@@ -6,7 +6,7 @@
 #include "SFML/Graphics.hpp"
 
 #include "iobject.hpp"
-#include "message.hpp"
+#include "message.pb.h"
 #include "state.hpp"
 #include "main_menu_state.hpp"
 #include "single_state.hpp"

@@ -7,7 +7,7 @@ ClientConnection::ClientConnection(net::io_context &io_context,
     do_connect(endpoint);
 }
 
-void ClientConnection::write(const Message &msg) {
+void ClientConnection::write(const proto::Message &msg) {
 
 }
 

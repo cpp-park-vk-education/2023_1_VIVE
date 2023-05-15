@@ -8,7 +8,7 @@
 
 #include "Player.hpp"
 #include "iobject.hpp"
-#include "message.hpp"
+#include "message.pb.h"
 
 class State;
 
@@ -16,7 +16,7 @@ using StateShPtr = std::shared_ptr<State>;
 
 class State {
 public:
-//    virtual void readMessage(const Message& msg);
+    virtual void readMessage(const proto::Message& msg) = 0;
     virtual void update(const sf::Event& event) = 0;
     void updateHeap();
     std::vector<DrawableShPtr> getHeap();

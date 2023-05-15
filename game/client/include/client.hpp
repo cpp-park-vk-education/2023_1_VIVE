@@ -3,7 +3,7 @@
 #include <queue>
 
 #include "client_connection.hpp"
-#include "message.hpp"
+#include "message.pb.h"
 
 #include "boost/asio.hpp"
 
@@ -15,7 +15,7 @@ class Client
 public:
     Client();
 
-    void write(const Message& msg);
+    void write(const proto::Message& msg);
     void createNewRoom();
     void joinRoom(unsigned int id);
     void leaveRoom();

@@ -3,3 +3,7 @@
 std::vector<DrawableShPtr> State::getHeap() {
     return objects_;
 }
+
+void State::readMessage(const proto::Message &msg) {
+
+}

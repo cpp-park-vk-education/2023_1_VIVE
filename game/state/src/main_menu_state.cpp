@@ -47,3 +47,7 @@ void MainMenuState::handlePressedButton(const ButtonShPtr& btn, StateManager* ma
         }
     }
 }
+
+void MainMenuState::readMessage(const proto::Message &msg) {
+
+}

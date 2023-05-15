@@ -26,6 +26,7 @@ public:
     static GameEngine* getInstance();
     static sf::RenderWindow& getWindow();
     static StateManager* getStateManager();
+    static Client* getClient();
 
 private:
     void update();

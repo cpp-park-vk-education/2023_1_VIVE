@@ -3,3 +3,5 @@ build/*
 cmake-build-debug
 .idea
 boost
+
+# protoc -I=messages --cpp_out=messages messages/message.proto   генерация классов для сообщения

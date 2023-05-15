@@ -26,7 +26,7 @@ Client::Client() {
     }
 }
 
-void Client::write(const Message &msg) {
+void Client::write(const proto::Message &msg) {
 
 }
 

@@ -2,8 +2,7 @@
 
 #include <queue>
 
-#include "message.hpp"
-#include "serializer.hpp"
+#include "message.pb.h"
 
 #include "boost/asio.hpp"
 
@@ -20,7 +19,7 @@ public:
     ClientConnection(net::io_context& io_context,
            const tcp::resolver::results_type& endpoints);
 
-    void write(const Message& msg);
+    void write(const proto::Message& msg);
     void async_connect(char* ip, unsigned short port);
     bool connected();
     void close();
@@ -32,9 +31,8 @@ private:
 private:
     boost::asio::io_context& io_context_;
     tcp::socket socket_;
-    Message read_msg_;
-    std::queue<Message> write_msgs_;
-    Serializer serializer_;
+    proto::Message read_msg_;
+    std::queue<proto::Message> write_msgs_;
 };
 
 

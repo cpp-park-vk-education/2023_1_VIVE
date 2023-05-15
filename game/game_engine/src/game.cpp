@@ -1,6 +1,7 @@
 #include "game.hpp"
 
 #include "iobject.hpp"
+#include "message.pb.h"
 
 #include <iostream>
 
@@ -20,18 +21,26 @@ StateManager *GameEngine::getStateManager() {
     return &game->state_manager_;
 }
 
+Client *GameEngine::getClient() {
+    GameEngine* game = getInstance();
+    return &game->client_;
+}
+
 GameEngine::GameEngine():
 window_(sf::VideoMode(w_width_ / 2, w_height_ / 2), "ATOMIC GOD") {
     game_engine_ = this;
 }
 
 void GameEngine::run() {
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
     window_.setPosition(sf::Vector2i(w_width_ / 4, w_height_ / 4));
 
     while (window_.isOpen()) {
         update();
         render();
     }
+
+    google::protobuf::ShutdownProtobufLibrary();
 }
 
 void GameEngine::update() {
