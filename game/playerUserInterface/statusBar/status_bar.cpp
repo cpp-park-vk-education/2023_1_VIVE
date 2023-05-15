@@ -1,5 +1,6 @@
 #include "../../assetManager/asset_manager.hpp"
 #include "status_bar.hpp"
+#include <iostream>
 
 //Constructor which define is it mana bar or not and set corresponing image
 StatusPlayerBar::StatusPlayerBar(bool is_mana_bar, const sf::Vector2u& camera_size) {
@@ -64,15 +65,23 @@ void StatusPlayerBar::setObjectsPositions(const sf::Vector2u& camera_size) {
 
 
 //Set current status if value greatest than one
-bool StatusPlayerBar::setStatus(uint8_t status) {
-    if (status < 0)
-        return false;
+void StatusPlayerBar::setStatus(uint16_t status) {
+    if (status < 0) {
+        std::cerr << "Error at StatusBar class. setStatus(uint8_t status). status can't be less than zero!" << std::endl;
+        return;
+    }
 
     current_status_ = status;
-    bar_.setSize(sf::Vector2f(bg_bar_.getSize().x * (float)current_status_ / (float)max_status_, bg_bar_.getSize().y));
-    procent_.setString(std::to_string(status) + "%");
 
-    return true;
+    uint16_t procent = static_cast<uint16_t>(static_cast<float>(current_status_) / static_cast<float>(max_status_) * 100.0f);
+
+    bar_.setSize(sf::Vector2f(bg_bar_.getSize().x * (float)current_status_ / (float)max_status_, bg_bar_.getSize().y));
+    procent_.setString(std::to_string(procent) + "%");
+}
+
+void StatusPlayerBar::setMaxStatus(uint16_t max_status) {
+    max_status_ = max_status;
+    setStatus(current_status_);
 }
 
 sf::Sprite StatusPlayerBar::getSprite() const {

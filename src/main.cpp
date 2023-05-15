@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "../game/assetManager/asset_manager.hpp"
+#include "../game/cameraTarget/camera_target.hpp"
 #include "../game/playerUserInterface/playerUserInterface/player_user_interface.hpp"
+#include <iostream>
 
 int main() {
     std::string level = "level_1";
@@ -11,13 +13,19 @@ int main() {
     sf::Texture texture = AssetManager::getInstance()->getTexture("green_world_temple");
 
     sf::Vector2u windowSize = window.getSize();
+    std::cout << windowSize.x << ' ' << windowSize.y << std::endl;
 
     sf::Sprite sprite(texture);
     sprite.setScale(3.0f, 3.0f);
 
+    // sf::Vector2f camera_pos = sf::Vector2f(windowSize.x, windowSize.y);
+    // sf::FloatRect camera_restriction = sprite.getGlobalBounds();
+
     PUI pui(windowSize);
     pui.updateBar(true, 59);
     pui.updateBar(false, 86);
+    pui.updateMaxStatusBar(true, 500);
+    pui.updateMaxStatusBar(false, 500);
 
     pui.updateExpirienceLevel(10, 200);
     pui.updateExpirienceCurrentPoints(14);

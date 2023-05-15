@@ -56,11 +56,18 @@ void PUI::changeResolution(const sf::Vector2u& camera_size) {
 }
 
 //Functions update status
-void PUI::updateBar(bool is_mana_bar, uint8_t status) {
+void PUI::updateBar(bool is_mana_bar, uint16_t status) {
     if (is_mana_bar)
         mana_bar_->setStatus(status);
     else
         health_bar_->setStatus(status);
+}
+
+void PUI::updateMaxStatusBar(bool is_mana_bar, uint16_t max_status) {
+    if (is_mana_bar)
+        mana_bar_->setMaxStatus(max_status);
+    else
+        health_bar_->setMaxStatus(max_status);
 }
 
 void PUI::updateWeapon(const std::string& name, const sf::Vector2u& camera_size) {
@@ -71,7 +78,7 @@ void PUI::updateMoney(uint16_t money) {
     money_status_->setStatus(money);
 }
 
-void PUI::updateExpirienceLevel(uint8_t total_level, uint16_t max_points) {
+void PUI::updateExpirienceLevel(uint16_t total_level, uint16_t max_points) {
     status_expirience_->setTotalLever(total_level);
     status_expirience_->setMaxPoints(max_points);
 }

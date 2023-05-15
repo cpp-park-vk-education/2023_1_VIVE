@@ -46,9 +46,10 @@ public:
     void changeResolution(const sf::Vector2u& camera_size);
 
     void updateWeapon(const std::string& name, const sf::Vector2u& camera_size);
-    void updateBar(bool is_mana_bar, uint8_t status);
+    void updateBar(bool is_mana_bar, uint16_t status);
+    void updateMaxStatusBar(bool is_mana_bar, uint16_t max_status);
     void updateMoney(uint16_t money);
-    void updateExpirienceLevel(uint8_t total_level, uint16_t max_points);
+    void updateExpirienceLevel(uint16_t total_level, uint16_t max_points);
     void updateExpirienceCurrentPoints(uint16_t current_points);
 
 private:
