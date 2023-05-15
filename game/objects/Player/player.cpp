@@ -94,7 +94,7 @@ void Player::update(const sf::Event &event, const float delta_time)
 {
     // std::cout << "Coins: " << getCoinsCount()
     //           << " Exp: " << getExp() << std::endl;
-    std::cout << "Player: " << getHP() << "/" << getHPMax() << std::endl;
+    // std::cout << "Player: " << getHP() << "/" << getHPMax() << std::endl;
     updateMovement(delta_time);
 }
 
