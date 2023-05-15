@@ -121,9 +121,8 @@ void GameEngine::updateCollision()
 {
     std::vector<Player *> players;
     players.push_back(player_);
-    std::vector<Enemy *> enemies{};
     
-    collision_handler_->run(players, tiles_, enemies);
+    collision_handler_->run(players, tiles_, coin_particles_);
 
     players.clear();
 }

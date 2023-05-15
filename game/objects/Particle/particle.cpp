@@ -14,7 +14,6 @@ void Particle::initPhysics()
 
     max_speed_ = 200;
     speed_ = 100;
-    std::srand(std::time(nullptr));
     float init_velocity_x = random_float(-max_speed_, max_speed_);
     float init_velocity_y = random_float(-max_speed_, max_speed_);
     sf::Vector2f init_velocity(init_velocity_x, init_velocity_y);

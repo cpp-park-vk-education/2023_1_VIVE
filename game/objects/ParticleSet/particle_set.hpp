@@ -29,6 +29,10 @@ public:
     void draw(sf::RenderTarget &target, sf::RenderStates state) const;
     void generate();
     bool doesExist() const;
+
+    // Iterators
+    std::vector<Particle *>::iterator begin();
+    std::vector<Particle *>::iterator end();
 };
 
 using ParticleSetShPtr = std::shared_ptr<ParticleSet>;

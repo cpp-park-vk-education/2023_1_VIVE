@@ -68,3 +68,13 @@ bool ParticleSet::doesExist() const
 {
     return exists_;
 }
+
+std::vector<Particle *>::iterator ParticleSet::begin()
+{
+    return particles_.begin();
+}
+
+std::vector<Particle *>::iterator ParticleSet::end()
+{
+    return particles_.end();
+}
