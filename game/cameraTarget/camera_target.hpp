@@ -5,7 +5,7 @@
 class CameraTarget {
 public:
 
-    CameraTarget(const sf::Vector2u& camera_size, const sf::FloatRect& restriction);
+    CameraTarget(const sf::Vector2f& camera_size, const sf::FloatRect& restriction);
 
     CameraTarget() = delete;
     CameraTarget(const CameraTarget&) = delete;
@@ -13,11 +13,15 @@ public:
     CameraTarget& operator=(const CameraTarget&) = delete;
     CameraTarget& operator=(CameraTarget&&) = delete;
 
-    void setCenter(uint x, uint y);
-    void setCameraSize(const sf::Vector2u& size);
-    void follow(sf::Sprite sprite);
+    void setFollowByCoordinates(float x, float y);
+    void setCameraSize(const sf::Vector2f& size);
+    void setCameraViewport(const sf::FloatRect& viewport);
+    void follow(const sf::Sprite& sprite);
     void unfollow();
-    sf::Vector2f getCenter() const;
+    sf::Vector2f getCameraCenter() const;
+    sf::Vector2f getCameraSize() const;
+    sf::Vector2f getTopLeftCameraCoordinates() const;
+    const sf::View& getView() const;
 
     ~CameraTarget() {
     }
@@ -26,6 +30,6 @@ private:
     void checkBound();
 
     sf::View camera_view_;
-    sf::Vector2u camera_size_;
+    sf::Vector2f camera_size_;
     sf::FloatRect restriction_;
 };

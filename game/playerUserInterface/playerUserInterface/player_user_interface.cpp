@@ -1,12 +1,12 @@
 #include "player_user_interface.hpp"
 
-PUI::PUI(const sf::Vector2u& camera_size) {
-    weapon_status_ = std::make_unique<StatusWeapon>(camera_size);
-    status_expirience_ = std::make_unique<StatusExpirience>(camera_size);
-    money_status_ = std::make_unique<StatusMoney>(camera_size);
-    navigation_icons_ = std::make_unique<NavigationIcons>(camera_size);
-    health_bar_ = std::make_unique<StatusPlayerBar>(false, camera_size);
-    mana_bar_ = std::make_unique<StatusPlayerBar>(true, camera_size);
+PUI::PUI(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates) {
+    weapon_status_ = std::make_unique<StatusWeapon>(camera_size, camera_coordinates);
+    status_expirience_ = std::make_unique<StatusExpirience>(camera_size, camera_coordinates);
+    money_status_ = std::make_unique<StatusMoney>(camera_size, camera_coordinates);
+    navigation_icons_ = std::make_unique<NavigationIcons>(camera_size, camera_coordinates);
+    health_bar_ = std::make_unique<StatusPlayerBar>(false, camera_size, camera_coordinates);
+    mana_bar_ = std::make_unique<StatusPlayerBar>(true, camera_size, camera_coordinates);
 }
 
 PUI::~PUI() {
@@ -46,13 +46,13 @@ void PUI::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(weapon_status_->getSprite());
 }
 
-void PUI::changeResolution(const sf::Vector2u& camera_size) {
-    weapon_status_->setObjectsPosition(camera_size);
-    status_expirience_->setObjectPosition(camera_size);
-    money_status_->setObjectPosition(camera_size);
-    navigation_icons_->setObjectPosition(camera_size);
-    health_bar_->setObjectsPositions(camera_size);
-    mana_bar_->setObjectsPositions(camera_size);
+void PUI::updateCoordinates(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates) {
+    weapon_status_->setObjectsPosition(camera_size, camera_coordinates);
+    status_expirience_->setObjectPosition(camera_size, camera_coordinates);
+    money_status_->setObjectPosition(camera_size, camera_coordinates);
+    navigation_icons_->setObjectPosition(camera_size, camera_coordinates);
+    health_bar_->setObjectsPositions(camera_size, camera_coordinates);
+    mana_bar_->setObjectsPositions(camera_size, camera_coordinates);
 }
 
 //Functions update status
@@ -70,8 +70,8 @@ void PUI::updateMaxStatusBar(bool is_mana_bar, uint16_t max_status) {
         health_bar_->setMaxStatus(max_status);
 }
 
-void PUI::updateWeapon(const std::string& name, const sf::Vector2u& camera_size) {
-    weapon_status_->setNewWeapon(name, camera_size);
+void PUI::updateWeapon(const std::string& name, const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates) {
+    weapon_status_->setNewWeapon(name, camera_size, camera_coordinates);
 }
 
 void PUI::updateMoney(uint16_t money) {

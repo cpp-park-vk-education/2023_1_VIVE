@@ -25,7 +25,7 @@ void AssetManager::clearAssets() {
 bool AssetManager::loadAssets(const std::string& level) {
     clearAssets();
 
-    std::filesystem::path path_to_data_folder = std::filesystem::current_path() / "game" / "assetManager" / "data";
+    std::filesystem::path path_to_data_folder = std::filesystem::current_path().parent_path() / "game" / "assetManager" / "data";
     
     for (const auto& entry : std::filesystem::directory_iterator(path_to_data_folder)) {
         if (entry.path().stem().string() == level) {

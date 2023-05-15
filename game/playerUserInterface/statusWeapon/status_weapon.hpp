@@ -5,7 +5,7 @@
 
 class StatusWeapon {
 public:
-    StatusWeapon(const sf::Vector2u& camera_size, const std::string& weapon_name = "sword");
+    StatusWeapon(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates, const std::string& weapon_name = "sword");
 
     StatusWeapon() = delete;
     StatusWeapon(const StatusWeapon&) = delete;
@@ -16,8 +16,8 @@ public:
     ~StatusWeapon() {
     }
 
-    void setObjectsPosition(const sf::Vector2u& camera_size);
-    void setNewWeapon(const std::string& weapon_name, const sf::Vector2u& camera_size);
+    void setObjectsPosition(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
+    void setNewWeapon(const std::string& weapon_name, const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
     sf::Sprite getSprite() const;
     sf::CircleShape getCircle() const;
 

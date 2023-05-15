@@ -14,15 +14,17 @@ int main() {
     sf::Texture texture = AssetManager::getInstance()->getTexture("green_world_temple");
 
     sf::Vector2u windowSize = window.getSize();
-    std::cout << windowSize.x << ' ' << windowSize.y << std::endl;
 
     sf::Sprite sprite(texture);
     sprite.setScale(3.0f, 3.0f);
 
-    // sf::Vector2f camera_pos = sf::Vector2f(windowSize.x, windowSize.y);
-    // sf::FloatRect camera_restriction = sprite.getGlobalBounds();
+    sf::Vector2f camera_size = sf::Vector2f(windowSize.x, windowSize.y);
+    sf::FloatRect camera_restriction = sprite.getGlobalBounds();
 
-    PUI pui(windowSize);
+    CameraTarget camera(camera_size, camera_restriction);
+    camera.setFollowByCoordinates(0, 0);
+
+    PUI pui(camera_size, camera.getTopLeftCameraCoordinates());
     pui.updateBar(true, 59);
     pui.updateBar(false, 86);
     pui.updateMaxStatusBar(true, 500);
@@ -33,7 +35,8 @@ int main() {
     pui.updateExpirienceLevel(10, 200);
     pui.updateExpirienceCurrentPoints(14);
 
-    pui.updateMoney(1500);
+    camera.setFollowByCoordinates(2500, 1000);
+    pui.updateCoordinates(camera.getCameraSize(), camera.getTopLeftCameraCoordinates());
 
     while(window.isOpen()) {
         sf::Event event;
@@ -43,6 +46,7 @@ int main() {
             }
         }
         window.clear();
+        window.setView(camera.getView());
         window.draw(sprite);
         pui.draw(window, sf::RenderStates());
         window.display();

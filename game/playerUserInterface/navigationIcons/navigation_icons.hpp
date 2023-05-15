@@ -6,7 +6,7 @@
 
 class NavigationIcons {
 public:
-    NavigationIcons(const sf::Vector2u& camera_size);
+    NavigationIcons(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
 
     NavigationIcons() = delete;
     NavigationIcons(const NavigationIcons&) = delete;
@@ -17,7 +17,7 @@ public:
     ~NavigationIcons() {
     }
 
-    void setObjectPosition(const sf::Vector2u& camera_size);
+    void setObjectPosition(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
     sf::Sprite getMenuIcon() const;
     sf::Sprite getInventoryIcon() const;
     sf::Sprite getLevelPointsIcon() const;

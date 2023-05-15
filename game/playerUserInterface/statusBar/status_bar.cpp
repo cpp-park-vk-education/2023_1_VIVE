@@ -1,7 +1,7 @@
 #include "status_bar.hpp"
 
 //Constructor which define is it mana bar or not and set corresponing image
-StatusPlayerBar::StatusPlayerBar(bool is_mana_bar, const sf::Vector2u& camera_size) {
+StatusPlayerBar::StatusPlayerBar(bool is_mana_bar, const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates) {
     is_mana_bar_ = is_mana_bar;
 
     //Install sprite according to whether it's mana or health
@@ -31,19 +31,19 @@ StatusPlayerBar::StatusPlayerBar(bool is_mana_bar, const sf::Vector2u& camera_si
     max_status_ = 100;
     current_status_ = 100;
 
-    setObjectsPositions(camera_size);
+    setObjectsPositions(camera_size, camera_coordinates);
 }
 
 //This setting allows you to adjust to the size of the window and display sprite correctly
-void StatusPlayerBar::setObjectsPositions(const sf::Vector2u& camera_size) {
+void StatusPlayerBar::setObjectsPositions(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates) {
     //Postion sprite for our icon (heart or mana)
     icon_sprite_.setScale(static_cast<float>(camera_size.x) / 1650.0f, static_cast<float>(camera_size.y) / 900.0f);
     if (is_mana_bar_)
-        icon_sprite_.setPosition(static_cast<float>(camera_size.x) / 2.0f + static_cast<float>(camera_size.x / 2) * 10.0f / 100.0f, 
-                                static_cast<float>(camera_size.y) / 25.0f);
+        icon_sprite_.setPosition(camera_coordinates.x + static_cast<float>(camera_size.x) / 2.0f + static_cast<float>(camera_size.x / 2) * 10.0f / 100.0f, 
+                                camera_coordinates.y + static_cast<float>(camera_size.y) / 25.0f);
     else
-        icon_sprite_.setPosition(static_cast<float>(camera_size.x) / 2.0f - static_cast<float>(camera_size.x / 2) * 20.0f / 100.0f, 
-                                static_cast<float>(camera_size.y) / 25.0f);
+        icon_sprite_.setPosition(camera_coordinates.x + static_cast<float>(camera_size.x) / 2.0f - static_cast<float>(camera_size.x / 2) * 20.0f / 100.0f, 
+                                camera_coordinates.y + static_cast<float>(camera_size.y) / 25.0f);
     
     //Position full bar
     bg_bar_.setSize(sf::Vector2f(sf::Vector2f(static_cast<float>(camera_size.x) / 10.0f, 
@@ -53,7 +53,8 @@ void StatusPlayerBar::setObjectsPositions(const sf::Vector2u& camera_size) {
 
     //Position dynamic bar
     bar_.setSize(sf::Vector2f(bg_bar_.getSize().x, bg_bar_.getSize().y));
-    bar_.setPosition(bg_bar_.getPosition().x, bg_bar_.getPosition().y);
+    bar_.setPosition(bg_bar_.getPosition().x, 
+                    bg_bar_.getPosition().y);
 
     //Position text out %
     procent_.setCharacterSize(static_cast<unsigned int>(camera_size.y / 1650.0f * 125));
