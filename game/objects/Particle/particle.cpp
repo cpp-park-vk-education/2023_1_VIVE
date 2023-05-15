@@ -17,9 +17,9 @@ void Particle::initSprite()
 void Particle::initPhysics()
 {
     drag_ = 0.7;
-    gravity_acceleration_ = 750;
+    gravity_acceleration_ = 600;
 
-    max_speed_ = 500;
+    max_speed_ = 300;
     float init_velocity_x = random_float(-max_speed_, max_speed_);
     // std::cout << " x = " << init_velocity_x;
     float init_velocity_y = random_float(-max_speed_, max_speed_);
@@ -35,8 +35,8 @@ void Particle::initPhysics()
 
 Particle::Particle(const sf::Vector2f size, const sf::Vector2f position,
                    const TYPE type)
-    : MovableObject(size, position), 
-      exists_(false), 
+    : MovableObject(size, position),
+      exists_(false),
       type_(type)
 {
     initSprite();
@@ -92,11 +92,10 @@ void Particle::updateMovement(const float delta_time)
     velocity_ = velocity_ + acceleration_ * delta_time;
 }
 
-
 float random_float(const float max, const float min)
 {
-    std::random_device rd; 
+    std::random_device rd;
     std::mt19937 gen(rd()); // generator
-    std::uniform_real_distribution<float> dis(min, max); 
+    std::uniform_real_distribution<float> dis(min, max);
     return dis(gen);
 }

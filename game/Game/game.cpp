@@ -148,7 +148,12 @@ void GameEngine::updateEnemies(const float delta_time)
 
     for (const auto &enemy : enemies_)
     {
+        // if (enemy->isDead)
+        // {
+        //     delete enemy
+        // }
         enemy->update(event_, delta_time, player_);
+        enemy->updateAttack(event_, player_, delta_time);
     }
 }
 

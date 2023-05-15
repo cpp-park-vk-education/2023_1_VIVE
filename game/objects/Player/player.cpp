@@ -33,7 +33,7 @@ void Player::initStats()
     alive_ = true;
     attacking_ = false;
     damage_ = 30;
-    damage_radius_ = 25;
+    damage_radius_ = BASE_SIZE * 3;
     attack_cooldown_ = 1;
     sec_since_last_hit_ = attack_cooldown_;
 
@@ -91,8 +91,9 @@ void Player::updateCoinsCount(const uint16_t coins_count)
 
 void Player::update(const sf::Event &event, const float delta_time)
 {
-    std::cout << "Coins: " << getCoinsCount()
-              << " Exp: " << getExp() << std::endl;
+    // std::cout << "Coins: " << getCoinsCount()
+    //           << " Exp: " << getExp() << std::endl;
+    std::cout << "Player: " << getHP() << "/" << getHPMax() << std::endl;
     updateMovement(delta_time);
 }
 

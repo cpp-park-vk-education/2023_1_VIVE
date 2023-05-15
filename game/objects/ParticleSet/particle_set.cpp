@@ -1,5 +1,11 @@
 #include "particle_set.hpp"
 
+void ParticleSet::clear()
+{
+    particles_.erase(std::remove(particles_.begin(), particles_.end(),
+                                 nullptr), particles_.end());
+}
+
 void ParticleSet::initParticles()
 {
     for (int i{}; i < particles_count_; ++i)
@@ -46,6 +52,8 @@ void ParticleSet::update(const sf::Event &event, const float delta_time)
 {
     if (exists_)
     {
+        // clear();
+        std::cout << particles_.size() << std::endl;
         for (const auto &particle : particles_)
         {
             particle->update(event, delta_time);

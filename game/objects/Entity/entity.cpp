@@ -5,7 +5,7 @@ bool Entity::isDead() const
     return !alive_;
 }
 
-bool Entity::isInRadius(const PhysicalObject *target) const
+bool Entity::isInDamageRadius(const PhysicalObject *target) const
 {
     if (target->doesExist())
     {
@@ -44,7 +44,7 @@ int Entity::getHPMax() const
 
 void Entity::attack(Entity *target)
 {
-    if (isInRadius(target))
+    if (isInDamageRadius(target))
     {
         target->updateHP(damage_);
     }

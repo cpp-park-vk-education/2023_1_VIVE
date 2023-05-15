@@ -31,7 +31,7 @@ protected:
     // Initions
     virtual void initStats() = 0;
 
-    bool isInRadius(const PhysicalObject *target) const;
+    bool isInDamageRadius(const PhysicalObject *target) const;
 
     virtual void attack(Entity *target);
 

@@ -15,6 +15,8 @@ protected:
     TYPE type_;
     bool exists_;
 
+    void clear();
+
     // Initions
     void initParticles();
 

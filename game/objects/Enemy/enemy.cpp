@@ -45,6 +45,11 @@ void Enemy::initStats()
     hp_max_ = hp_;
 
     alive_ = true;
+    attacking_ = false;
+    damage_ = 10;
+    damage_radius_ = BASE_SIZE;
+    attack_cooldown_ = 2;
+    sec_since_last_hit_ = attack_cooldown_;
 }
 
 void Enemy::initParticles()
@@ -104,6 +109,22 @@ void Enemy::updateHP(const unsigned int damage)
 void Enemy::updateAttack(const sf::Event &event, Entity *target,
                          const float delta_time)
 {
+    if (sec_since_last_hit_ <= attack_cooldown_)
+    {
+        sec_since_last_hit_ += delta_time;
+    }
+
+    if (isInDamageRadius(target) && !attacking_ &&
+        sec_since_last_hit_ > attack_cooldown_)
+    {
+        attacking_ = true;
+        attack(target);
+        sec_since_last_hit_ = 0;
+    }
+    else if (attacking_)
+    {
+        attacking_ = false;
+    }
 }
 
 void Enemy::draw(sf::RenderTarget &target, sf::RenderStates state) const
@@ -121,7 +142,7 @@ void Enemy::draw(sf::RenderTarget &target, sf::RenderStates state) const
 
 void Enemy::update(const sf::Event &event, const float delta_time)
 {
-    // std::cout << "Enemy's helth: " << hp_ << "/" << hp_max_ << std::endl;
+    std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
     if (isDead())
     {
         coin_particles_->update(event, delta_time);
@@ -136,7 +157,6 @@ void Enemy::update(const sf::Event &event, const float delta_time)
 void Enemy::update(const sf::Event &event, const float delta_time,
                    Entity *target)
 {
-    std::cout << getHP() << "/" << getHPMax() << std::endl;
     if (isDead())
     {
         coin_particles_->update(event, delta_time);
@@ -144,6 +164,7 @@ void Enemy::update(const sf::Event &event, const float delta_time,
     }
     else
     {
+        std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
         updateMovement(delta_time, target);
     }
 }
@@ -172,7 +193,7 @@ void Enemy::updateMovement(const float delta_time, Entity *target)
                              direction.y * direction.y);
     direction /= length;
 
-    if (length < sight_radius_ && length > BASE_SIZE * 2)
+    if (length < sight_radius_ && length > damage_radius_)
     {
         acceleration_.x = (speed_ * direction.x) / delta_time;
         updateMovement(delta_time);
@@ -187,8 +208,8 @@ void Enemy::updateMovement(const float delta_time, Entity *target)
 
 int random_int(const int max, const int min)
 {
-    std::random_device rd; 
+    std::random_device rd;
     std::mt19937 gen(rd()); // generator
-    std::uniform_real_distribution<> dis(min, max); 
+    std::uniform_real_distribution<> dis(min, max);
     return dis(gen);
 }
