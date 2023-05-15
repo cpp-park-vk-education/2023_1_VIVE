@@ -53,7 +53,7 @@ void ParticleSet::update(const sf::Event &event, const float delta_time)
     if (exists_)
     {
         // clear();
-        std::cout << particles_.size() << std::endl;
+        // std::cout << particles_.size() << std::endl;
         for (const auto &particle : particles_)
         {
             particle->update(event, delta_time);

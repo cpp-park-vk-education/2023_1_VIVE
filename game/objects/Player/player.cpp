@@ -41,6 +41,7 @@ void Player::initStats()
     hp_max_ = hp_;
 
     coins_count_ = 0;
+    exp_ = 0;
 }
 
 Player::Player(const sf::Vector2f size, const sf::Vector2f position)

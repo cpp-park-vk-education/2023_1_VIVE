@@ -142,7 +142,7 @@ void Enemy::draw(sf::RenderTarget &target, sf::RenderStates state) const
 
 void Enemy::update(const sf::Event &event, const float delta_time)
 {
-    std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
+    // std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
     if (isDead())
     {
         coin_particles_->update(event, delta_time);
@@ -164,7 +164,7 @@ void Enemy::update(const sf::Event &event, const float delta_time,
     }
     else
     {
-        std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
+        // std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
         updateMovement(delta_time, target);
     }
 }
