@@ -31,6 +31,11 @@ sf::FloatRect PhysicalObject::getGlobalBounds() const
     return hitbox_.getGlobalBounds();
 }
 
+bool PhysicalObject::doesExist() const
+{
+    return hitbox_.doesExist();
+}
+
 HitBox PhysicalObject::getHitBox() const
 {
     return hitbox_;

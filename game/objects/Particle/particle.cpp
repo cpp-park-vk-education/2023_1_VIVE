@@ -17,10 +17,9 @@ void Particle::initSprite()
 void Particle::initPhysics()
 {
     drag_ = 0.7;
-    gravity_acceleration_ = 1000;
+    gravity_acceleration_ = 750;
 
-    max_speed_ = 200;
-    speed_ = 100;
+    max_speed_ = 500;
     float init_velocity_x = random_float(-max_speed_, max_speed_);
     // std::cout << " x = " << init_velocity_x;
     float init_velocity_y = random_float(-max_speed_, max_speed_);

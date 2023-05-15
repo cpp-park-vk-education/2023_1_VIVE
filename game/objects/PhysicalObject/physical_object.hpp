@@ -25,6 +25,7 @@ public:
     virtual sf::Vector2f getPosition() const;
     virtual sf::Vector2f getCenter() const;
     virtual sf::FloatRect getGlobalBounds() const;
+    virtual bool doesExist() const;
 
     HitBox getHitBox() const;
 };

@@ -81,7 +81,14 @@ bool CollisionHandler::checkAABBCollision(const PhysicalObject *obj1,
     HitBox hitbox1 = obj1->getHitBox();
     HitBox hitbox2 = obj2->getHitBox();
 
-    return intersects(hitbox1, hitbox2);
+    if (hitbox1.doesExist() && hitbox2.doesExist())
+    {
+        return intersects(hitbox1, hitbox2);
+    }
+    else 
+    {
+        return false;
+    }
 }
 
 void CollisionHandler::handleCollision(MovableObject *movable_obj,

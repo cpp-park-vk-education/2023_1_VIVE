@@ -25,6 +25,9 @@ public:
                 const sf::Vector2f position, TYPE type);
     virtual ~ParticleSet();
 
+    // Setters
+    void setPosition(const sf::Vector2f &position);
+    
     void update(const sf::Event &event, const float delta_time);
     void draw(sf::RenderTarget &target, sf::RenderStates state) const;
     void generate();

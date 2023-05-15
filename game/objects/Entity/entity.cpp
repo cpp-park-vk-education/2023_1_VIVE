@@ -7,13 +7,20 @@ bool Entity::isDead() const
 
 bool Entity::isInRadius(const PhysicalObject *target) const
 {
-    sf::Vector2f executor_pos = getCenter();
-    sf::Vector2f target_pos = target->getCenter();
+    if (target->doesExist())
+    {
+        sf::Vector2f executor_pos = getCenter();
+        sf::Vector2f target_pos = target->getCenter();
 
-    float distance = std::sqrt(std::pow(executor_pos.x - target_pos.x, 2) +
-                               std::pow(executor_pos.y - target_pos.y, 2));
+        float distance = std::sqrt(std::pow(executor_pos.x - target_pos.x, 2) +
+                                std::pow(executor_pos.y - target_pos.y, 2));
 
-    return distance <= damage_radius_;
+        return distance <= damage_radius_;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 Entity::Entity(const sf::Vector2f size, const sf::Vector2f position)

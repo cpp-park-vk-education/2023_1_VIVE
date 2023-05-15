@@ -34,6 +34,14 @@ ParticleSet::~ParticleSet()
     }
 }
 
+void ParticleSet::setPosition(const sf::Vector2f &position)
+{
+    for (auto &particle : particles_)
+    {
+        particle->setPosition(position);
+    }
+}
+
 void ParticleSet::update(const sf::Event &event, const float delta_time)
 {
     if (exists_)

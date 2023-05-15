@@ -1,6 +1,7 @@
 #include "hit_box.hpp"
 
 HitBox::HitBox(const sf::Vector2f size, const sf::Vector2f position)
+    : exists_(true)
 {
     shape_.setSize(size);
     setPosition(position);
@@ -37,6 +38,11 @@ sf::Vector2f HitBox::getCenter() const
     return sf::Vector2f(x, y);
 }
 
+void HitBox::remove()
+{
+    exists_ = false;
+}
+
 void HitBox::setPosition(const sf::Vector2f position)
 {
     shape_.setPosition(position);
@@ -50,6 +56,11 @@ void HitBox::setSize(const sf::Vector2f size)
 void HitBox::move(const sf::Vector2f displacement)
 {
     shape_.move(displacement);
+}
+
+bool HitBox::doesExist() const
+{
+    return exists_;
 }
 
 bool intersects(const HitBox &hitbox1, const HitBox &hitbox2)

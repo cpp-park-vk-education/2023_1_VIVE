@@ -3,6 +3,8 @@
 void Enemy::spawnParticles()
 {
     initParticles();
+    // coin_particles_->setPosition(getCenter());
+    // exp_particles_->setPosition(getCenter());
     coin_particles_->generate();
     exp_particles_->generate();
 }
@@ -60,6 +62,7 @@ Enemy::Enemy(const sf::Vector2f size, const sf::Vector2f position)
     initSprite();
     initPhysics();
     initStats();
+    // initParticles();
 }
 
 Enemy::~Enemy()
@@ -85,6 +88,7 @@ void Enemy::updateHP(const unsigned int damage)
     {
         hp_ = 0;
         alive_ = false;
+        hitbox_.remove();
         spawnParticles();
     }
     else

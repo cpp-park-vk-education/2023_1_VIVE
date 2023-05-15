@@ -10,6 +10,8 @@ class HitBox
 private:
     sf::RectangleShape shape_;
 
+    bool exists_;
+
 public:
     HitBox(const sf::Vector2f size, const sf::Vector2f position);
     ~HitBox();
@@ -21,10 +23,15 @@ public:
     sf::RectangleShape getShape() const;
     sf::Vector2f getCenter() const;
 
+    void remove();
+
     // Setters
     void setPosition(const sf::Vector2f position);
     void setSize(const sf::Vector2f size);
     void move(const sf::Vector2f displacement);
+
+    // Getters
+    bool doesExist() const;
 };
 
 bool intersects(const HitBox& hitbox1, const HitBox& hitbox2);
