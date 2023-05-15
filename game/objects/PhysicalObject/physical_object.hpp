@@ -3,6 +3,9 @@
 #include "object.hpp"
 #include "hit_box.hpp"
 
+#include <memory>
+
+
 class PhysicalObject : public Object
 {
 protected:
@@ -16,11 +19,13 @@ public:
     virtual ~PhysicalObject();
 
     // Setters
-    virtual void setPosition(const sf::Vector2f size) = 0;
+    virtual void setPosition(const sf::Vector2f position);
 
     // Getters
-    sf::Vector2f getPosition() const;
-    sf::FloatRect getGlobalBounds() const;
+    virtual sf::Vector2f getPosition() const;
+    virtual sf::FloatRect getGlobalBounds() const;
 
     HitBox getHitBox() const;
 };
+
+using PhysicalObjectShPtr = std::shared_ptr<PhysicalObject>;

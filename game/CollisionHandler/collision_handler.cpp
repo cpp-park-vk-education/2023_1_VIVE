@@ -15,28 +15,39 @@ void CollisionHandler::checkPlayerTilesCollision(Player *player,
     {
         if (checkAABBCollision(*player, *tile))
         {
-            std::cout << "Collision" << std::endl;
+            // std::cout << "Collision" << std::endl;
 
-            std::cout << "Tile upper bound coord = " << tile->getPosition().y << std::endl;
-            std::cout << "Player lower bound coord = " << player->getPosition().y + player->getGlobalBounds().height << std::endl;
+            // std::cout << "Tile upper bound coord = " << tile->getPosition().y << std::endl;
+            // std::cout << "Player lower bound coord = " << player->getPosition().y + player->getGlobalBounds().height << std::endl;
 
             float delta = player->getPosition().y +
                           player->getGlobalBounds().height -
                           tile->getPosition().y;
             
-            std::cout << "delta =" << delta << std::endl;
+            // std::cout << "delta =" << delta << std::endl;
 
             sf::Vector2f player_pos = player->getPosition();
-            std::cout << "player_pos_y = " << player_pos.y << std::endl;
+            // std::cout << "player_pos_y = " << player_pos.y << std::endl;
 
             player_pos.y -= delta;
-            std::cout << "player_new_pos_y = " << player_pos.y << std::endl;
+            // std::cout << "player_new_pos_y = " << player_pos.y << std::endl;
 
             player->setPosition(player_pos);
-            std::cout << "player_pos_y = " << player->getPosition().y << std::endl;
+            // std::cout << "player_pos_y = " << player->getPosition().y << std::endl;
             
             player->setVelocity(sf::Vector2f(player->getVelocity().x, 0));
         }
+    }
+}
+
+void CollisionHandler::run(std::vector<Player *> &players,
+                           std::vector<Tile *> &tiles,
+                           std::vector<Enemy *> &enemies)
+{
+    // Cheking Player/tile collision
+    for (auto &player : players)
+    {
+        checkPlayerTilesCollision(player, tiles);
     }
 }
 

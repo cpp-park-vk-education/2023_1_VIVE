@@ -1,13 +1,19 @@
 #include "physical_object.hpp"
 
 PhysicalObject::PhysicalObject(const sf::Vector2f size,
-    const sf::Vector2f position)
+                               const sf::Vector2f position)
     : hitbox_(size, position)
 {
 }
 
 PhysicalObject::~PhysicalObject()
 {
+}
+
+void PhysicalObject::setPosition(const sf::Vector2f position)
+{
+    sprite_.setPosition(position);
+    hitbox_.setPosition(position);
 }
 
 sf::Vector2f PhysicalObject::getPosition() const

@@ -81,18 +81,6 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates state) const
     target.draw(sprite_);
 }
 
-void Player::setPosition(const sf::Vector2f position)
-{
-    sprite_.setPosition(position);
-    hitbox_.setPosition(position);
-}
-
-void Player::move(const sf::Vector2f displacement)
-{
-    sprite_.move(displacement);
-    hitbox_.move(displacement);
-}
-
 void Player::updateMovement(const float delta_time)
 {
     displacement_ = sf::Vector2f(0.f, 0.f);

@@ -3,6 +3,8 @@
 #include "entity.hpp"
 
 #include <string>
+#include <memory>
+
 
 class Player : public Entity
 {
@@ -34,10 +36,8 @@ public:
     void update(const sf::Event &event, const float delta_time) override;
     void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 
-    // PhysicalObject overrides
-    void setPosition(const sf::Vector2f position) override;
-
     // MovableObject overrides
-    void move(const sf::Vector2f displacement) override;
     void updateMovement(const float delta_time) override;
 };
+
+using PlayerShPtr = std::shared_ptr<Player>;

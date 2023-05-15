@@ -13,7 +13,9 @@ void GameEngine::update()
     float delta_time = clock_.restart().asSeconds();
 
     updatePlayer(delta_time);
-    
+
+    updateParticles(delta_time);
+
     updateTiles();
 
     updateCollision();
@@ -32,6 +34,11 @@ void GameEngine::drawTiles()
     }
 }
 
+void GameEngine::drawParticles()
+{
+    coin_particles_->draw(window_, sf::RenderStates());
+}
+
 void GameEngine::draw()
 {
     window_.clear();
@@ -39,6 +46,7 @@ void GameEngine::draw()
     // Render game
     drawPlayer();
     drawTiles();
+    drawParticles();
     window_.display();
 }
 
@@ -50,7 +58,8 @@ void GameEngine::initWindow()
 
 void GameEngine::initPlayer()
 {
-    player_ = new Player(sf::Vector2(25.f, 50.f), sf::Vector2(300.f, 100.f));
+    player_ = new Player(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
+                         sf::Vector2f(300.f, 100.f));
 }
 
 void GameEngine::initTiles()
@@ -58,13 +67,35 @@ void GameEngine::initTiles()
     size_t tiles_count = 10;
     float x = 250;
     float y = 400;
-    sf::Vector2f tile_size(25.f, 25.f);
-    
+    sf::Vector2f tile_size(BASE_SIZE, BASE_SIZE);
+
     for (size_t i{}; i < tiles_count; ++i)
     {
-        sf::Vector2f tile_coords(x + i * 25, y);
+        x += 25;
+        sf::Vector2f tile_coords(x, y);
         tiles_.push_back(new Tile(tile_size, tile_coords));
     }
+
+    for (int i{}; i < tiles_count; ++i)
+    {
+        if (i % 2)
+        {
+            x += 25;
+        }
+        else
+        {
+            y -= 25;
+        }
+
+        sf::Vector2f tile_coords(x, y);
+        tiles_.push_back(new Tile(tile_size, tile_coords));
+    }
+}
+
+void GameEngine::initParticles()
+{
+    coin_particles_ = new ParticleSet(10, sf::Vector2f(10, 10),
+                                      sf::Vector2f(300.f, 100.f), COIN);
 }
 
 void GameEngine::updatePlayer(const float delta_time)
@@ -80,9 +111,21 @@ void GameEngine::updateTiles()
     }
 }
 
+void GameEngine::updateParticles(const float delta_time)
+{
+    coin_particles_->generate();
+    coin_particles_->update(event_, delta_time);
+}
+
 void GameEngine::updateCollision()
 {
-    collision_handler_->checkPlayerTilesCollision(player_, tiles_);
+    std::vector<Player *> players;
+    players.push_back(player_);
+    std::vector<Enemy *> enemies{};
+    
+    collision_handler_->run(players, tiles_, enemies);
+
+    players.clear();
 }
 
 GameEngine::GameEngine()
@@ -90,6 +133,7 @@ GameEngine::GameEngine()
     initWindow();
     initPlayer();
     initTiles();
+    initParticles();
 
     collision_handler_ = new CollisionHandler();
 }

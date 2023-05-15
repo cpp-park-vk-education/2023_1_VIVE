@@ -10,6 +10,12 @@ MovableObject::~MovableObject()
 {
 }
 
+void MovableObject::move(const sf::Vector2f displacement)
+{
+    sprite_.move(displacement);
+    hitbox_.move(displacement);
+}
+
 void MovableObject::setVelocity(const sf::Vector2f &velocity)
 {
     velocity_ = velocity;
