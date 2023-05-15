@@ -14,7 +14,7 @@ public:
     CameraTarget& operator=(CameraTarget&&) = delete;
 
     void setCenter(uint x, uint y);
-    void setSize(const sf::Vector2u& size);
+    void setCameraSize(const sf::Vector2u& size);
     void follow(sf::Sprite sprite);
     void unfollow();
     sf::Vector2f getCenter() const;

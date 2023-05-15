@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_manager.hpp"
 #include <SFML/Graphics.hpp>
 
 class StatusExpirience {

@@ -1,0 +1,13 @@
+add_subdirectory(navigationIcons/)
+add_subdirectory(statusBar/)
+add_subdirectory(statusExpirience/)
+add_subdirectory(statusMoney/)
+add_subdirectory(statusWeapon/)
+add_subdirectory(playerUserInterface/)
+
+target_include_directories(navigation_icons PUBLIC navigationIcons)
+target_include_directories(status_bar PUBLIC statusBar)
+target_include_directories(status_expirience PUBLIC statusExpirience)
+target_include_directories(status_money PUBLIC statusMoney)
+target_include_directories(status_weapon PUBLIC statusWeapon)
+target_include_directories(player_user_interface PUBLIC playerUserInterface)

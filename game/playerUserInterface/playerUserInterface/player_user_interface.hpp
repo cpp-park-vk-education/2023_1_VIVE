@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../statusExpirience/status_expirience.hpp"
-#include "../navigationIcons/navigation_icons.hpp"
-#include "../statusWeapon/status_weapon.hpp"
-#include "../statusMoney/status_money.hpp"
-#include "../statusBar/status_bar.hpp"
+#include "status_expirience.hpp"
+#include "navigation_icons.hpp"
+#include "status_weapon.hpp"
+#include "status_money.hpp"
+#include "status_bar.hpp"
 #include <SFML/Graphics.hpp>
 #include <memory>
 

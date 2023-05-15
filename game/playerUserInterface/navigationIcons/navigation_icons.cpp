@@ -1,4 +1,3 @@
-#include "../../assetManager/asset_manager.hpp"
 #include "navigation_icons.hpp"
 
 NavigationIcons::NavigationIcons(const sf::Vector2u& camera_size) {

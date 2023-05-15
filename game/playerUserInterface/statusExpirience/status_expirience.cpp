@@ -1,4 +1,3 @@
-#include "../../assetManager/asset_manager.hpp"
 #include "status_expirience.hpp"
 
 StatusExpirience::StatusExpirience(const sf::Vector2u& camera_size) {

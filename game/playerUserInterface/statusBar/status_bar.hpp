@@ -1,6 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "asset_manager.hpp"
+#include <iostream>
 
 class StatusPlayerBar {
 public:

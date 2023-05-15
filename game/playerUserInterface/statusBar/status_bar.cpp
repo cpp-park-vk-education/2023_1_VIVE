@@ -1,6 +1,4 @@
-#include "../../assetManager/asset_manager.hpp"
 #include "status_bar.hpp"
-#include <iostream>
 
 //Constructor which define is it mana bar or not and set corresponing image
 StatusPlayerBar::StatusPlayerBar(bool is_mana_bar, const sf::Vector2u& camera_size) {

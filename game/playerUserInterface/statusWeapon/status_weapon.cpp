@@ -1,4 +1,3 @@
-#include "../../assetManager/asset_manager.hpp"
 #include "status_weapon.hpp"
 
 StatusWeapon::StatusWeapon(const sf::Vector2u& camera_size, const std::string& weapon_name) {

@@ -4,15 +4,14 @@ CameraTarget::CameraTarget(const sf::Vector2u& camera_size, const sf::FloatRect&
     camera_size_ = camera_size;
     restriction_ = restriction;
 
-    setSize(camera_size_);
+    setCameraSize(camera_size_);
 }
 
 void CameraTarget::setCenter(uint x, uint y) {
 
 }
 
-void CameraTarget::setSize(const sf::Vector2u& size) {
-
+void CameraTarget::setCameraSize(const sf::Vector2u& size) {
 }
 
 void CameraTarget::follow(sf::Sprite sprite) {

@@ -1,4 +1,3 @@
-#include "../../assetManager/asset_manager.hpp"
 #include "status_money.hpp"
 
 StatusMoney::StatusMoney(const sf::Vector2u& camera_size) {

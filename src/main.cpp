@@ -1,8 +1,9 @@
 #include <SFML/Graphics.hpp>
-#include "../game/assetManager/asset_manager.hpp"
-#include "../game/cameraTarget/camera_target.hpp"
-#include "../game/playerUserInterface/playerUserInterface/player_user_interface.hpp"
+#include "asset_manager.hpp"
+#include "camera_target.hpp"
+#include "player_user_interface.hpp"
 #include <iostream>
+#include <filesystem>
 
 int main() {
     std::string level = "level_1";
@@ -26,6 +27,8 @@ int main() {
     pui.updateBar(false, 86);
     pui.updateMaxStatusBar(true, 500);
     pui.updateMaxStatusBar(false, 500);
+    pui.updateBar(true, 471);
+    pui.updateBar(false, 399);
 
     pui.updateExpirienceLevel(10, 200);
     pui.updateExpirienceCurrentPoints(14);
