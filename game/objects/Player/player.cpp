@@ -76,11 +76,6 @@ void Player::update(const sf::Event &event, const float delta_time)
     updateMovement(delta_time);
 }
 
-void Player::draw(sf::RenderTarget &target, sf::RenderStates state) const
-{
-    target.draw(sprite_);
-}
-
 void Player::updateMovement(const float delta_time)
 {
     displacement_ = sf::Vector2f(0.f, 0.f);

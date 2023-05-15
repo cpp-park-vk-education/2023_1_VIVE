@@ -2,22 +2,29 @@
 
 void Particle::initSprite()
 {
-    sprite_.setFillColor(sf::Color::Yellow);
+    if (type_ == TYPE::COIN)
+    {
+        sprite_.setFillColor(sf::Color::Yellow);
+    }
+    else if (type_ == TYPE::EXP)
+    {
+        sprite_.setFillColor(sf::Color::Blue);
+    }
     sprite_.setSize(hitbox_.getSize());
     sprite_.setPosition(hitbox_.getPosition());
 }
 
 void Particle::initPhysics()
 {
-    drag_ = 0.9;
+    drag_ = 0.7;
     gravity_acceleration_ = 1000;
 
     max_speed_ = 200;
     speed_ = 100;
     float init_velocity_x = random_float(-max_speed_, max_speed_);
-    std::cout << " x = " << init_velocity_x;
+    // std::cout << " x = " << init_velocity_x;
     float init_velocity_y = random_float(-max_speed_, max_speed_);
-    std::cout << " y = " << init_velocity_y;
+    // std::cout << " y = " << init_velocity_y;
     sf::Vector2f init_velocity(init_velocity_x, init_velocity_y);
 
     is_moving = false;

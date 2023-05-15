@@ -34,7 +34,6 @@ public:
 
     // Object overrides
     void update(const sf::Event &event, const float delta_time) override;
-    void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 
     // MovableObject overrides
     void updateMovement(const float delta_time) override;

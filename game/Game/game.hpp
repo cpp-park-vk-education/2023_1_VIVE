@@ -10,6 +10,7 @@
 #include "collision_handler.hpp"
 #include "particle.hpp"
 #include "particle_set.hpp"
+#include "enemy.hpp"
 
 #include <memory>
 #include <vector>
@@ -23,8 +24,8 @@ private:
     // Objects
     Player *player_;
     std::vector<Tile *> tiles_;
-
     ParticleSet *coin_particles_;
+    std::vector<Enemy *> enemies_;
 
     CollisionHandler *collision_handler_;
 
@@ -33,18 +34,21 @@ private:
     void initPlayer();
     void initTiles();
     void initParticles();
+    void initEnemies();
 
     // Updates
     void updatePlayer(const float delta_time);
     void updateTiles();
     void updateParticles(const float delta_time);
     void updateCollision();
+    void updateEnemies(const float delta_time);
     void update();
 
     // Draws
     void drawPlayer();
     void drawTiles();
     void drawParticles();
+    void drawEnemies();
     void draw();
 
     // Timer

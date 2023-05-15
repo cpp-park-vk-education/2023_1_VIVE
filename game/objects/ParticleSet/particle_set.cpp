@@ -4,10 +4,10 @@ void ParticleSet::initParticles()
 {
     for (int i{}; i < particles_count_; ++i)
     {
-        std::cout << "Particle # " << i;
+        // std::cout << "Particle #" << i;
         Particle *particle = new Particle(size_, position_, type_);
         particles_.push_back(particle);
-        std::cout << std::endl;
+        // std::cout << std::endl;
     }
 }
 

@@ -13,10 +13,7 @@ void CollisionHandler::checkPlayerTilesCollision(Player *player,
 {
     for (const auto &tile : tiles)
     {
-        if (checkAABBCollision(player, tile))
-        {
-            handleCollision(player, tile);
-        }
+        handleCollision(player, tile);
     }
 }
 
@@ -29,9 +26,19 @@ void CollisionHandler::checkParticleTileCollision(Particle *particle,
     }
 }
 
+void CollisionHandler::checkEnemyTileCollision(Enemy *enemy,
+                                               std::vector<Tile *> &tiles)
+{
+    for (const auto &tile : tiles)
+    {
+        handleCollision(enemy, tile);
+    }
+}
+
 void CollisionHandler::run(std::vector<Player *> &players,
                            std::vector<Tile *> &tiles,
-                           ParticleSet *particles)
+                           ParticleSet *particles,
+                           std::vector<Enemy *> &enemies)
 {
     // Cheking Player/Tile collision
     for (auto &player : players)
@@ -43,6 +50,12 @@ void CollisionHandler::run(std::vector<Player *> &players,
     for (auto &particle : *particles)
     {
         checkParticleTileCollision(particle, tiles);
+    }
+
+    // Checking Enemy/Tile collision
+    for (auto &enemy : enemies)
+    {
+        checkEnemyTileCollision(enemy, tiles);
     }
 }
 

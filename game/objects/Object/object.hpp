@@ -21,7 +21,7 @@ protected:
     void virtual initSprite() = 0;
 
 public:
-    virtual void draw(sf::RenderTarget &target, sf::RenderStates state) const = 0;
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates state) const;
     virtual void update(const sf::Event &event, const float delta_time) = 0;
     Object();
     virtual ~Object();

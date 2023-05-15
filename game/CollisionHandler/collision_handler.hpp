@@ -4,6 +4,7 @@
 #include "player.hpp"
 #include "tile.hpp"
 #include "particle_set.hpp"
+#include "enemy.hpp"
 
 #include <vector>
 #include <iostream>
@@ -24,13 +25,16 @@ private:
     void checkParticleTileCollision(Particle *particle,
                                    std::vector<Tile *> &tiles);
 
+    void checkEnemyTileCollision(Enemy *enemy, std::vector<Tile *> &tiles);
+
 public:
     CollisionHandler();
     ~CollisionHandler();
 
     void run(std::vector<Player *> &players,
              std::vector<Tile *> &tiles,
-             ParticleSet *particles);
+             ParticleSet *particles,
+             std::vector<Enemy *> &enemies);
 };
 
 using CollisionHandlerShPtr = std::shared_ptr<CollisionHandler>;

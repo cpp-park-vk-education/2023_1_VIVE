@@ -20,8 +20,8 @@ void GameEngine::update()
     }
 
     updateParticles(delta_time);
-
     updateTiles();
+    updateEnemies(delta_time);
 
     updateCollision();
 }
@@ -44,14 +44,23 @@ void GameEngine::drawParticles()
     coin_particles_->draw(window_, sf::RenderStates());
 }
 
+void GameEngine::drawEnemies()
+{
+    for (const auto &enemy : enemies_)
+    {
+        enemy->draw(window_, sf::RenderStates());
+    }
+}
+
 void GameEngine::draw()
 {
     window_.clear();
 
     // Render game
-    drawPlayer();
     drawTiles();
+    drawEnemies();
     drawParticles();
+    drawPlayer();
     window_.display();
 }
 
@@ -64,34 +73,19 @@ void GameEngine::initWindow()
 void GameEngine::initPlayer()
 {
     player_ = new Player(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
-                         sf::Vector2f(300.f, 100.f));
+                         sf::Vector2f(100.f, 100.f));
 }
 
 void GameEngine::initTiles()
 {
     size_t tiles_count = 10;
-    float x = 250;
+    float x = 0;
     float y = 400;
     sf::Vector2f tile_size(BASE_SIZE, BASE_SIZE);
 
-    for (size_t i{}; i < tiles_count; ++i)
+    for (size_t i{}; i <= window_.getSize().x; i += BASE_SIZE)
     {
-        x += 25;
-        sf::Vector2f tile_coords(x, y);
-        tiles_.push_back(new Tile(tile_size, tile_coords));
-    }
-
-    for (int i{}; i < tiles_count; ++i)
-    {
-        if (i % 2)
-        {
-            x += 25;
-        }
-        else
-        {
-            y -= 25;
-        }
-
+        x = i;
         sf::Vector2f tile_coords(x, y);
         tiles_.push_back(new Tile(tile_size, tile_coords));
     }
@@ -101,6 +95,16 @@ void GameEngine::initParticles()
 {
     coin_particles_ = new ParticleSet(10, sf::Vector2f(10, 10),
                                       sf::Vector2f(400.f, 200.f), COIN);
+}
+
+void GameEngine::initEnemies()
+{
+    size_t enemies_count = 1;
+    for (size_t i{}; i < enemies_count; ++i)
+    {
+        enemies_.push_back(new Enemy(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
+                                     sf::Vector2f(500.f, 100.f)));
+    }
 }
 
 void GameEngine::updatePlayer(const float delta_time)
@@ -125,10 +129,18 @@ void GameEngine::updateCollision()
 {
     std::vector<Player *> players;
     players.push_back(player_);
-    
-    collision_handler_->run(players, tiles_, coin_particles_);
+
+    collision_handler_->run(players, tiles_, coin_particles_, enemies_);
 
     players.clear();
+}
+
+void GameEngine::updateEnemies(const float delta_time)
+{
+    for (const auto &enemy : enemies_)
+    {
+        enemy->update(event_, delta_time);
+    }
 }
 
 GameEngine::GameEngine()
@@ -137,6 +149,7 @@ GameEngine::GameEngine()
     initPlayer();
     initTiles();
     initParticles();
+    initEnemies();
 
     collision_handler_ = new CollisionHandler();
 }

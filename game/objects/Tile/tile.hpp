@@ -17,7 +17,6 @@ public:
 
     // Object overrides
     void update(const sf::Event &event, const float delta_time) override;
-    void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 
     // PhysicalObject overrides
     void setPosition(const sf::Vector2f size) override;

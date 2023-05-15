@@ -28,11 +28,6 @@ void Tile::update(const sf::Event &event, const float delta_time)
 {
 }
 
-void Tile::draw(sf::RenderTarget &target, sf::RenderStates state) const
-{
-    target.draw(sprite_);
-}
-
 void Tile::setPosition(const sf::Vector2f size)
 {
 }
