@@ -19,21 +19,12 @@ void StatusMoney::setObjectPosition(const sf::Vector2u& camera_size) {
                             static_cast<float>(camera_size.y) - icon_sprite_.getGlobalBounds().height);
 
     text_.setCharacterSize(static_cast<unsigned int>(camera_size.y / 1650.0f * 150));
-    text_.setPosition(static_cast<float>(camera_size.x) - static_cast<float>(camera_size.x) * 4.0f / 100.0f,
+    text_.setPosition(static_cast<float>(camera_size.x) - static_cast<float>(camera_size.x) * 8.0f / 100.0f,
                             static_cast<float>(camera_size.y) - text_.getGlobalBounds().height - static_cast<float>(camera_size.y) * 7.5f / 100.0f);
 }
 
 void StatusMoney::setStatus(uint16_t status) {
     current_status_ = status;
-
-    char state = 0;
-    char iter = 0;
-    while (iter != 8) {
-        if (status & 1 == true)
-            ++state;
-        status = status >> 1;
-        ++iter;
-    }
 
     text_.setString(std::to_string(current_status_) + "$");
 }

@@ -43,7 +43,13 @@ public:
     virtual void update(const sf::Event& event) override;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+    void changeResolution(const sf::Vector2u& camera_size);
+
+    void updateWeapon(const std::string& name, const sf::Vector2u& camera_size);
     void updateBar(bool is_mana_bar, uint8_t status);
+    void updateMoney(uint16_t money);
+    void updateExpirienceLevel(uint8_t total_level, uint16_t max_points);
+    void updateExpirienceCurrentPoints(uint16_t current_points);
 
 private:
     std::unique_ptr<StatusWeapon> weapon_status_;

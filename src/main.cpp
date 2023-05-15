@@ -19,6 +19,11 @@ int main() {
     pui.updateBar(true, 59);
     pui.updateBar(false, 86);
 
+    pui.updateExpirienceLevel(10, 200);
+    pui.updateExpirienceCurrentPoints(14);
+
+    pui.updateMoney(1500);
+
     while(window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {

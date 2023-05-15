@@ -23,6 +23,8 @@ public:
     sf::Sprite getSprite() const;
 
 private:
+    void updateTextInfo();
+
     uint8_t total_level_;
     uint16_t current_points_;
     uint16_t max_points_;
