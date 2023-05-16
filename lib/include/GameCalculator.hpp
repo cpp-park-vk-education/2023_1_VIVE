@@ -13,12 +13,14 @@ class GameCalculator
 {
 private:
     //LevelManagerUPtr curr_state_;
-    ISerializableShPtr serializer_;
+    //ISerializableShPtr serializer_;
 
 public:
-    GameCalculator(ISerializableShPtr serializer) : serializer_(serializer)
-    {
-    }
+    //GameCalculator(ISerializableShPtr serializer) : serializer_(serializer)
+    //{
+    //}
+
+    GameCalculator() = default;
 
     Message checkCollision(const Message& mess);
 };

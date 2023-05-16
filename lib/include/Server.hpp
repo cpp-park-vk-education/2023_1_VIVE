@@ -9,11 +9,12 @@ private:
     std::unordered_set<ConnectionShPtr> free_connections;
     tcp::acceptor acceptor_;
 
+    int highest_room_id;
     void doAccept();
 
 public:
     Server(boost::asio::io_context& io_context, const tcp::endpoint& endpoint);
 
-    RoomShPtr createNewRoom();
+    std::pair<RoomShPtr, int> createNewRoom();
     RoomShPtr getRoom(int room_id);
 };

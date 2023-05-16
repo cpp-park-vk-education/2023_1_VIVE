@@ -16,5 +16,5 @@ public:
 
     void join(const ConnectionShPtr new_participant);
     void leave(const ConnectionShPtr participant_to_leave);
-    void deliver(const Message& mess);
+    void deliver(const response::Response& resp);
 };
