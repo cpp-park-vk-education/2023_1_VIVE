@@ -1,0 +1,6 @@
+add_subdirectory(client)
+add_subdirectory(game_engine)
+add_subdirectory(objects)
+add_subdirectory(level)
+add_subdirectory(state)
+#add_subdirectory(saving)
