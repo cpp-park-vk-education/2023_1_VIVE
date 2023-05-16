@@ -87,7 +87,10 @@ void GameEngine::initAssets() {
 }
 
 void GameEngine::initWindow() {
-    window_.create(sf::VideoMode::getDesktopMode(), "Atomic God");
+    window_.create(sf::VideoMode(BASE_SIZE * 32, BASE_SIZE * 18), "Atomic God");
+    int window_pos_x = sf::VideoMode::getDesktopMode().width / 2 - window_.getSize().x / 2;
+    int window_pos_y = sf::VideoMode::getDesktopMode().height / 2 - window_.getSize().y / 2;
+    window_.setPosition(sf::Vector2i(window_pos_x, window_pos_y));
     window_.setFramerateLimit(60);
 }
 
