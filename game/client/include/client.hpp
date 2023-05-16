@@ -13,16 +13,18 @@ using net::ip::tcp;
 class Client
 {
 public:
-    Client();
-
-    void write(const proto::Message& msg);
-    void createNewRoom();
-    void joinRoom(unsigned int id);
-    void leaveRoom();
+    void connect();
+    void write(const proto::Request& msg);
 
 
 private:
-    ClientConnectionShPtr c_;
+    boost::asio::io_context io_context_;
+    ClientConnectionShPtr c_ = nullptr;
+
+    bool connected_ = false;
+
+    std::string ip_ = "127.0.0.1";
+    std::string port_ = "5555";
 
 };
 

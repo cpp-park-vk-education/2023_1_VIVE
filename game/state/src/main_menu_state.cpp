@@ -38,16 +38,23 @@ void MainMenuState::handlePressedButton(const ButtonShPtr& btn, StateManager* ma
             manager->changeState(StateManager::SINGLE_STATE);
         }
         if (en_btn == START_MULTIPLAYER) {
-            // TODO(Aleshin): send to server
             manager->changeState(StateManager::INIT_MULTIPLAYER_STATE);
+            sendServerAboutInitMultiplayer_();
         }
         if (en_btn == JOIN) {
-            // TODO(Aleshin): send to server
             manager->changeState(StateManager::JOIN_STATE);
         }
     }
 }
 
-void MainMenuState::readMessage(const proto::Message &msg) {
+void MainMenuState::readMessage(const proto::Response &msg) {
 
+}
+
+void MainMenuState::sendServerAboutInitMultiplayer_() {
+    proto::Request msg;
+    proto::Request::InitMultiplayerState state;
+    msg.set_allocated_init_multiplayer_state(&state);
+    std::cout << msg.has_init_multiplayer_state() << std::endl;
+    GameEngine::getClient()->write(msg);
 }

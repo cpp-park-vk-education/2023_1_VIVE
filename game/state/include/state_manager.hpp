@@ -26,6 +26,8 @@ public:
     };
 
 public:
+    void readMessage(const proto::Response &msg);
+
     void update(const sf::Event &event);
 
     void changeState(EnState newState);

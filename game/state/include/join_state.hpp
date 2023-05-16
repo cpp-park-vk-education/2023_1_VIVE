@@ -8,7 +8,10 @@ public:
     JoinState();
 
     void update(const sf::Event &event) override;
-    void readMessage(const proto::Message& msg);
+    void readMessage(const proto::Response &msg);
+
+private:
+    void sendCodeToServer_(const std::string &code);
 
 private:
     sf::Font fnt_;

@@ -14,4 +14,8 @@ void StateManager::update(const sf::Event &event) {
     to_state_object_[curState_]->update(event);
 }
 
+void StateManager::readMessage(const proto::Response &msg) {
+    to_state_object_[curState_]->readMessage(msg);
+}
+
 

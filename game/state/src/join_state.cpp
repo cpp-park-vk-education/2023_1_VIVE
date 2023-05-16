@@ -50,6 +50,10 @@ void JoinState::update(const sf::Event &event) {
         if (event.key.control && event.key.code == sf::Keyboard::V) {
             input_field_->setText(input_field_->getText() + sf::Clipboard::getString().toAnsiString());
         }
+        if (event.key.code == sf::Keyboard::Enter) {
+            std::string code = input_field_->getText();
+            sendCodeToServer_(code);
+        }
     }
 
 
@@ -61,6 +65,16 @@ void JoinState::update(const sf::Event &event) {
     objects_.push_back(input_field_);
 }
 
-void JoinState::readMessage(const proto::Message &msg) {
+void JoinState::sendCodeToServer_(const std::string &code) {
+    proto::Request msg;
+    proto::Request::JoinState state;
+    state.set_code(code);
+    msg.set_allocated_join_state(&state);
+    std::cout << msg.has_join_state() << std::endl;
+    GameEngine::getClient()->write(msg);
+}
+
+void JoinState::readMessage(const proto::Response &msg) {
 
 }
+

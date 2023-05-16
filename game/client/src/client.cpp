@@ -1,20 +1,25 @@
 #include <iostream>
 
+#include <thread>
+
 #include "client.hpp"
 
 
-Client::Client() {
+void Client::connect() {
+
+    if (connected_) {
+        return;
+    }
     try
     {
-        boost::asio::io_context io_context;
 
-        tcp::resolver resolver(io_context);
-        auto endpoints = resolver.resolve("127.0.0.1", "5555");
-        c_ = std::make_shared<ClientConnection>(io_context, endpoints);
-
-        std::thread t([&io_context]()
+        tcp::resolver resolver_(io_context_);
+        tcp::resolver::results_type endpoints_ = resolver_.resolve(ip_, port_);
+        c_ = std::make_shared<ClientConnection>(io_context_, endpoints_);
+        connected_ = true;
+        std::thread t([this]()
                       {
-                          io_context.run();
+                          io_context_.run();
                       });
 
         c_->close();
@@ -22,22 +27,16 @@ Client::Client() {
     }
     catch (std::exception& e)
     {
-        std::cerr << "Exception: " << e.what() << "\n";
+        connected_ = false;
+        std::cerr << "Exception client: " << e.what() << "\n";
     }
 }
 
-void Client::write(const proto::Message &msg) {
-
+void Client::write(const proto::Request &msg) {
+    if (!connected_) {
+        connect();
+    }
+    c_->write(msg.SerializeAsString());
 }
 
-void Client::createNewRoom() {
 
-}
-
-void Client::joinRoom(unsigned int id) {
-
-}
-
-void Client::leaveRoom() {
-
-}

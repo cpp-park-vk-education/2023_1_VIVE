@@ -9,7 +9,6 @@ InitMultiplayerState::InitMultiplayerState() {
     if (!fnt_.loadFromFile("fonts/EightBits.ttf")) {
         std::cout << "error" << std::endl;
     }
-    sendServerAboutInit();
     initObjects_();
 }
 
@@ -82,11 +81,14 @@ void InitMultiplayerState::update(const sf::Event &event) {
     }
 }
 
-void InitMultiplayerState::readMessage(const proto::Message &msg) {
-    // ...
-    is_waiting_ = false;
+void InitMultiplayerState::readMessage(const proto::Response &msg) {
+    if (msg.has_init_multiplayer_state()) {
+        code_string_ = msg.init_multiplayer_state().code();
+        is_waiting_ = false;
+    }
+    if (msg.has_join_state()) {
+        GameEngine::getStateManager()->changeState(StateManager::COOP_STATE);
+    }
 }
 
-void InitMultiplayerState::sendServerAboutInit() {
-//    GameEngine::getClient()->write()
-}
+

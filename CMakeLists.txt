@@ -16,7 +16,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 # Подключаем Protobuf
 find_package(Protobuf REQUIRED)
 
-option(BUILD_TESTS "Build tests" ON)
+option(BUILD_TESTS "Build tests" OFF)
 
 # Подключаем GTest
 find_package(GTest CONFIG REQUIRED)

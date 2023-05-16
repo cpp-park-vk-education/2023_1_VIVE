@@ -1,2 +1,2 @@
-add_library(messages SHARED message.pb.cc message.pb.h)
+add_library(messages message.pb.cc message.pb.h)
 

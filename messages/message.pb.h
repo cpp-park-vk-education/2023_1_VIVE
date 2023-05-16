@@ -31,7 +31,6 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
-#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -48,7 +47,7 @@ struct TableStruct_message_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -56,65 +55,54 @@ struct TableStruct_message_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_message_2eproto;
 namespace proto {
-class Message;
-class MessageDefaultTypeInternal;
-extern MessageDefaultTypeInternal _Message_default_instance_;
-class Message_InitMultiplayerState;
-class Message_InitMultiplayerStateDefaultTypeInternal;
-extern Message_InitMultiplayerStateDefaultTypeInternal _Message_InitMultiplayerState_default_instance_;
-class Message_JoinState;
-class Message_JoinStateDefaultTypeInternal;
-extern Message_JoinStateDefaultTypeInternal _Message_JoinState_default_instance_;
+class Request;
+class RequestDefaultTypeInternal;
+extern RequestDefaultTypeInternal _Request_default_instance_;
+class Request_InitMultiplayerState;
+class Request_InitMultiplayerStateDefaultTypeInternal;
+extern Request_InitMultiplayerStateDefaultTypeInternal _Request_InitMultiplayerState_default_instance_;
+class Request_JoinState;
+class Request_JoinStateDefaultTypeInternal;
+extern Request_JoinStateDefaultTypeInternal _Request_JoinState_default_instance_;
+class Response;
+class ResponseDefaultTypeInternal;
+extern ResponseDefaultTypeInternal _Response_default_instance_;
+class Response_InitMultiplayerState;
+class Response_InitMultiplayerStateDefaultTypeInternal;
+extern Response_InitMultiplayerStateDefaultTypeInternal _Response_InitMultiplayerState_default_instance_;
+class Response_JoinState;
+class Response_JoinStateDefaultTypeInternal;
+extern Response_JoinStateDefaultTypeInternal _Response_JoinState_default_instance_;
 }  // namespace proto
 PROTOBUF_NAMESPACE_OPEN
-template<> ::proto::Message* Arena::CreateMaybeMessage<::proto::Message>(Arena*);
-template<> ::proto::Message_InitMultiplayerState* Arena::CreateMaybeMessage<::proto::Message_InitMultiplayerState>(Arena*);
-template<> ::proto::Message_JoinState* Arena::CreateMaybeMessage<::proto::Message_JoinState>(Arena*);
+template<> ::proto::Request* Arena::CreateMaybeMessage<::proto::Request>(Arena*);
+template<> ::proto::Request_InitMultiplayerState* Arena::CreateMaybeMessage<::proto::Request_InitMultiplayerState>(Arena*);
+template<> ::proto::Request_JoinState* Arena::CreateMaybeMessage<::proto::Request_JoinState>(Arena*);
+template<> ::proto::Response* Arena::CreateMaybeMessage<::proto::Response>(Arena*);
+template<> ::proto::Response_InitMultiplayerState* Arena::CreateMaybeMessage<::proto::Response_InitMultiplayerState>(Arena*);
+template<> ::proto::Response_JoinState* Arena::CreateMaybeMessage<::proto::Response_JoinState>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace proto {
 
-enum Message_State : int {
-  Message_State_INIT_MULTIPLAYER = 0,
-  Message_State_JOIN = 1
-};
-bool Message_State_IsValid(int value);
-constexpr Message_State Message_State_State_MIN = Message_State_INIT_MULTIPLAYER;
-constexpr Message_State Message_State_State_MAX = Message_State_JOIN;
-constexpr int Message_State_State_ARRAYSIZE = Message_State_State_MAX + 1;
-
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Message_State_descriptor();
-template<typename T>
-inline const std::string& Message_State_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, Message_State>::value ||
-    ::std::is_integral<T>::value,
-    "Incorrect type passed to function Message_State_Name.");
-  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    Message_State_descriptor(), enum_t_value);
-}
-inline bool Message_State_Parse(
-    const std::string& name, Message_State* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Message_State>(
-    Message_State_descriptor(), name, value);
-}
 // ===================================================================
 
-class Message_InitMultiplayerState :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.Message.InitMultiplayerState) */ {
+class Request_InitMultiplayerState :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.Request.InitMultiplayerState) */ {
  public:
-  Message_InitMultiplayerState();
-  virtual ~Message_InitMultiplayerState();
+  Request_InitMultiplayerState();
+  virtual ~Request_InitMultiplayerState();
 
-  Message_InitMultiplayerState(const Message_InitMultiplayerState& from);
-  Message_InitMultiplayerState(Message_InitMultiplayerState&& from) noexcept
-    : Message_InitMultiplayerState() {
+  Request_InitMultiplayerState(const Request_InitMultiplayerState& from);
+  Request_InitMultiplayerState(Request_InitMultiplayerState&& from) noexcept
+    : Request_InitMultiplayerState() {
     *this = ::std::move(from);
   }
 
-  inline Message_InitMultiplayerState& operator=(const Message_InitMultiplayerState& from) {
+  inline Request_InitMultiplayerState& operator=(const Request_InitMultiplayerState& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Message_InitMultiplayerState& operator=(Message_InitMultiplayerState&& from) noexcept {
+  inline Request_InitMultiplayerState& operator=(Request_InitMultiplayerState&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -139,37 +127,37 @@ class Message_InitMultiplayerState :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const Message_InitMultiplayerState& default_instance();
+  static const Request_InitMultiplayerState& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Message_InitMultiplayerState* internal_default_instance() {
-    return reinterpret_cast<const Message_InitMultiplayerState*>(
-               &_Message_InitMultiplayerState_default_instance_);
+  static inline const Request_InitMultiplayerState* internal_default_instance() {
+    return reinterpret_cast<const Request_InitMultiplayerState*>(
+               &_Request_InitMultiplayerState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(Message_InitMultiplayerState& a, Message_InitMultiplayerState& b) {
+  friend void swap(Request_InitMultiplayerState& a, Request_InitMultiplayerState& b) {
     a.Swap(&b);
   }
-  inline void Swap(Message_InitMultiplayerState* other) {
+  inline void Swap(Request_InitMultiplayerState* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline Message_InitMultiplayerState* New() const final {
-    return CreateMaybeMessage<Message_InitMultiplayerState>(nullptr);
+  inline Request_InitMultiplayerState* New() const final {
+    return CreateMaybeMessage<Request_InitMultiplayerState>(nullptr);
   }
 
-  Message_InitMultiplayerState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Message_InitMultiplayerState>(arena);
+  Request_InitMultiplayerState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Request_InitMultiplayerState>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Message_InitMultiplayerState& from);
-  void MergeFrom(const Message_InitMultiplayerState& from);
+  void CopyFrom(const Request_InitMultiplayerState& from);
+  void MergeFrom(const Request_InitMultiplayerState& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -183,10 +171,10 @@ class Message_InitMultiplayerState :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Message_InitMultiplayerState* other);
+  void InternalSwap(Request_InitMultiplayerState* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "proto.Message.InitMultiplayerState";
+    return "proto.Request.InitMultiplayerState";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -210,58 +198,34 @@ class Message_InitMultiplayerState :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kCodeFieldNumber = 1,
-  };
-  // optional string code = 1;
-  bool has_code() const;
-  private:
-  bool _internal_has_code() const;
-  public:
-  void clear_code();
-  const std::string& code() const;
-  void set_code(const std::string& value);
-  void set_code(std::string&& value);
-  void set_code(const char* value);
-  void set_code(const char* value, size_t size);
-  std::string* mutable_code();
-  std::string* release_code();
-  void set_allocated_code(std::string* code);
-  private:
-  const std::string& _internal_code() const;
-  void _internal_set_code(const std::string& value);
-  std::string* _internal_mutable_code();
-  public:
-
-  // @@protoc_insertion_point(class_scope:proto.Message.InitMultiplayerState)
+  // @@protoc_insertion_point(class_scope:proto.Request.InitMultiplayerState)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr code_;
   friend struct ::TableStruct_message_2eproto;
 };
 // -------------------------------------------------------------------
 
-class Message_JoinState :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.Message.JoinState) */ {
+class Request_JoinState :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.Request.JoinState) */ {
  public:
-  Message_JoinState();
-  virtual ~Message_JoinState();
+  Request_JoinState();
+  virtual ~Request_JoinState();
 
-  Message_JoinState(const Message_JoinState& from);
-  Message_JoinState(Message_JoinState&& from) noexcept
-    : Message_JoinState() {
+  Request_JoinState(const Request_JoinState& from);
+  Request_JoinState(Request_JoinState&& from) noexcept
+    : Request_JoinState() {
     *this = ::std::move(from);
   }
 
-  inline Message_JoinState& operator=(const Message_JoinState& from) {
+  inline Request_JoinState& operator=(const Request_JoinState& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Message_JoinState& operator=(Message_JoinState&& from) noexcept {
+  inline Request_JoinState& operator=(Request_JoinState&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -286,37 +250,37 @@ class Message_JoinState :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const Message_JoinState& default_instance();
+  static const Request_JoinState& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Message_JoinState* internal_default_instance() {
-    return reinterpret_cast<const Message_JoinState*>(
-               &_Message_JoinState_default_instance_);
+  static inline const Request_JoinState* internal_default_instance() {
+    return reinterpret_cast<const Request_JoinState*>(
+               &_Request_JoinState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(Message_JoinState& a, Message_JoinState& b) {
+  friend void swap(Request_JoinState& a, Request_JoinState& b) {
     a.Swap(&b);
   }
-  inline void Swap(Message_JoinState* other) {
+  inline void Swap(Request_JoinState* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline Message_JoinState* New() const final {
-    return CreateMaybeMessage<Message_JoinState>(nullptr);
+  inline Request_JoinState* New() const final {
+    return CreateMaybeMessage<Request_JoinState>(nullptr);
   }
 
-  Message_JoinState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Message_JoinState>(arena);
+  Request_JoinState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Request_JoinState>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Message_JoinState& from);
-  void MergeFrom(const Message_JoinState& from);
+  void CopyFrom(const Request_JoinState& from);
+  void MergeFrom(const Request_JoinState& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -330,10 +294,10 @@ class Message_JoinState :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Message_JoinState* other);
+  void InternalSwap(Request_JoinState* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "proto.Message.JoinState";
+    return "proto.Request.JoinState";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -360,7 +324,7 @@ class Message_JoinState :
   enum : int {
     kCodeFieldNumber = 1,
   };
-  // optional string code = 1;
+  // required string code = 1;
   bool has_code() const;
   private:
   bool _internal_has_code() const;
@@ -380,7 +344,7 @@ class Message_JoinState :
   std::string* _internal_mutable_code();
   public:
 
-  // @@protoc_insertion_point(class_scope:proto.Message.JoinState)
+  // @@protoc_insertion_point(class_scope:proto.Request.JoinState)
  private:
   class _Internal;
 
@@ -392,23 +356,23 @@ class Message_JoinState :
 };
 // -------------------------------------------------------------------
 
-class Message :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.Message) */ {
+class Request :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.Request) */ {
  public:
-  Message();
-  virtual ~Message();
+  Request();
+  virtual ~Request();
 
-  Message(const Message& from);
-  Message(Message&& from) noexcept
-    : Message() {
+  Request(const Request& from);
+  Request(Request&& from) noexcept
+    : Request() {
     *this = ::std::move(from);
   }
 
-  inline Message& operator=(const Message& from) {
+  inline Request& operator=(const Request& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Message& operator=(Message&& from) noexcept {
+  inline Request& operator=(Request&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -433,37 +397,37 @@ class Message :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const Message& default_instance();
+  static const Request& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Message* internal_default_instance() {
-    return reinterpret_cast<const Message*>(
-               &_Message_default_instance_);
+  static inline const Request* internal_default_instance() {
+    return reinterpret_cast<const Request*>(
+               &_Request_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     2;
 
-  friend void swap(Message& a, Message& b) {
+  friend void swap(Request& a, Request& b) {
     a.Swap(&b);
   }
-  inline void Swap(Message* other) {
+  inline void Swap(Request* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline Message* New() const final {
-    return CreateMaybeMessage<Message>(nullptr);
+  inline Request* New() const final {
+    return CreateMaybeMessage<Request>(nullptr);
   }
 
-  Message* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Message>(arena);
+  Request* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Request>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Message& from);
-  void MergeFrom(const Message& from);
+  void CopyFrom(const Request& from);
+  void MergeFrom(const Request& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -477,10 +441,10 @@ class Message :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Message* other);
+  void InternalSwap(Request* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "proto.Message";
+    return "proto.Request";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -502,99 +466,503 @@ class Message :
 
   // nested types ----------------------------------------------------
 
-  typedef Message_InitMultiplayerState InitMultiplayerState;
-  typedef Message_JoinState JoinState;
-
-  typedef Message_State State;
-  static constexpr State INIT_MULTIPLAYER =
-    Message_State_INIT_MULTIPLAYER;
-  static constexpr State JOIN =
-    Message_State_JOIN;
-  static inline bool State_IsValid(int value) {
-    return Message_State_IsValid(value);
-  }
-  static constexpr State State_MIN =
-    Message_State_State_MIN;
-  static constexpr State State_MAX =
-    Message_State_State_MAX;
-  static constexpr int State_ARRAYSIZE =
-    Message_State_State_ARRAYSIZE;
-  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
-  State_descriptor() {
-    return Message_State_descriptor();
-  }
-  template<typename T>
-  static inline const std::string& State_Name(T enum_t_value) {
-    static_assert(::std::is_same<T, State>::value ||
-      ::std::is_integral<T>::value,
-      "Incorrect type passed to function State_Name.");
-    return Message_State_Name(enum_t_value);
-  }
-  static inline bool State_Parse(const std::string& name,
-      State* value) {
-    return Message_State_Parse(name, value);
-  }
+  typedef Request_InitMultiplayerState InitMultiplayerState;
+  typedef Request_JoinState JoinState;
 
   // accessors -------------------------------------------------------
 
   enum : int {
-    kInitMultiplayerStateFieldNumber = 2,
-    kJoinStateFieldNumber = 3,
-    kCurStateFieldNumber = 1,
+    kInitMultiplayerStateFieldNumber = 1,
+    kJoinStateFieldNumber = 2,
   };
-  // optional .proto.Message.InitMultiplayerState init_multiplayer_state = 2;
+  // optional .proto.Request.InitMultiplayerState init_multiplayer_state = 1;
   bool has_init_multiplayer_state() const;
   private:
   bool _internal_has_init_multiplayer_state() const;
   public:
   void clear_init_multiplayer_state();
-  const ::proto::Message_InitMultiplayerState& init_multiplayer_state() const;
-  ::proto::Message_InitMultiplayerState* release_init_multiplayer_state();
-  ::proto::Message_InitMultiplayerState* mutable_init_multiplayer_state();
-  void set_allocated_init_multiplayer_state(::proto::Message_InitMultiplayerState* init_multiplayer_state);
+  const ::proto::Request_InitMultiplayerState& init_multiplayer_state() const;
+  ::proto::Request_InitMultiplayerState* release_init_multiplayer_state();
+  ::proto::Request_InitMultiplayerState* mutable_init_multiplayer_state();
+  void set_allocated_init_multiplayer_state(::proto::Request_InitMultiplayerState* init_multiplayer_state);
   private:
-  const ::proto::Message_InitMultiplayerState& _internal_init_multiplayer_state() const;
-  ::proto::Message_InitMultiplayerState* _internal_mutable_init_multiplayer_state();
+  const ::proto::Request_InitMultiplayerState& _internal_init_multiplayer_state() const;
+  ::proto::Request_InitMultiplayerState* _internal_mutable_init_multiplayer_state();
   public:
 
-  // optional .proto.Message.JoinState join_state = 3;
+  // optional .proto.Request.JoinState join_state = 2;
   bool has_join_state() const;
   private:
   bool _internal_has_join_state() const;
   public:
   void clear_join_state();
-  const ::proto::Message_JoinState& join_state() const;
-  ::proto::Message_JoinState* release_join_state();
-  ::proto::Message_JoinState* mutable_join_state();
-  void set_allocated_join_state(::proto::Message_JoinState* join_state);
+  const ::proto::Request_JoinState& join_state() const;
+  ::proto::Request_JoinState* release_join_state();
+  ::proto::Request_JoinState* mutable_join_state();
+  void set_allocated_join_state(::proto::Request_JoinState* join_state);
   private:
-  const ::proto::Message_JoinState& _internal_join_state() const;
-  ::proto::Message_JoinState* _internal_mutable_join_state();
+  const ::proto::Request_JoinState& _internal_join_state() const;
+  ::proto::Request_JoinState* _internal_mutable_join_state();
   public:
 
-  // required .proto.Message.State cur_state = 1;
-  bool has_cur_state() const;
-  private:
-  bool _internal_has_cur_state() const;
-  public:
-  void clear_cur_state();
-  ::proto::Message_State cur_state() const;
-  void set_cur_state(::proto::Message_State value);
-  private:
-  ::proto::Message_State _internal_cur_state() const;
-  void _internal_set_cur_state(::proto::Message_State value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:proto.Message)
+  // @@protoc_insertion_point(class_scope:proto.Request)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::proto::Message_InitMultiplayerState* init_multiplayer_state_;
-  ::proto::Message_JoinState* join_state_;
-  int cur_state_;
+  ::proto::Request_InitMultiplayerState* init_multiplayer_state_;
+  ::proto::Request_JoinState* join_state_;
+  friend struct ::TableStruct_message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Response_InitMultiplayerState :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.Response.InitMultiplayerState) */ {
+ public:
+  Response_InitMultiplayerState();
+  virtual ~Response_InitMultiplayerState();
+
+  Response_InitMultiplayerState(const Response_InitMultiplayerState& from);
+  Response_InitMultiplayerState(Response_InitMultiplayerState&& from) noexcept
+    : Response_InitMultiplayerState() {
+    *this = ::std::move(from);
+  }
+
+  inline Response_InitMultiplayerState& operator=(const Response_InitMultiplayerState& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Response_InitMultiplayerState& operator=(Response_InitMultiplayerState&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Response_InitMultiplayerState& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Response_InitMultiplayerState* internal_default_instance() {
+    return reinterpret_cast<const Response_InitMultiplayerState*>(
+               &_Response_InitMultiplayerState_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(Response_InitMultiplayerState& a, Response_InitMultiplayerState& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Response_InitMultiplayerState* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Response_InitMultiplayerState* New() const final {
+    return CreateMaybeMessage<Response_InitMultiplayerState>(nullptr);
+  }
+
+  Response_InitMultiplayerState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Response_InitMultiplayerState>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Response_InitMultiplayerState& from);
+  void MergeFrom(const Response_InitMultiplayerState& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Response_InitMultiplayerState* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.Response.InitMultiplayerState";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_message_2eproto);
+    return ::descriptor_table_message_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCodeFieldNumber = 1,
+  };
+  // required string code = 1;
+  bool has_code() const;
+  private:
+  bool _internal_has_code() const;
+  public:
+  void clear_code();
+  const std::string& code() const;
+  void set_code(const std::string& value);
+  void set_code(std::string&& value);
+  void set_code(const char* value);
+  void set_code(const char* value, size_t size);
+  std::string* mutable_code();
+  std::string* release_code();
+  void set_allocated_code(std::string* code);
+  private:
+  const std::string& _internal_code() const;
+  void _internal_set_code(const std::string& value);
+  std::string* _internal_mutable_code();
+  public:
+
+  // @@protoc_insertion_point(class_scope:proto.Response.InitMultiplayerState)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr code_;
+  friend struct ::TableStruct_message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Response_JoinState :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.Response.JoinState) */ {
+ public:
+  Response_JoinState();
+  virtual ~Response_JoinState();
+
+  Response_JoinState(const Response_JoinState& from);
+  Response_JoinState(Response_JoinState&& from) noexcept
+    : Response_JoinState() {
+    *this = ::std::move(from);
+  }
+
+  inline Response_JoinState& operator=(const Response_JoinState& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Response_JoinState& operator=(Response_JoinState&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Response_JoinState& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Response_JoinState* internal_default_instance() {
+    return reinterpret_cast<const Response_JoinState*>(
+               &_Response_JoinState_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(Response_JoinState& a, Response_JoinState& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Response_JoinState* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Response_JoinState* New() const final {
+    return CreateMaybeMessage<Response_JoinState>(nullptr);
+  }
+
+  Response_JoinState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Response_JoinState>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Response_JoinState& from);
+  void MergeFrom(const Response_JoinState& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Response_JoinState* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.Response.JoinState";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_message_2eproto);
+    return ::descriptor_table_message_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kOkFieldNumber = 1,
+  };
+  // required bool ok = 1;
+  bool has_ok() const;
+  private:
+  bool _internal_has_ok() const;
+  public:
+  void clear_ok();
+  bool ok() const;
+  void set_ok(bool value);
+  private:
+  bool _internal_ok() const;
+  void _internal_set_ok(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:proto.Response.JoinState)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  bool ok_;
+  friend struct ::TableStruct_message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Response :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.Response) */ {
+ public:
+  Response();
+  virtual ~Response();
+
+  Response(const Response& from);
+  Response(Response&& from) noexcept
+    : Response() {
+    *this = ::std::move(from);
+  }
+
+  inline Response& operator=(const Response& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Response& operator=(Response&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Response& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Response* internal_default_instance() {
+    return reinterpret_cast<const Response*>(
+               &_Response_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(Response& a, Response& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Response* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Response* New() const final {
+    return CreateMaybeMessage<Response>(nullptr);
+  }
+
+  Response* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Response>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Response& from);
+  void MergeFrom(const Response& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Response* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.Response";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_message_2eproto);
+    return ::descriptor_table_message_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  typedef Response_InitMultiplayerState InitMultiplayerState;
+  typedef Response_JoinState JoinState;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kInitMultiplayerStateFieldNumber = 1,
+    kJoinStateFieldNumber = 2,
+  };
+  // optional .proto.Response.InitMultiplayerState init_multiplayer_state = 1;
+  bool has_init_multiplayer_state() const;
+  private:
+  bool _internal_has_init_multiplayer_state() const;
+  public:
+  void clear_init_multiplayer_state();
+  const ::proto::Response_InitMultiplayerState& init_multiplayer_state() const;
+  ::proto::Response_InitMultiplayerState* release_init_multiplayer_state();
+  ::proto::Response_InitMultiplayerState* mutable_init_multiplayer_state();
+  void set_allocated_init_multiplayer_state(::proto::Response_InitMultiplayerState* init_multiplayer_state);
+  private:
+  const ::proto::Response_InitMultiplayerState& _internal_init_multiplayer_state() const;
+  ::proto::Response_InitMultiplayerState* _internal_mutable_init_multiplayer_state();
+  public:
+
+  // optional .proto.Response.JoinState join_state = 2;
+  bool has_join_state() const;
+  private:
+  bool _internal_has_join_state() const;
+  public:
+  void clear_join_state();
+  const ::proto::Response_JoinState& join_state() const;
+  ::proto::Response_JoinState* release_join_state();
+  ::proto::Response_JoinState* mutable_join_state();
+  void set_allocated_join_state(::proto::Response_JoinState* join_state);
+  private:
+  const ::proto::Response_JoinState& _internal_join_state() const;
+  ::proto::Response_JoinState* _internal_mutable_join_state();
+  public:
+
+  // @@protoc_insertion_point(class_scope:proto.Response)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::proto::Response_InitMultiplayerState* init_multiplayer_state_;
+  ::proto::Response_JoinState* join_state_;
   friend struct ::TableStruct_message_2eproto;
 };
 // ===================================================================
@@ -606,229 +974,129 @@ class Message :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// Message_InitMultiplayerState
+// Request_InitMultiplayerState
 
-// optional string code = 1;
-inline bool Message_InitMultiplayerState::_internal_has_code() const {
+// -------------------------------------------------------------------
+
+// Request_JoinState
+
+// required string code = 1;
+inline bool Request_JoinState::_internal_has_code() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool Message_InitMultiplayerState::has_code() const {
+inline bool Request_JoinState::has_code() const {
   return _internal_has_code();
 }
-inline void Message_InitMultiplayerState::clear_code() {
+inline void Request_JoinState::clear_code() {
   code_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const std::string& Message_InitMultiplayerState::code() const {
-  // @@protoc_insertion_point(field_get:proto.Message.InitMultiplayerState.code)
+inline const std::string& Request_JoinState::code() const {
+  // @@protoc_insertion_point(field_get:proto.Request.JoinState.code)
   return _internal_code();
 }
-inline void Message_InitMultiplayerState::set_code(const std::string& value) {
+inline void Request_JoinState::set_code(const std::string& value) {
   _internal_set_code(value);
-  // @@protoc_insertion_point(field_set:proto.Message.InitMultiplayerState.code)
+  // @@protoc_insertion_point(field_set:proto.Request.JoinState.code)
 }
-inline std::string* Message_InitMultiplayerState::mutable_code() {
-  // @@protoc_insertion_point(field_mutable:proto.Message.InitMultiplayerState.code)
+inline std::string* Request_JoinState::mutable_code() {
+  // @@protoc_insertion_point(field_mutable:proto.Request.JoinState.code)
   return _internal_mutable_code();
 }
-inline const std::string& Message_InitMultiplayerState::_internal_code() const {
+inline const std::string& Request_JoinState::_internal_code() const {
   return code_.GetNoArena();
 }
-inline void Message_InitMultiplayerState::_internal_set_code(const std::string& value) {
+inline void Request_JoinState::_internal_set_code(const std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void Message_InitMultiplayerState::set_code(std::string&& value) {
+inline void Request_JoinState::set_code(std::string&& value) {
   _has_bits_[0] |= 0x00000001u;
   code_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:proto.Message.InitMultiplayerState.code)
+  // @@protoc_insertion_point(field_set_rvalue:proto.Request.JoinState.code)
 }
-inline void Message_InitMultiplayerState::set_code(const char* value) {
+inline void Request_JoinState::set_code(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   _has_bits_[0] |= 0x00000001u;
   code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:proto.Message.InitMultiplayerState.code)
+  // @@protoc_insertion_point(field_set_char:proto.Request.JoinState.code)
 }
-inline void Message_InitMultiplayerState::set_code(const char* value, size_t size) {
+inline void Request_JoinState::set_code(const char* value, size_t size) {
   _has_bits_[0] |= 0x00000001u;
   code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:proto.Message.InitMultiplayerState.code)
+  // @@protoc_insertion_point(field_set_pointer:proto.Request.JoinState.code)
 }
-inline std::string* Message_InitMultiplayerState::_internal_mutable_code() {
+inline std::string* Request_JoinState::_internal_mutable_code() {
   _has_bits_[0] |= 0x00000001u;
   return code_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* Message_InitMultiplayerState::release_code() {
-  // @@protoc_insertion_point(field_release:proto.Message.InitMultiplayerState.code)
+inline std::string* Request_JoinState::release_code() {
+  // @@protoc_insertion_point(field_release:proto.Request.JoinState.code)
   if (!_internal_has_code()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000001u;
   return code_.ReleaseNonDefaultNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void Message_InitMultiplayerState::set_allocated_code(std::string* code) {
+inline void Request_JoinState::set_allocated_code(std::string* code) {
   if (code != nullptr) {
     _has_bits_[0] |= 0x00000001u;
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
   code_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), code);
-  // @@protoc_insertion_point(field_set_allocated:proto.Message.InitMultiplayerState.code)
+  // @@protoc_insertion_point(field_set_allocated:proto.Request.JoinState.code)
 }
 
 // -------------------------------------------------------------------
 
-// Message_JoinState
+// Request
 
-// optional string code = 1;
-inline bool Message_JoinState::_internal_has_code() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool Message_JoinState::has_code() const {
-  return _internal_has_code();
-}
-inline void Message_JoinState::clear_code() {
-  code_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& Message_JoinState::code() const {
-  // @@protoc_insertion_point(field_get:proto.Message.JoinState.code)
-  return _internal_code();
-}
-inline void Message_JoinState::set_code(const std::string& value) {
-  _internal_set_code(value);
-  // @@protoc_insertion_point(field_set:proto.Message.JoinState.code)
-}
-inline std::string* Message_JoinState::mutable_code() {
-  // @@protoc_insertion_point(field_mutable:proto.Message.JoinState.code)
-  return _internal_mutable_code();
-}
-inline const std::string& Message_JoinState::_internal_code() const {
-  return code_.GetNoArena();
-}
-inline void Message_JoinState::_internal_set_code(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-}
-inline void Message_JoinState::set_code(std::string&& value) {
-  _has_bits_[0] |= 0x00000001u;
-  code_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:proto.Message.JoinState.code)
-}
-inline void Message_JoinState::set_code(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000001u;
-  code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:proto.Message.JoinState.code)
-}
-inline void Message_JoinState::set_code(const char* value, size_t size) {
-  _has_bits_[0] |= 0x00000001u;
-  code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:proto.Message.JoinState.code)
-}
-inline std::string* Message_JoinState::_internal_mutable_code() {
-  _has_bits_[0] |= 0x00000001u;
-  return code_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* Message_JoinState::release_code() {
-  // @@protoc_insertion_point(field_release:proto.Message.JoinState.code)
-  if (!_internal_has_code()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return code_.ReleaseNonDefaultNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void Message_JoinState::set_allocated_code(std::string* code) {
-  if (code != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  code_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), code);
-  // @@protoc_insertion_point(field_set_allocated:proto.Message.JoinState.code)
-}
-
-// -------------------------------------------------------------------
-
-// Message
-
-// required .proto.Message.State cur_state = 1;
-inline bool Message::_internal_has_cur_state() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
-  return value;
-}
-inline bool Message::has_cur_state() const {
-  return _internal_has_cur_state();
-}
-inline void Message::clear_cur_state() {
-  cur_state_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline ::proto::Message_State Message::_internal_cur_state() const {
-  return static_cast< ::proto::Message_State >(cur_state_);
-}
-inline ::proto::Message_State Message::cur_state() const {
-  // @@protoc_insertion_point(field_get:proto.Message.cur_state)
-  return _internal_cur_state();
-}
-inline void Message::_internal_set_cur_state(::proto::Message_State value) {
-  assert(::proto::Message_State_IsValid(value));
-  _has_bits_[0] |= 0x00000004u;
-  cur_state_ = value;
-}
-inline void Message::set_cur_state(::proto::Message_State value) {
-  _internal_set_cur_state(value);
-  // @@protoc_insertion_point(field_set:proto.Message.cur_state)
-}
-
-// optional .proto.Message.InitMultiplayerState init_multiplayer_state = 2;
-inline bool Message::_internal_has_init_multiplayer_state() const {
+// optional .proto.Request.InitMultiplayerState init_multiplayer_state = 1;
+inline bool Request::_internal_has_init_multiplayer_state() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || init_multiplayer_state_ != nullptr);
   return value;
 }
-inline bool Message::has_init_multiplayer_state() const {
+inline bool Request::has_init_multiplayer_state() const {
   return _internal_has_init_multiplayer_state();
 }
-inline void Message::clear_init_multiplayer_state() {
+inline void Request::clear_init_multiplayer_state() {
   if (init_multiplayer_state_ != nullptr) init_multiplayer_state_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::proto::Message_InitMultiplayerState& Message::_internal_init_multiplayer_state() const {
-  const ::proto::Message_InitMultiplayerState* p = init_multiplayer_state_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::proto::Message_InitMultiplayerState*>(
-      &::proto::_Message_InitMultiplayerState_default_instance_);
+inline const ::proto::Request_InitMultiplayerState& Request::_internal_init_multiplayer_state() const {
+  const ::proto::Request_InitMultiplayerState* p = init_multiplayer_state_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::proto::Request_InitMultiplayerState*>(
+      &::proto::_Request_InitMultiplayerState_default_instance_);
 }
-inline const ::proto::Message_InitMultiplayerState& Message::init_multiplayer_state() const {
-  // @@protoc_insertion_point(field_get:proto.Message.init_multiplayer_state)
+inline const ::proto::Request_InitMultiplayerState& Request::init_multiplayer_state() const {
+  // @@protoc_insertion_point(field_get:proto.Request.init_multiplayer_state)
   return _internal_init_multiplayer_state();
 }
-inline ::proto::Message_InitMultiplayerState* Message::release_init_multiplayer_state() {
-  // @@protoc_insertion_point(field_release:proto.Message.init_multiplayer_state)
+inline ::proto::Request_InitMultiplayerState* Request::release_init_multiplayer_state() {
+  // @@protoc_insertion_point(field_release:proto.Request.init_multiplayer_state)
   _has_bits_[0] &= ~0x00000001u;
-  ::proto::Message_InitMultiplayerState* temp = init_multiplayer_state_;
+  ::proto::Request_InitMultiplayerState* temp = init_multiplayer_state_;
   init_multiplayer_state_ = nullptr;
   return temp;
 }
-inline ::proto::Message_InitMultiplayerState* Message::_internal_mutable_init_multiplayer_state() {
+inline ::proto::Request_InitMultiplayerState* Request::_internal_mutable_init_multiplayer_state() {
   _has_bits_[0] |= 0x00000001u;
   if (init_multiplayer_state_ == nullptr) {
-    auto* p = CreateMaybeMessage<::proto::Message_InitMultiplayerState>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::proto::Request_InitMultiplayerState>(GetArenaNoVirtual());
     init_multiplayer_state_ = p;
   }
   return init_multiplayer_state_;
 }
-inline ::proto::Message_InitMultiplayerState* Message::mutable_init_multiplayer_state() {
-  // @@protoc_insertion_point(field_mutable:proto.Message.init_multiplayer_state)
+inline ::proto::Request_InitMultiplayerState* Request::mutable_init_multiplayer_state() {
+  // @@protoc_insertion_point(field_mutable:proto.Request.init_multiplayer_state)
   return _internal_mutable_init_multiplayer_state();
 }
-inline void Message::set_allocated_init_multiplayer_state(::proto::Message_InitMultiplayerState* init_multiplayer_state) {
+inline void Request::set_allocated_init_multiplayer_state(::proto::Request_InitMultiplayerState* init_multiplayer_state) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete init_multiplayer_state_;
@@ -844,51 +1112,51 @@ inline void Message::set_allocated_init_multiplayer_state(::proto::Message_InitM
     _has_bits_[0] &= ~0x00000001u;
   }
   init_multiplayer_state_ = init_multiplayer_state;
-  // @@protoc_insertion_point(field_set_allocated:proto.Message.init_multiplayer_state)
+  // @@protoc_insertion_point(field_set_allocated:proto.Request.init_multiplayer_state)
 }
 
-// optional .proto.Message.JoinState join_state = 3;
-inline bool Message::_internal_has_join_state() const {
+// optional .proto.Request.JoinState join_state = 2;
+inline bool Request::_internal_has_join_state() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || join_state_ != nullptr);
   return value;
 }
-inline bool Message::has_join_state() const {
+inline bool Request::has_join_state() const {
   return _internal_has_join_state();
 }
-inline void Message::clear_join_state() {
+inline void Request::clear_join_state() {
   if (join_state_ != nullptr) join_state_->Clear();
   _has_bits_[0] &= ~0x00000002u;
 }
-inline const ::proto::Message_JoinState& Message::_internal_join_state() const {
-  const ::proto::Message_JoinState* p = join_state_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::proto::Message_JoinState*>(
-      &::proto::_Message_JoinState_default_instance_);
+inline const ::proto::Request_JoinState& Request::_internal_join_state() const {
+  const ::proto::Request_JoinState* p = join_state_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::proto::Request_JoinState*>(
+      &::proto::_Request_JoinState_default_instance_);
 }
-inline const ::proto::Message_JoinState& Message::join_state() const {
-  // @@protoc_insertion_point(field_get:proto.Message.join_state)
+inline const ::proto::Request_JoinState& Request::join_state() const {
+  // @@protoc_insertion_point(field_get:proto.Request.join_state)
   return _internal_join_state();
 }
-inline ::proto::Message_JoinState* Message::release_join_state() {
-  // @@protoc_insertion_point(field_release:proto.Message.join_state)
+inline ::proto::Request_JoinState* Request::release_join_state() {
+  // @@protoc_insertion_point(field_release:proto.Request.join_state)
   _has_bits_[0] &= ~0x00000002u;
-  ::proto::Message_JoinState* temp = join_state_;
+  ::proto::Request_JoinState* temp = join_state_;
   join_state_ = nullptr;
   return temp;
 }
-inline ::proto::Message_JoinState* Message::_internal_mutable_join_state() {
+inline ::proto::Request_JoinState* Request::_internal_mutable_join_state() {
   _has_bits_[0] |= 0x00000002u;
   if (join_state_ == nullptr) {
-    auto* p = CreateMaybeMessage<::proto::Message_JoinState>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::proto::Request_JoinState>(GetArenaNoVirtual());
     join_state_ = p;
   }
   return join_state_;
 }
-inline ::proto::Message_JoinState* Message::mutable_join_state() {
-  // @@protoc_insertion_point(field_mutable:proto.Message.join_state)
+inline ::proto::Request_JoinState* Request::mutable_join_state() {
+  // @@protoc_insertion_point(field_mutable:proto.Request.join_state)
   return _internal_mutable_join_state();
 }
-inline void Message::set_allocated_join_state(::proto::Message_JoinState* join_state) {
+inline void Request::set_allocated_join_state(::proto::Request_JoinState* join_state) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete join_state_;
@@ -904,7 +1172,238 @@ inline void Message::set_allocated_join_state(::proto::Message_JoinState* join_s
     _has_bits_[0] &= ~0x00000002u;
   }
   join_state_ = join_state;
-  // @@protoc_insertion_point(field_set_allocated:proto.Message.join_state)
+  // @@protoc_insertion_point(field_set_allocated:proto.Request.join_state)
+}
+
+// -------------------------------------------------------------------
+
+// Response_InitMultiplayerState
+
+// required string code = 1;
+inline bool Response_InitMultiplayerState::_internal_has_code() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Response_InitMultiplayerState::has_code() const {
+  return _internal_has_code();
+}
+inline void Response_InitMultiplayerState::clear_code() {
+  code_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& Response_InitMultiplayerState::code() const {
+  // @@protoc_insertion_point(field_get:proto.Response.InitMultiplayerState.code)
+  return _internal_code();
+}
+inline void Response_InitMultiplayerState::set_code(const std::string& value) {
+  _internal_set_code(value);
+  // @@protoc_insertion_point(field_set:proto.Response.InitMultiplayerState.code)
+}
+inline std::string* Response_InitMultiplayerState::mutable_code() {
+  // @@protoc_insertion_point(field_mutable:proto.Response.InitMultiplayerState.code)
+  return _internal_mutable_code();
+}
+inline const std::string& Response_InitMultiplayerState::_internal_code() const {
+  return code_.GetNoArena();
+}
+inline void Response_InitMultiplayerState::_internal_set_code(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void Response_InitMultiplayerState::set_code(std::string&& value) {
+  _has_bits_[0] |= 0x00000001u;
+  code_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:proto.Response.InitMultiplayerState.code)
+}
+inline void Response_InitMultiplayerState::set_code(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000001u;
+  code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:proto.Response.InitMultiplayerState.code)
+}
+inline void Response_InitMultiplayerState::set_code(const char* value, size_t size) {
+  _has_bits_[0] |= 0x00000001u;
+  code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:proto.Response.InitMultiplayerState.code)
+}
+inline std::string* Response_InitMultiplayerState::_internal_mutable_code() {
+  _has_bits_[0] |= 0x00000001u;
+  return code_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* Response_InitMultiplayerState::release_code() {
+  // @@protoc_insertion_point(field_release:proto.Response.InitMultiplayerState.code)
+  if (!_internal_has_code()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return code_.ReleaseNonDefaultNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void Response_InitMultiplayerState::set_allocated_code(std::string* code) {
+  if (code != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  code_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), code);
+  // @@protoc_insertion_point(field_set_allocated:proto.Response.InitMultiplayerState.code)
+}
+
+// -------------------------------------------------------------------
+
+// Response_JoinState
+
+// required bool ok = 1;
+inline bool Response_JoinState::_internal_has_ok() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Response_JoinState::has_ok() const {
+  return _internal_has_ok();
+}
+inline void Response_JoinState::clear_ok() {
+  ok_ = false;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline bool Response_JoinState::_internal_ok() const {
+  return ok_;
+}
+inline bool Response_JoinState::ok() const {
+  // @@protoc_insertion_point(field_get:proto.Response.JoinState.ok)
+  return _internal_ok();
+}
+inline void Response_JoinState::_internal_set_ok(bool value) {
+  _has_bits_[0] |= 0x00000001u;
+  ok_ = value;
+}
+inline void Response_JoinState::set_ok(bool value) {
+  _internal_set_ok(value);
+  // @@protoc_insertion_point(field_set:proto.Response.JoinState.ok)
+}
+
+// -------------------------------------------------------------------
+
+// Response
+
+// optional .proto.Response.InitMultiplayerState init_multiplayer_state = 1;
+inline bool Response::_internal_has_init_multiplayer_state() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || init_multiplayer_state_ != nullptr);
+  return value;
+}
+inline bool Response::has_init_multiplayer_state() const {
+  return _internal_has_init_multiplayer_state();
+}
+inline void Response::clear_init_multiplayer_state() {
+  if (init_multiplayer_state_ != nullptr) init_multiplayer_state_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::proto::Response_InitMultiplayerState& Response::_internal_init_multiplayer_state() const {
+  const ::proto::Response_InitMultiplayerState* p = init_multiplayer_state_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::proto::Response_InitMultiplayerState*>(
+      &::proto::_Response_InitMultiplayerState_default_instance_);
+}
+inline const ::proto::Response_InitMultiplayerState& Response::init_multiplayer_state() const {
+  // @@protoc_insertion_point(field_get:proto.Response.init_multiplayer_state)
+  return _internal_init_multiplayer_state();
+}
+inline ::proto::Response_InitMultiplayerState* Response::release_init_multiplayer_state() {
+  // @@protoc_insertion_point(field_release:proto.Response.init_multiplayer_state)
+  _has_bits_[0] &= ~0x00000001u;
+  ::proto::Response_InitMultiplayerState* temp = init_multiplayer_state_;
+  init_multiplayer_state_ = nullptr;
+  return temp;
+}
+inline ::proto::Response_InitMultiplayerState* Response::_internal_mutable_init_multiplayer_state() {
+  _has_bits_[0] |= 0x00000001u;
+  if (init_multiplayer_state_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::Response_InitMultiplayerState>(GetArenaNoVirtual());
+    init_multiplayer_state_ = p;
+  }
+  return init_multiplayer_state_;
+}
+inline ::proto::Response_InitMultiplayerState* Response::mutable_init_multiplayer_state() {
+  // @@protoc_insertion_point(field_mutable:proto.Response.init_multiplayer_state)
+  return _internal_mutable_init_multiplayer_state();
+}
+inline void Response::set_allocated_init_multiplayer_state(::proto::Response_InitMultiplayerState* init_multiplayer_state) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete init_multiplayer_state_;
+  }
+  if (init_multiplayer_state) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      init_multiplayer_state = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, init_multiplayer_state, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  init_multiplayer_state_ = init_multiplayer_state;
+  // @@protoc_insertion_point(field_set_allocated:proto.Response.init_multiplayer_state)
+}
+
+// optional .proto.Response.JoinState join_state = 2;
+inline bool Response::_internal_has_join_state() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || join_state_ != nullptr);
+  return value;
+}
+inline bool Response::has_join_state() const {
+  return _internal_has_join_state();
+}
+inline void Response::clear_join_state() {
+  if (join_state_ != nullptr) join_state_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::proto::Response_JoinState& Response::_internal_join_state() const {
+  const ::proto::Response_JoinState* p = join_state_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::proto::Response_JoinState*>(
+      &::proto::_Response_JoinState_default_instance_);
+}
+inline const ::proto::Response_JoinState& Response::join_state() const {
+  // @@protoc_insertion_point(field_get:proto.Response.join_state)
+  return _internal_join_state();
+}
+inline ::proto::Response_JoinState* Response::release_join_state() {
+  // @@protoc_insertion_point(field_release:proto.Response.join_state)
+  _has_bits_[0] &= ~0x00000002u;
+  ::proto::Response_JoinState* temp = join_state_;
+  join_state_ = nullptr;
+  return temp;
+}
+inline ::proto::Response_JoinState* Response::_internal_mutable_join_state() {
+  _has_bits_[0] |= 0x00000002u;
+  if (join_state_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::Response_JoinState>(GetArenaNoVirtual());
+    join_state_ = p;
+  }
+  return join_state_;
+}
+inline ::proto::Response_JoinState* Response::mutable_join_state() {
+  // @@protoc_insertion_point(field_mutable:proto.Response.join_state)
+  return _internal_mutable_join_state();
+}
+inline void Response::set_allocated_join_state(::proto::Response_JoinState* join_state) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete join_state_;
+  }
+  if (join_state) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      join_state = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, join_state, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  join_state_ = join_state;
+  // @@protoc_insertion_point(field_set_allocated:proto.Response.join_state)
 }
 
 #ifdef __GNUC__
@@ -914,20 +1413,16 @@ inline void Message::set_allocated_join_state(::proto::Message_JoinState* join_s
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace proto
-
-PROTOBUF_NAMESPACE_OPEN
-
-template <> struct is_proto_enum< ::proto::Message_State> : ::std::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::proto::Message_State>() {
-  return ::proto::Message_State_descriptor();
-}
-
-PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 

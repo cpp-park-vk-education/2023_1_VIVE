@@ -8,8 +8,7 @@ public:
     InitMultiplayerState();
 
     void update(const sf::Event &event) override;
-    void readMessage(const proto::Message& msg);
-    void sendServerAboutInit();
+    void readMessage(const proto::Response &msg);
 
 private:
     void initObjects_();
