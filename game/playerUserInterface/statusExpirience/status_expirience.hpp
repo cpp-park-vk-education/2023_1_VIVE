@@ -5,7 +5,7 @@
 
 class StatusExpirience {
 public:
-    StatusExpirience(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
+    StatusExpirience(const sf::Vector2f& camera_size);
 
     StatusExpirience() = delete;
     StatusExpirience(const StatusExpirience&) = delete;
@@ -16,7 +16,7 @@ public:
     ~StatusExpirience() {
     }
 
-    void setObjectPosition(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
+    void setObjectPosition(const sf::Vector2f& camera_size);
     void setTotalLever(uint8_t total_level);
     void setCurrentPoints(uint16_t current_points);
     void setMaxPoints(uint16_t max_points);

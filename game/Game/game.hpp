@@ -55,6 +55,7 @@ private:
     void updateCollision();
     void updateEnemies(const float delta_time);
     void update();
+    void updateNonExistentObjects();
 
     // Draws
     void drawBG();
@@ -63,6 +64,9 @@ private:
     void drawParticles();
     void drawEnemies();
     void draw();
+
+    // Spawners
+    void spawnEnemies();
 
     // Timer
     sf::Clock clock_;

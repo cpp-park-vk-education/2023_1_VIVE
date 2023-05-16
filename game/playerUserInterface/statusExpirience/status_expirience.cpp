@@ -1,6 +1,6 @@
 #include "status_expirience.hpp"
 
-StatusExpirience::StatusExpirience(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates) {
+StatusExpirience::StatusExpirience(const sf::Vector2f& camera_size) {
     icon_sprite_.setTexture(AssetManager::getInstance()->getTexture("level"));
 
     total_level_ = 0;
@@ -13,18 +13,18 @@ StatusExpirience::StatusExpirience(const sf::Vector2f& camera_size, const sf::Ve
     text_.setOutlineColor(sf::Color::Black);
     text_.setFillColor(sf::Color::Yellow);
 
-    setObjectPosition(camera_size, camera_coordinates);
+    setObjectPosition(camera_size);
 }
 
-void StatusExpirience::setObjectPosition(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates) {
+void StatusExpirience::setObjectPosition(const sf::Vector2f& camera_size) {
     icon_sprite_.setScale(static_cast<float>(camera_size.x) / 8500.0f, static_cast<float>(camera_size.y) / 5500.0f);
-    icon_sprite_.setPosition(camera_coordinates.x + static_cast<float>(camera_size.x) * 0.5f / 100.0f,
-                            camera_coordinates.y + static_cast<float>(camera_size.y) - icon_sprite_.getGlobalBounds().height);
+    icon_sprite_.setPosition(static_cast<float>(camera_size.x) * 0.5f / 100.0f,
+                            static_cast<float>(camera_size.y) - icon_sprite_.getGlobalBounds().height);
 
     text_.setCharacterSize(static_cast<unsigned int>(camera_size.y / 1650.0f * 100));
     text_.setLineSpacing(0.75f);
-    text_.setPosition(camera_coordinates.x + static_cast<float>(camera_size.x) * 8.0f / 100.0f,
-                            camera_coordinates.y + static_cast<float>(camera_size.y) - static_cast<float>(camera_size.y) * 12.5f / 100.0f);
+    text_.setPosition(static_cast<float>(camera_size.x) * 8.0f / 100.0f,
+                            static_cast<float>(camera_size.y) - static_cast<float>(camera_size.y) * 12.5f / 100.0f);
 }
 
 void StatusExpirience::updateTextInfo() {
