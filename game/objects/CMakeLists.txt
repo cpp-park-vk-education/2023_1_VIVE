@@ -1,5 +1,6 @@
 add_subdirectory(HitBox/)
 add_subdirectory(Object/)
+add_subdirectory(button)
 # add_subdirectory(ObjectManager/)
 add_subdirectory(PhysicalObject/)
 add_subdirectory(MovableObject/)

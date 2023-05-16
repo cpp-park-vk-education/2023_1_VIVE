@@ -1,7 +1,9 @@
-set(GAME "game")
+set(GAME "Game")
 
-add_library(${GAME} SHARED game.cpp game.hpp)
+include_directories(include)
+add_library(${GAME} SHARED src/Game.cpp)
+target_include_directories(${GAME} PUBLIC include)
 
-target_link_libraries(${GAME} ${SFML_LIBRARIES})
-target_link_libraries(${GAME} player tile collision_handler particle particle_set enemy player_user_interface camera_target asset_manager)
+target_link_libraries(${GAME} sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(${GAME} Player)
 
