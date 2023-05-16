@@ -11,13 +11,13 @@ StatusWeapon::StatusWeapon(const sf::Vector2f& camera_size, const std::string& w
 }
 
 void StatusWeapon::setObjectsPosition(const sf::Vector2f& camera_size) {
-    zone_.setRadius(static_cast<float>(camera_size.x * camera_size.y) * 0.005f / 100.0f);
+    zone_.setRadius(static_cast<float>(camera_size.x * camera_size.y) * 0.009f / 100.0f);
     zone_.setPosition(static_cast<float>(camera_size.x) * 0.25f / 100.0f,
                         static_cast<float>(camera_size.y) * 0.5f / 100.0f);
     
-    icon_sprite_.setScale(static_cast<float>(camera_size.x) / 19500.0f,
-                        static_cast<float>(camera_size.y) / 10000.0f);
-    icon_sprite_.setPosition(zone_.getGlobalBounds().width / 25.0f, 
+    icon_sprite_.setScale(static_cast<float>(camera_size.x) / 20500.0f,
+                        static_cast<float>(camera_size.y) / 12000.0f);
+    icon_sprite_.setPosition(zone_.getGlobalBounds().width / 30.0f, 
                             zone_.getGlobalBounds().height / 4.0f);
 }
 

@@ -26,8 +26,12 @@ Client *GameEngine::getClient() {
     return &game->client_;
 }
 
-GameEngine::GameEngine():
-window_(sf::VideoMode(w_width_, w_height_), "ATOMIC GOD") {
+GameEngine::GameEngine() {
+    window_.create(sf::VideoMode(BASE_SIZE * 32, BASE_SIZE * 18), "Atomic God");
+    int window_pos_x = sf::VideoMode::getDesktopMode().width / 2 - window_.getSize().x / 2;
+    int window_pos_y = sf::VideoMode::getDesktopMode().height / 2 - window_.getSize().y / 2;
+    window_.setPosition(sf::Vector2i(window_pos_x, window_pos_y));
+    window_.setFramerateLimit(60);
     game_engine_ = this;
 }
 
@@ -209,6 +213,7 @@ void GameEngine::updateCamera() {
 
 void GameEngine::updatePUI() {
     player_user_interface_->updateBar(false, player_->getHP());
+    player_user_interface_->updateExpirienceLevel(player_->getCurrLvl(), player_->getExpMax());
     player_user_interface_->updateMoney(player_->getCoinsCount());
     player_user_interface_->updateExpirienceCurrentPoints(player_->getExp());
 }

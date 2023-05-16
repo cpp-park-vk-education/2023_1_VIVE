@@ -42,6 +42,9 @@ void Player::initStats()
     hp_ = 100;
     hp_max_ = hp_;
 
+    curr_lvl_ = 2;
+    exp_max_ = 500;
+
     coins_count_ = 0;
     exp_ = 0;
 }
@@ -70,12 +73,12 @@ void Player::updateExp(const uint16_t exp)
 
 int Player::getExpMax()
 {
-    return 0;
+    return exp_max_;
 }
 
 int Player::getCurrLvl()
 {
-    return 0;
+    return curr_lvl_;
 }
 
 void Player::updateCurrLvl()
