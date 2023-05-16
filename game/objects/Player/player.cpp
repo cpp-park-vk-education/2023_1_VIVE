@@ -180,11 +180,12 @@ void Player::updateMovement(const float delta_time)
 
 void Player::updateHP(const unsigned int damage)
 {
-    size_t new_hp = hp_ - damage;
-    if (new_hp < 0)
+    int new_hp = hp_ - damage;
+    if (new_hp <= 0)
     {
         hp_ = 0;
         alive_ = false;
+        // hitbox_.remove();
     }
     else
     {

@@ -6,6 +6,7 @@
 #include <SFML/Audio.hpp>
 
 #include <memory>
+#include <random>
 
 const float BASE_SIZE = 24;
 
@@ -40,3 +41,8 @@ public:
 
 using ObjectShPtr = std::shared_ptr<Object>;
 using DrawableShPtr = std::shared_ptr<sf::Drawable>;
+
+
+int random_int(const int max, const int min);
+
+float random_float(const float min, const float max);

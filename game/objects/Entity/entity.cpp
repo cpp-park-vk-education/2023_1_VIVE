@@ -42,6 +42,12 @@ int Entity::getHPMax() const
     return hp_max_;
 }
 
+void Entity::spawn()
+{
+    alive_ = true;
+    hp_ = hp_max_;
+}
+
 void Entity::attack(Entity *target)
 {
     if (isInDamageRadius(target))

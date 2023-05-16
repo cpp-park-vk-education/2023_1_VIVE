@@ -47,6 +47,9 @@ public:
     int getHP() const;
     int getHPMax() const;
 
+    // Setters
+    void spawn();
+
     virtual void updateHP(const unsigned int damage) = 0;
     virtual void updateAttack(const sf::Event &event, Entity *target, const float delta_time) = 0;
 };

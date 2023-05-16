@@ -180,8 +180,17 @@ void GameEngine::updatePlayer(const float delta_time)
 {
     // std::cout << "Update Player" << std::endl;
 
-    player_->update(event_, delta_time);
-    player_->updateAttack(event_, enemies_.front(), delta_time);
+    if (!player_->isDead())
+    {
+        player_->update(event_, delta_time);
+        player_->updateAttack(event_, enemies_.front(), delta_time);
+    }
+    else
+    {
+        int player_new_pos_x = random_int(0, window_.getSize().x);
+        player_->setPosition(sf::Vector2f(player_new_pos_x, 100.f));
+        player_->spawn();
+    }
 }
 
 void GameEngine::updateCamera() {

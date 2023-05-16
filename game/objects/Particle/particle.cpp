@@ -91,11 +91,3 @@ void Particle::updateMovement(const float delta_time)
 
     velocity_ = velocity_ + acceleration_ * delta_time;
 }
-
-float random_float(const float min, const float max)
-{
-    std::random_device rd;
-    std::mt19937 gen(rd()); // generator
-    std::uniform_real_distribution<float> dis(min, max);
-    return dis(gen);
-}

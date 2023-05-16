@@ -109,7 +109,7 @@ bool Enemy::doesExist() const
 void Enemy::updateHP(const unsigned int damage)
 {
     int new_hp = hp_ - damage;
-    if (new_hp < 0)
+    if (new_hp <= 0)
     {
         hp_ = 0;
         alive_ = false;
