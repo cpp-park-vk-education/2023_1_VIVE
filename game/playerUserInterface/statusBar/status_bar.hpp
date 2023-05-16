@@ -6,7 +6,7 @@
 
 class StatusPlayerBar {
 public:
-    StatusPlayerBar(bool is_mana_bar, const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
+    StatusPlayerBar(bool is_mana_bar, const sf::Vector2f& camera_size);
 
     StatusPlayerBar() = delete;
     StatusPlayerBar(const StatusPlayerBar&) = delete;
@@ -17,7 +17,7 @@ public:
     ~StatusPlayerBar() {
     }
 
-    void setObjectsPositions(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
+    void setObjectsPositions(const sf::Vector2f&);
     void setMaxStatus(uint16_t max_status);
     void setStatus(uint16_t status);
     sf::Sprite getSprite() const;

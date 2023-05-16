@@ -11,7 +11,7 @@
 
 class PUI : public Object {
 public:
-    PUI(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
+    PUI(const sf::Vector2f& camera_size);
     virtual ~PUI() override;
 
     PUI() = delete;
@@ -24,9 +24,9 @@ public:
     virtual void update(const sf::Event& event, const float delta_time) override;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    void updateCoordinates(const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
+    void updateCoordinates(const sf::Vector2f& camera_size);
 
-    void updateWeapon(const std::string& name, const sf::Vector2f& camera_size, const sf::Vector2f& camera_coordinates);
+    void updateWeapon(const std::string& name, const sf::Vector2f& camera_size);
     void updateBar(bool is_mana_bar, uint16_t status);
     void updateMaxStatusBar(bool is_mana_bar, uint16_t max_status);
     void updateMoney(uint16_t money);

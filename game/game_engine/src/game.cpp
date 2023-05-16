@@ -97,6 +97,7 @@ void GameEngine::render() {
             // drawParticles();
             drawPlayer();
 
+            window_.setView(window_.getDefaultView());
             player_user_interface_->draw(window_, sf::RenderStates());
 
             window_.display();
@@ -123,7 +124,7 @@ void GameEngine::initCamera() {
 }
 
 void GameEngine::initPUI() {
-    player_user_interface_ = new PUI(camera_->getCameraSize(), camera_->getTopLeftCameraCoordinates());
+    player_user_interface_ = new PUI(sf::Vector2f(window_.getSize().x, window_.getSize().y));
     player_user_interface_->updateMaxStatusBar(false, player_->getHPMax());
     player_user_interface_->updateBar(false, player_->getHP());
     player_user_interface_->updateMoney(player_->getCoinsCount());
@@ -207,7 +208,6 @@ void GameEngine::updateCamera() {
 }
 
 void GameEngine::updatePUI() {
-    player_user_interface_->updateCoordinates(camera_->getCameraSize(), camera_->getTopLeftCameraCoordinates());
     player_user_interface_->updateBar(false, player_->getHP());
     player_user_interface_->updateMoney(player_->getCoinsCount());
     player_user_interface_->updateExpirienceCurrentPoints(player_->getExp());
