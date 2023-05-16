@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "iobject.hpp"
+#include "object.hpp"
 #include "level.hpp"
 
 class LevelManager {
@@ -12,5 +12,5 @@ private:
 
 public:
     void changeLevel();
-    std::vector<IObject> getObjects();
+    std::vector<Object> getObjects();
 };

@@ -45,7 +45,7 @@ bool Button::isMouseOver(const sf::RenderWindow &window) {
            yPos >= frPos.y && yPos <= frPos.y + frBds.height;
 }
 
-void Button::update(const sf::Event &event) {
+void Button::update(const sf::Event &event, const float delta_time) {
     if (!isMouseOver(GameEngine::getWindow())) {
         setBackColor(back_color_);
         return;

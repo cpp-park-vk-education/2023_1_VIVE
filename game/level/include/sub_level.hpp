@@ -2,8 +2,8 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "iobject.hpp"
-#include "Player.hpp"
+#include "object.hpp"
+#include "player.hpp"
 
 class Tile {
 
@@ -17,7 +17,7 @@ class Boss {
 
 class SubLevel {
 public:
-    std::vector<IObject> getObjects();
+    std::vector<Object> getObjects();
 
 private:
     sf::Sprite background_;

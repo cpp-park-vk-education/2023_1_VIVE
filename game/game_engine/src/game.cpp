@@ -1,6 +1,6 @@
 #include "game.hpp"
 
-#include "iobject.hpp"
+#include "object.hpp"
 #include "message.pb.h"
 
 #include <iostream>

@@ -57,7 +57,7 @@ void JoinState::update(const sf::Event &event) {
     }
 
 
-    return_->update(event);
+    return_->update(event, 0);
 
     objects_.clear();
     objects_.push_back(return_);

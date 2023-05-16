@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Player.hpp"
+#include "player.hpp"
 #include "client.hpp"
 #include "state_manager.hpp"
-#include "iobject.hpp"
+#include "object.hpp"
 
 class ISound{
 

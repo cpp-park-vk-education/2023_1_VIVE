@@ -5,13 +5,13 @@
 #include "SFML/Graphics.hpp"
 #include "boost/signals2.hpp"
 
-#include "iobject.hpp"
+#include "object.hpp"
 
 class Button;
 
 using ButtonShPtr = std::shared_ptr<Button>;
 
-class Button : public IObject {
+class Button : public Object {
 private:
     void initPosition();
 
@@ -30,7 +30,7 @@ public:
 
     bool isMouseOver(const sf::RenderWindow& window);
 
-    void update(const sf::Event& event) override;
+    void update(const sf::Event &event, const float delta_time) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:

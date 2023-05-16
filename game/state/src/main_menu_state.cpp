@@ -22,7 +22,7 @@ void MainMenuState::update(const sf::Event &event) {
 
     StateManager* manager = GameEngine::getStateManager();
     for (const auto &btn: buttons_) {
-        btn->update(event);
+        btn->update(event, 0);
         handlePressedButton(btn, manager, event);
         objects_.push_back(btn);
     }

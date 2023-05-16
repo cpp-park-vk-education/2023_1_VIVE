@@ -6,8 +6,8 @@
 
 #include "boost/heap/priority_queue.hpp"
 
-#include "Player.hpp"
-#include "iobject.hpp"
+#include "player.hpp"
+#include "object.hpp"
 #include "message.pb.h"
 
 class State;

@@ -8,4 +8,6 @@ build.sh
 *test*
 *a*
 
+Game
+
 # protoc -I=messages --cpp_out=messages messages/message.proto   генерация классов для сообщения

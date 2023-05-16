@@ -5,7 +5,7 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "iobject.hpp"
+#include "object.hpp"
 #include "message.pb.h"
 #include "state.hpp"
 #include "main_menu_state.hpp"
@@ -39,8 +39,8 @@ private:
     std::unordered_map<EnState, StateShPtr> to_state_object_ {
             {MAIN_MENU_STATE, std::make_shared<MainMenuState>()},
             {INIT_MULTIPLAYER_STATE, std::make_shared<InitMultiplayerState>()},
-            {JOIN_STATE, std::make_shared<JoinState>()}
-//            {SINGLE_STATE, std::make_shared<SingleState>()},
+            {JOIN_STATE, std::make_shared<JoinState>()},
+            {SINGLE_STATE, std::make_shared<SingleState>()},
 //            {COOP_STATE, std::make_shared<CoopState>()},
     };
 };

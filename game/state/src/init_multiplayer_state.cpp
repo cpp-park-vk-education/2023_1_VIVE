@@ -68,8 +68,8 @@ void InitMultiplayerState::update(const sf::Event &event) {
         }
     }
 
-    return_->update(event);
-    copy_btn->update(event);
+    return_->update(event, 0);
+    copy_btn->update(event, 0);
 
     objects_.clear();
     objects_.push_back(template_);

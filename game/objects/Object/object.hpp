@@ -28,7 +28,7 @@ protected:
     uint8_t priority_;
 
     // Inits
-    void virtual initSprite() = 0;
+    virtual void initSprite(){};
 
 public:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates state) const;
