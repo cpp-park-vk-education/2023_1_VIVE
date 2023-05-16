@@ -44,8 +44,6 @@ private:
     GameRender game_render_;
 
     ISound sound_;
-    IAssetManager asset_manager_;
-
 
     // Entities
     Player *player;

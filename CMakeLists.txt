@@ -3,17 +3,17 @@ project(ATOMIC_GOD)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Подключаем SFML
+# # Подключаем SFML
 set(SFML_DIR "SFML/lib/cmake/SFML")
 find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
 set(SFML_LIBRARIES sfml-graphics sfml-window sfml-system sfml-audio)
 
-# Подключаем Boost
+# # Подключаем Boost
 set(Boost_DIR "boost/lib/cmake/Boost-1.82.0")
 find_package(Boost COMPONENTS system filesystem serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-# Подключаем Protobuf
+# # Подключаем Protobuf
 find_package(Protobuf REQUIRED)
 
 option(BUILD_TESTS "Build tests" OFF)

@@ -3,6 +3,7 @@
 #include "state.hpp"
 #include "button.hpp"
 #include "state_manager.hpp"
+#include "asset_manager.hpp"
 
 class StateManager;
 

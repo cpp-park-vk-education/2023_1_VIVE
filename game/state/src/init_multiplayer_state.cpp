@@ -6,7 +6,7 @@
 
 
 InitMultiplayerState::InitMultiplayerState() {
-    if (!fnt_.loadFromFile("fonts/EightBits.ttf")) {
+    if (!fnt_.loadFromFile("../fonts/EightBits.ttf")) {
         std::cout << "error" << std::endl;
     }
     initObjects_();
@@ -14,7 +14,7 @@ InitMultiplayerState::InitMultiplayerState() {
 
 void InitMultiplayerState::initObjects_() {
     return_ = std::make_shared<Button>();
-    return_->setParams("Return", 60, "fonts/EightBits.ttf", 5, 15, sf::Color::Red);
+    return_->setParams("Return", 60, "../fonts/EightBits.ttf", 5, 15, sf::Color::Red);
     return_->setPosition(20, 20);
     return_->setHoverColor(sf::Color::Yellow);
     return_->setActiveColor(sf::Color(222, 238, 0));
@@ -34,7 +34,7 @@ void InitMultiplayerState::initObjects_() {
     code_->setFont(fnt_);
 
     copy_btn = std::make_shared<Button>();
-    copy_btn->setParams("Copy", 60, "fonts/EightBits.ttf", 5, 15, sf::Color::Red);
+    copy_btn->setParams("Copy", 60, "../fonts/EightBits.ttf", 5, 15, sf::Color::Red);
     copy_btn->setPosition(400, 400);
     copy_btn->setHoverColor(sf::Color::Yellow);
     copy_btn->setActiveColor(sf::Color(222, 238, 0));

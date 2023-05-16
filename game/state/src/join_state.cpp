@@ -9,7 +9,7 @@ JoinState::JoinState() {
     }
 
     return_ = std::make_shared<Button>();
-    return_->setParams("Return", 60, "fonts/EightBits.ttf", 5, 15, sf::Color::Red);
+    return_->setParams("Return", 60, "../fonts/EightBits.ttf", 5, 15, sf::Color::Red);
     return_->setPosition(20, 20);
     return_->setHoverColor(sf::Color::Yellow);
     return_->setActiveColor(sf::Color(222, 238, 0));
@@ -22,7 +22,7 @@ JoinState::JoinState() {
     template_->setFont(fnt_);
 
     input_field_ = std::make_shared<Button>();
-    input_field_->setParams("", 60, "fonts/EightBits.ttf", 5, 15, sf::Color::Red);
+    input_field_->setParams("", 60, "../fonts/EightBits.ttf", 5, 15, sf::Color::Red);
     input_field_->setPosition(50, 300);
 }
 

@@ -27,7 +27,7 @@ Client *GameEngine::getClient() {
 }
 
 GameEngine::GameEngine():
-window_(sf::VideoMode(w_width_ / 2, w_height_ / 2), "ATOMIC GOD") {
+window_(sf::VideoMode(w_width_, w_height_), "ATOMIC GOD") {
     game_engine_ = this;
 }
 
