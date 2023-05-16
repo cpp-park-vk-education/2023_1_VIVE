@@ -101,6 +101,15 @@ void GameEngine::draw()
     window_.display();
 }
 
+void GameEngine::spawnEnemies()
+{
+    int enemy_pos_x = random_int(0, window_.getSize().x);
+    Enemy *enemy = new Enemy(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
+                                sf::Vector2f(enemy_pos_x, 100.f));
+    
+    enemies_.push_back(enemy);
+}
+
 void GameEngine::initBG() {
     bg_.setTexture(AssetManager::getInstance()->getTexture("green_world_temple"));
     bg_.setScale(2.0f, 2.0f);
@@ -164,12 +173,7 @@ void GameEngine::initParticles()
 
 void GameEngine::initEnemies()
 {
-    size_t enemies_count = 1;
-    for (size_t i{}; i < enemies_count; ++i)
-    {
-        enemies_.push_back(new Enemy(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
-                                     sf::Vector2f(500.f, 100.f)));
-    }
+    spawnEnemies();
 }
 
 void GameEngine::updatePlayer(const float delta_time)
@@ -222,6 +226,10 @@ void GameEngine::updateCollision()
 void GameEngine::updateEnemies(const float delta_time)
 {
     // std::cout << "Update Enemies" << std::endl;
+    if (enemies_.empty())
+    {
+        spawnEnemies();
+    }
 
     for (const auto &enemy : enemies_)
     {

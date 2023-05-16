@@ -65,6 +65,9 @@ private:
     void drawEnemies();
     void draw();
 
+    // Spawners
+    void spawnEnemies();
+
     // Timer
     sf::Clock clock_;
 

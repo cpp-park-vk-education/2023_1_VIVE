@@ -224,7 +224,7 @@ void Enemy::updateMovement(const float delta_time, Entity *target)
     }
 }
 
-int random_int(const int max, const int min)
+int random_int(const int min, const int max)
 {
     std::random_device rd;
     std::mt19937 gen(rd()); // generator
