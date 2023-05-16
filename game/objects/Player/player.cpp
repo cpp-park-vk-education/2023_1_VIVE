@@ -108,7 +108,10 @@ void Player::update(const sf::Event &event, const float delta_time)
 void Player::update(const sf::Event &event, Entity *target,
                     const float delta_time)
 {
-    updateMovement(delta_time);
+    if (!isDead())
+    {
+        updateMovement(delta_time);
+    }
 }
 
 void Player::updateMovement(const float delta_time)
