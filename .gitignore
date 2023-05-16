@@ -2,3 +2,5 @@ build/*
 .vscode/*
 *ObjectManager/
 build.sh
+*test*
+*a*

@@ -40,6 +40,7 @@ public:
     // Getters
     ParticleSet *getCoinParticles();
     ParticleSet *getExpParticles();
+    virtual bool doesExist() const override;
 
     virtual void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 };

@@ -12,6 +12,8 @@ void Enemy::spawnParticles()
 void Enemy::initSprite()
 {
     sprite_.setFillColor(sf::Color::Red);
+    sprite_.setOutlineColor(sf::Color::Black);
+    sprite_.setOutlineThickness(1);
     sprite_.setSize(hitbox_.getSize());
     sprite_.setPosition(hitbox_.getPosition());
 }
@@ -90,6 +92,20 @@ ParticleSet *Enemy::getExpParticles()
     return exp_particles_;
 }
 
+bool Enemy::doesExist() const
+{
+    if (isDead() &&
+        !coin_particles_->doesExist() &&
+        !exp_particles_->doesExist())
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
 void Enemy::updateHP(const unsigned int damage)
 {
     int new_hp = hp_ - damage;
@@ -143,20 +159,21 @@ void Enemy::draw(sf::RenderTarget &target, sf::RenderStates state) const
 void Enemy::update(const sf::Event &event, const float delta_time)
 {
     // std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
-    if (isDead())
-    {
-        coin_particles_->update(event, delta_time);
-        exp_particles_->update(event, delta_time);
-    }
-    else
-    {
-        updateMovement(delta_time);
-    }
+    // if (isDead())
+    // {
+    //     coin_particles_->update(event, delta_time);
+    //     exp_particles_->update(event, delta_time);
+    // }
+    // else
+    // {
+    //     updateMovement(delta_time);
+    // }
 }
 
 void Enemy::update(const sf::Event &event, const float delta_time,
                    Entity *target)
 {
+    // std::cout << "Enemy exists" << std::endl;
     if (isDead())
     {
         coin_particles_->update(event, delta_time);
@@ -166,6 +183,7 @@ void Enemy::update(const sf::Event &event, const float delta_time,
     {
         // std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
         updateMovement(delta_time, target);
+        updateAttack(event, target, delta_time);
     }
 }
 

@@ -3,6 +3,8 @@
 void Player::initSprite()
 {
     sprite_.setFillColor(sf::Color::White);
+    sprite_.setOutlineColor(sf::Color::Black);
+    sprite_.setOutlineThickness(1);
     sprite_.setSize(hitbox_.getSize());
     sprite_.setPosition(hitbox_.getPosition());
 }
@@ -83,6 +85,11 @@ void Player::updateCurrLvl()
 int Player::getCoinsCount()
 {
     return coins_count_;
+}
+
+bool Player::doesExist() const
+{
+    return true;
 }
 
 void Player::updateCoinsCount(const uint16_t coins_count)

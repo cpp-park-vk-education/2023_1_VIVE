@@ -27,7 +27,31 @@ void GameEngine::update()
     updateTiles();
     updateEnemies(delta_time);
 
+    updateNonExistentObjects();
+    
     updateCollision();
+}
+
+void GameEngine::updateNonExistentObjects()
+{
+    // Check player
+
+    // Check enemies
+    for (auto it = enemies_.begin(); it != enemies_.end(); )
+    {
+        if (!(*it)->doesExist())
+        {
+            it = enemies_.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+    // if (enemies_.empty())
+    // {
+    //     std::cout << "Enemy disappeared" << std::endl;
+    // }
 }
 
 void GameEngine::drawBG() {
@@ -206,7 +230,7 @@ void GameEngine::updateEnemies(const float delta_time)
         //     delete enemy
         // }
         enemy->update(event_, delta_time, player_);
-        enemy->updateAttack(event_, player_, delta_time);
+        // enemy->updateAttack(event_, player_, delta_time);
     }
 }
 

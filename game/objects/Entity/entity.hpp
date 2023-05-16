@@ -20,6 +20,8 @@ protected:
     unsigned int damage_;
     float damage_radius_;
     bool attacking_;
+
+    bool exists_;
     bool alive_;
 
     // Physics
@@ -41,6 +43,7 @@ public:
 
     // Getters
     bool isDead() const;
+    virtual bool doesExist() const = 0;
     int getHP() const;
     int getHPMax() const;
 

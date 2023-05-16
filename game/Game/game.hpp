@@ -55,6 +55,7 @@ private:
     void updateCollision();
     void updateEnemies(const float delta_time);
     void update();
+    void updateNonExistentObjects();
 
     // Draws
     void drawBG();

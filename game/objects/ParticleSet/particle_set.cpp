@@ -2,8 +2,18 @@
 
 void ParticleSet::clear()
 {
-    particles_.erase(std::remove(particles_.begin(), particles_.end(),
-                                 nullptr), particles_.end());
+    // Remove non-existent pfrticles from vector
+    for (auto it = particles_.begin(); it != particles_.end();)
+    {
+        if (!(*it) || !(*it)->doesExist())
+        {
+            it = particles_.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
 }
 
 void ParticleSet::initParticles()
@@ -52,11 +62,16 @@ void ParticleSet::update(const sf::Event &event, const float delta_time)
 {
     if (exists_)
     {
-        // clear();
+        clear();
         // std::cout << particles_.size() << std::endl;
         for (const auto &particle : particles_)
         {
             particle->update(event, delta_time);
+        }
+
+        if (particles_.empty())
+        {
+            exists_ = false;
         }
     }
 }

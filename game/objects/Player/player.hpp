@@ -25,12 +25,16 @@ public:
     Player(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~Player();
 
+    // Getters
     int getExp();
-    void updateExp(const uint16_t exp);
     int getExpMax();
     int getCurrLvl();
-    void updateCurrLvl();
     int getCoinsCount();
+    virtual bool doesExist() const override;
+
+    // Updates
+    void updateExp(const uint16_t exp);
+    void updateCurrLvl();
     void updateCoinsCount(const uint16_t coins_count);
 
     // Object overrides
