@@ -159,7 +159,7 @@ void GameEngine::updateCamera() {
 }
 
 void GameEngine::updatePUI() {
-    player_user_interface_->updateCoordinates(camera_->getCameraCenter(), camera_->getTopLeftCameraCoordinates());
+    player_user_interface_->updateCoordinates(camera_->getCameraSize(), camera_->getTopLeftCameraCoordinates());
     player_user_interface_->updateBar(false, player_->getHP());
     player_user_interface_->updateMoney(player_->getCoinsCount());
     player_user_interface_->updateExpirienceCurrentPoints(player_->getExp());
