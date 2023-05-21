@@ -15,9 +15,9 @@ enum PRIORITY : uint8_t {
     TILES,
     ENEMIES,
     PARTICLES,
-    PLAYER,
+    PLAYERS,
     PLAYER_USER_INTERFACE,
-    BUTTON,
+    BUTTONS,
 };
 
 class Object : public sf::Drawable
