@@ -38,7 +38,7 @@ void Player::initStats()
     attacking_ = false;
     damage_ = 30;
     damage_radius_ = BASE_SIZE * 3;
-    attack_cooldown_ = 0.5f;
+    attack_cooldown_ = 0.25f;
     sec_since_last_hit_ = attack_cooldown_;
 
     hp_ = 100;

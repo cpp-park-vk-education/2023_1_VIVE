@@ -24,6 +24,8 @@ void Animation::updateSpriteSize(const sf::Vector2f &size_of_sprite) {
 void Animation::changeAnimation(char current_state) {
         if (is_playing_ && current_state == 's' && current_state_ != 's')
                 return;
+        if (is_playing_ && current_state_ == 'a')
+                return;
 
         if (is_playing_ && current_state_ == 'j') {
                 if (current_state == 'l')
@@ -112,7 +114,6 @@ void Animation::setStayAnimation() {
 }
 
 void Animation::setLeftRunAnimation() {
-        current_frame_ = 0;
         frame_duration_ = 10.0f;
         is_left_run = true;
         looped_ = true;
@@ -120,7 +121,6 @@ void Animation::setLeftRunAnimation() {
 }
 
 void Animation::setRightRunAnimation() {
-        current_frame_ = 0;
         frame_duration_ = 10.0f;
         is_left_run = false;
         looped_ = true;
@@ -142,7 +142,7 @@ void Animation::setAttackAnimation() {
 
 void Animation::setJumpAnimation() {
         current_frame_ = 0;
-        frame_duration_ = 10.0f;
+        frame_duration_ = 15.0f;
         looped_ = false;
         count_of_frames_ = 7;
 }
