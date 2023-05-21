@@ -1,11 +1,13 @@
 #include "player.hpp"
 
+void Player::initAnimation() {
+    animation_ = std::make_unique<Animation>("player_animation", 2.0f);
+    animation_->updateSpriteSize(hitbox_.getSize());
+}
+
 void Player::initSprite()
 {
-    sprite_.setFillColor(sf::Color::White);
-    sprite_.setOutlineColor(sf::Color::Black);
-    sprite_.setOutlineThickness(1);
-    sprite_.setSize(hitbox_.getSize());
+    sprite_ = animation_->getSpriteAnimation();
     sprite_.setPosition(hitbox_.getPosition());
 }
 
@@ -36,7 +38,7 @@ void Player::initStats()
     attacking_ = false;
     damage_ = 30;
     damage_radius_ = BASE_SIZE * 3;
-    attack_cooldown_ = 1;
+    attack_cooldown_ = 0.25f;
     sec_since_last_hit_ = attack_cooldown_;
 
     hp_ = 100;
@@ -53,6 +55,7 @@ Player::Player(const sf::Vector2f size, const sf::Vector2f position)
     : Entity(size, position)
 {
     priority_ = PRIORITY::PLAYER;
+    initAnimation();
     initSprite();
     initPhysics();
     initStats();
@@ -103,9 +106,6 @@ void Player::updateCoinsCount(const uint16_t coins_count)
 
 void Player::update(const sf::Event &event, const float delta_time)
 {
-    // std::cout << "Coins: " << getCoinsCount()
-    //           << " Exp: " << getExp() << std::endl;
-    // std::cout << "Player: " << getHP() << "/" << getHPMax() << std::endl;
     updateMovement(delta_time);
 }
 
@@ -116,6 +116,19 @@ void Player::update(const sf::Event &event, Entity *target,
     {
         updateMovement(delta_time);
     }
+}
+
+void Player::setNewAnimation(char current_state) {
+    animation_->changeAnimation(current_state);
+    sprite_.setPosition(hitbox_.getSize());
+}
+
+void Player::updateAnimation(float delta_time)
+{
+    animation_->update(delta_time);
+    sprite_ = animation_->getSpriteAnimation();
+
+    sprite_.setPosition(hitbox_.getPosition());
 }
 
 void Player::updateMovement(const float delta_time)
@@ -135,6 +148,7 @@ void Player::updateMovement(const float delta_time)
             velocity_.x = -max_speed_;
         }
         is_moving = true;
+        animation_->changeAnimation('l');
     }
 
     // Moving right
@@ -148,6 +162,7 @@ void Player::updateMovement(const float delta_time)
             velocity_.x = max_speed_;
         }
         is_moving = true;
+        animation_->changeAnimation('r');
     }
 
     // Обрабатываем прыжок персонажа
@@ -156,6 +171,7 @@ void Player::updateMovement(const float delta_time)
         // Проверяем, находится ли персонаж на земле
         if (velocity_.y == 0)
         {
+            animation_->changeAnimation('j');
             is_jumping_ = true;
             jump_time_ = 0;
             velocity_.y = -jump_speed_;
@@ -210,6 +226,7 @@ void Player::updateAttack(const sf::Event &event, EntityShPtr target,
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && !attacking_ &&
         sec_since_last_hit_ > attack_cooldown_)
     {
+        animation_->changeAnimation('a');
         attacking_ = true;
         attack(target);
         sec_since_last_hit_ = 0;

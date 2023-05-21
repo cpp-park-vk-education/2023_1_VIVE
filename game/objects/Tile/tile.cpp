@@ -2,10 +2,9 @@
 
 void Tile::initSprite()
 {
-    sprite_.setFillColor(sf::Color::Green);
-    sprite_.setOutlineColor(sf::Color::Red);
-    sprite_.setOutlineThickness(1);
-    sprite_.setSize(hitbox_.getSize());
+    sprite_.setTexture(AssetManager::getInstance()->getTexture("ground_world_level"));
+    sprite_.setTextureRect(sf::IntRect(54, 42, 37, 38));
+    sprite_.setScale(hitbox_.getSize().x / sprite_.getGlobalBounds().width, hitbox_.getSize().y / sprite_.getGlobalBounds().height);
     sprite_.setPosition(hitbox_.getPosition());
 }
 

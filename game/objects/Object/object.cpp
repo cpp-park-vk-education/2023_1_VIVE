@@ -25,7 +25,7 @@ sf::FloatRect Object::getGlobalBounds() const
 
 void Object::setTexture(const sf::Texture &texture, bool resetRect)
 {
-    sprite_.setTexture(&texture, resetRect);
+    sprite_.setTexture(texture, resetRect);
 }
 
 void Object::setScale(float factorX, float factorY)

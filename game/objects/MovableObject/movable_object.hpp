@@ -1,6 +1,7 @@
 #pragma once
 
 #include "physical_object.hpp"
+#include "animation.hpp"
 
 class MovableObject : public PhysicalObject
 {
@@ -14,13 +15,22 @@ protected:
     float max_speed_;
     float speed_;
 
+    //Animation
+    std::unique_ptr<Animation> animation_;
+
     bool is_moving;
 
 public:
+    //Init
+    virtual void initAnimation() = 0;
+
     MovableObject(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~MovableObject();
 
+    virtual void setNewAnimation(char current_state) = 0;
+
     virtual void move(const sf::Vector2f displacement);
+    virtual void updateAnimation(float delta_time) = 0;
     virtual void updateMovement(const float delta_time) = 0;
     virtual void slowDown();
 

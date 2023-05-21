@@ -1,6 +1,7 @@
 #pragma once
 
 #include "physical_object.hpp"
+#include "asset_manager.hpp"
 
 class Tile : public PhysicalObject
 {

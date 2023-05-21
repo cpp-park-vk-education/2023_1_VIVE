@@ -16,6 +16,7 @@ protected:
     void spawnParticles();
 
     // Initions
+    void initAnimation() override;
     void initSprite() override;
     void initPhysics() override;
     void initStats() override;
@@ -30,6 +31,8 @@ public:
     void update(const sf::Event &event, const float delta_time, EntityShPtr target);
 
     // MovableObject overrides
+    void setNewAnimation(char current_state) override;
+    void updateAnimation(float delta_time) override;
     void updateMovement(const float delta_time) override;
     void updateMovement(const float delta_time, EntityShPtr target);
 
@@ -43,6 +46,14 @@ public:
     virtual bool doesExist() const override;
 
     virtual void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
+
+    bool isAttack() const {
+        return attacking_;
+    }
+
+    void setStayAnnimation() {
+        animation_->changeAnimation('s');
+    }
 };
 
 

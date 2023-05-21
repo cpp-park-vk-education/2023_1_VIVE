@@ -23,8 +23,7 @@ enum PRIORITY : uint8_t {
 class Object : public sf::Drawable
 {
 protected:
-    // TODO change to sf::Sprite
-    sf::RectangleShape sprite_;
+    sf::Sprite sprite_;
 
     PRIORITY priority_;
 

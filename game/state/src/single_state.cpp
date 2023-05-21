@@ -46,6 +46,8 @@ void SingleState::update(const sf::Event &event)
 
 void SingleState::load()
 {
+    std::cout << "Inited bg" << std::endl;
+    initAssets();
     std::cout << "Started initions" << std::endl;
     initPlayer();
     std::cout << "Inited players" << std::endl;
@@ -54,8 +56,6 @@ void SingleState::load()
     initEnemies();
     std::cout << "Inited enemies" << std::endl;
     initBG();
-    std::cout << "Inited bg" << std::endl;
-    initAssets();
     std::cout << "Inited assets" << std::endl;
     initCamera();
     std::cout << "Inited camer" << std::endl;
@@ -134,8 +134,6 @@ void SingleState::initPlayer()
     player_ = std::make_shared<Player>(
         sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
         sf::Vector2f(100.f, 100.f));
-    // player_ = new Player(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
-    //                      sf::Vector2f(100.f, 100.f));
 }
 
 void SingleState::initTiles()
@@ -169,8 +167,21 @@ void SingleState::initCollisionHandler()
 
 void SingleState::updatePlayer(const sf::Event &event, const float delta_time)
 {
-    player_->update(event, delta_time);
-    player_->updateAttack(event, enemies_.front(), delta_time);
+    if (!player_->isDead())
+    {
+        player_->update(event, delta_time);
+        player_->updateAttack(event, enemies_.front(), delta_time);
+        player_->updateAnimation(delta_time);
+
+        if (!player_->isAttack() && !player_->isJumping() && !player_->isRunning())
+            player_->setStayAnimation();
+    }
+    else
+    {
+        int player_new_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
+        player_->setPosition(sf::Vector2f(player_new_pos_x, 100.f));
+        player_->spawn();
+    }
 }
 
 void SingleState::updateCamera()
