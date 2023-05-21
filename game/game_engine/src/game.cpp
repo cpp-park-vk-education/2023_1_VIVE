@@ -198,6 +198,9 @@ void GameEngine::updatePlayer(const float delta_time)
         player_->update(event_, delta_time);
         player_->updateAttack(event_, enemies_.front(), delta_time);
         player_->updateAnimation(delta_time);
+
+        if (!player_->isAttack() && !player_->isJumping() && !player_->isRunning())
+            player_->setStayAnimation();
     }
     else
     {

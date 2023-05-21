@@ -46,6 +46,14 @@ public:
     virtual bool doesExist() const override;
 
     virtual void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
+
+    bool isAttack() const {
+        return attacking_;
+    }
+
+    void setStayAnnimation() {
+        animation_->changeAnimation('s');
+    }
 };
 
 

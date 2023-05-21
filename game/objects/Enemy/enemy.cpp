@@ -139,6 +139,7 @@ void Enemy::updateAttack(const sf::Event &event, Entity *target,
         attacking_ = true;
         attack(target);
         sec_since_last_hit_ = 0;
+        animation_->changeAnimation('a');
     }
     else if (attacking_)
     {
@@ -187,6 +188,12 @@ void Enemy::update(const sf::Event &event, const float delta_time,
         // std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
         updateMovement(delta_time, target);
         updateAttack(event, target, delta_time);
+        animation_->update(delta_time);
+        sprite_ = animation_->getSpriteAnimation();
+        sprite_.setPosition(hitbox_.getPosition());
+
+        if(!isAttack())
+            setStayAnnimation();
     }
 }
 
