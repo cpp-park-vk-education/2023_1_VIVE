@@ -68,7 +68,7 @@ void Animation::update(float delta_time) {
                 return;
 
         current_frame_ += frame_duration_ * delta_time;
-        if (int(current_frame_) > count_of_frames_) {
+        if (uint8_t(current_frame_) > count_of_frames_) {
                 current_frame_ = 0;
                 is_playing_ = false;
         }

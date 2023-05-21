@@ -36,7 +36,7 @@ private:
     sf::Vector2f size_of_sprite_;
     sf::Sprite sprite_of_animation_;
     float current_frame_;
-    size_t count_of_frames_;
+    uint8_t count_of_frames_;
     float frame_duration_;
     float elapsed_time_;
     bool looped_;
