@@ -62,11 +62,8 @@ void GameEngine::run()
     state_manager_.init();
     while (window_.isOpen())
     {
-        std::cout << '1' << std::endl;
         update();
-        std::cout << '2' << std::endl;
         render();
-        std::cout << '3' << std::endl;
     }
 
     google::protobuf::ShutdownProtobufLibrary();

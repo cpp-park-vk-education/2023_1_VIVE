@@ -2,7 +2,12 @@
 
 bool Entity::isDead() const
 {
-    return !alive_;
+    if (!alive_) {
+        animation_->changeAnimation('d');
+        return true;
+    }
+
+    return false;
 }
 
 bool Entity::isInDamageRadius(const PhysicalObjectShPtr target) const

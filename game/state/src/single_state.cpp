@@ -16,7 +16,6 @@ void SingleState::readMessage(const proto::Response &msg)
 
 void SingleState::update(const sf::Event &event)
 {
-    std::cout << "2.1.1" << std::endl;
     float delta_time = clock_.restart().asSeconds();
     // std::cout << "2.1.2" << std::endl;
 
@@ -171,26 +170,26 @@ void SingleState::updatePlayer(const sf::Event &event, const float delta_time)
     {
         player_->update(event, delta_time);
         player_->updateAttack(event, enemies_.front(), delta_time);
-        player_->updateAnimation(delta_time);
 
         if (!player_->isAttack() && !player_->isJumping() && !player_->isRunning())
             player_->setStayAnimation();
     }
     else
     {
-        int player_new_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
-        player_->setPosition(sf::Vector2f(player_new_pos_x, 100.f));
-        player_->spawn();
+        if (player_->checkDeathFreeze(delta_time)) {
+            int player_new_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
+            player_->setPosition(sf::Vector2f(player_new_pos_x, 100.f));
+            player_->spawn();
+            player_->setStayAnimation();
+        }
     }
+    player_->updateAnimation(delta_time);
 }
 
 void SingleState::updateCamera()
 {
-    std::cout << "2.1.3.1" << std::endl;
     GameEngine::getWindow().setView(camera_->getView());
-    std::cout << "2.1.3.2" << std::endl;
     camera_->setFollowByCoordinates(player_->getCenter().x, player_->getCenter().y);
-    std::cout << "2.1.3.3" << std::endl;
 }
 
 void SingleState::updatePUI()

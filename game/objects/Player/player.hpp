@@ -16,6 +16,9 @@ protected:
     int exp_max_;
     int curr_lvl_;
     int coins_count_;
+    
+    float death_freeze_;
+    float last_death_count_;
 
     // Initions
     void initSprite() override;
@@ -37,6 +40,17 @@ public:
 
     bool isAttack() const {
         return attacking_;
+    }
+
+    bool checkDeathFreeze(float delta_time) {
+        last_death_count_ += delta_time;
+
+        if (last_death_count_ >= death_freeze_) {
+            last_death_count_ = 0;
+            return true;
+        }
+
+        return false;
     }
 
     void setStayAnimation() const {

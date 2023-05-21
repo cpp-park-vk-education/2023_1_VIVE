@@ -41,6 +41,9 @@ void Player::initStats()
     attack_cooldown_ = 0.25f;
     sec_since_last_hit_ = attack_cooldown_;
 
+    death_freeze_ = 2.0f;
+    last_death_count_ = 0.0f;
+
     hp_ = 100;
     hp_max_ = hp_;
 
