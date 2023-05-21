@@ -21,10 +21,13 @@ protected:
     bool exists_;
 
     // Initions
+    void initAnimation() override;
     void initSprite() override;
     void initPhysics() override;
 
     // MovableObject overrides
+    void setNewAnimation(char current_state) override;
+    void updateAnimation(float delta_time) override;
     void updateMovement(const float delta_time) override;
 
 public:

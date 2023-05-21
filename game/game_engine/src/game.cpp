@@ -197,6 +197,7 @@ void GameEngine::updatePlayer(const float delta_time)
     {
         player_->update(event_, delta_time);
         player_->updateAttack(event_, enemies_.front(), delta_time);
+        player_->updateAnimation(delta_time);
     }
     else
     {

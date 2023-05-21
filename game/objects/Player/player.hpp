@@ -11,6 +11,7 @@ class Player : public Entity
 protected:
     std::string name_;
 
+    bool was_event_;
     int exp_;
     int exp_max_;
     int curr_lvl_;
@@ -20,10 +21,27 @@ protected:
     void initSprite() override;
     void initPhysics() override;
     void initStats() override;
+    void initAnimation() override;
 
 public:
     Player(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~Player();
+
+    bool isRunning() const {
+        return is_moving;
+    }
+
+    bool isJumping() const {
+        return is_jumping_;
+    }
+
+    bool isAttack() const {
+        return attacking_;
+    }
+
+    void setStayAnimation() const {
+        animation_->changeAnimation('s');
+    }
 
     // Getters
     int getExp();
@@ -42,6 +60,8 @@ public:
     void update(const sf::Event &event, Entity *target, const float delta_time);
 
     // MovableObject overrides
+    void setNewAnimation(char current_state) override;
+    void updateAnimation(float delta_time) override;
     void updateMovement(const float delta_time) override;
 
     // Entity overrides

@@ -1,17 +1,21 @@
 #include "particle.hpp"
 
+void Particle::initAnimation() {
+    
+}
+
 void Particle::initSprite()
 {
     if (type_ == TYPE::COIN)
     {
-        sprite_.setFillColor(sf::Color::Yellow);
+        // sprite_.setFillColor(sf::Color::Yellow);
     }
     else if (type_ == TYPE::EXP)
     {
-        sprite_.setFillColor(sf::Color::Blue);
+        // sprite_.setFillColor(sf::Color::Blue);
     }
-    sprite_.setSize(hitbox_.getSize());
-    sprite_.setPosition(hitbox_.getPosition());
+    // sprite_.setSize(hitbox_.getSize());
+    // sprite_.setPosition(hitbox_.getPosition());
 }
 
 void Particle::initPhysics()
@@ -80,8 +84,15 @@ void Particle::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
     if (exists_)
     {
-        target.draw(sprite_);
+        // target.draw(sprite_);
     }
+}
+
+void Particle::setNewAnimation(char current_state) {
+    
+}
+
+void Particle::updateAnimation(float delta_time) {
 }
 
 void Particle::updateMovement(const float delta_time)

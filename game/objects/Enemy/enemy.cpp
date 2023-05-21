@@ -9,12 +9,14 @@ void Enemy::spawnParticles()
     exp_particles_->generate();
 }
 
+void Enemy::initAnimation() {
+    animation_ = std::make_unique<Animation>("player_animation", 0);
+    animation_->updateSpriteSize(hitbox_.getSize());
+}
+
 void Enemy::initSprite()
 {
-    sprite_.setFillColor(sf::Color::Red);
-    sprite_.setOutlineColor(sf::Color::Black);
-    sprite_.setOutlineThickness(1);
-    sprite_.setSize(hitbox_.getSize());
+    sprite_ = animation_->getSpriteAnimation();
     sprite_.setPosition(hitbox_.getPosition());
 }
 
@@ -70,6 +72,7 @@ void Enemy::initParticles()
 Enemy::Enemy(const sf::Vector2f size, const sf::Vector2f position)
     : Entity(size, position)
 {
+    initAnimation();
     initSprite();
     initPhysics();
     initStats();
@@ -185,6 +188,14 @@ void Enemy::update(const sf::Event &event, const float delta_time,
         updateMovement(delta_time, target);
         updateAttack(event, target, delta_time);
     }
+}
+
+void Enemy::setNewAnimation(char current_state) {
+    
+}
+
+void Enemy::updateAnimation(float delta_time) {
+
 }
 
 void Enemy::updateMovement(const float delta_time)
