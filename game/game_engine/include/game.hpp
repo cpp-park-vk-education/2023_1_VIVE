@@ -4,12 +4,6 @@
 #include "client.hpp"
 #include "state_manager.hpp"
 #include "object.hpp"
-#include "asset_manager.hpp"
-#include "camera_target.hpp"
-#include "enemy.hpp"
-#include "tile.hpp"
-#include "player_user_interface.hpp"
-#include "collision_handler.hpp"
 
 class GameRender {
 
@@ -46,7 +40,7 @@ private:
 
     // Entities
     // Player *player;
-
+/*
 private:
     // Objects
     sf::Event event_;
@@ -96,4 +90,5 @@ private:
     sf::Clock clock_;
 
     char state_game_ = 'R';
+*/
 };

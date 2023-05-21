@@ -1,13 +1,15 @@
 #include "game.hpp"
 
-#include "object.hpp"
 #include "message.pb.h"
+#include "cassert"
 
 #include <iostream>
 
 GameEngine* GameEngine::game_engine_;
 
 GameEngine *GameEngine::getInstance() {
+    // Check if an instance is uninitialized
+    // assert(game_engine_ != nullptr);
     return game_engine_;
 }
 
@@ -26,24 +28,34 @@ Client *GameEngine::getClient() {
     return &game->client_;
 }
 
-GameEngine::GameEngine() {
-    window_.create(sf::VideoMode(BASE_SIZE * 32, BASE_SIZE * 18), "Atomic God");
+GameEngine::GameEngine() 
+    : window_(sf::VideoMode(BASE_SIZE * 32, BASE_SIZE * 18), "ATOMIC GOD")
+{
+    std::cout << "GameEngine constructor start" << std::endl;
+    game_engine_ = this;
+    // Create window and center it
+    // window_.setSize(sf::Vector2u(BASE_SIZE * 32, BASE_SIZE * 18));
+    // window_.create(sf::VideoMode(BASE_SIZE * 32, BASE_SIZE * 18), "Atomic God");
     int window_pos_x = sf::VideoMode::getDesktopMode().width / 2 - window_.getSize().x / 2;
     int window_pos_y = sf::VideoMode::getDesktopMode().height / 2 - window_.getSize().y / 2;
     window_.setPosition(sf::Vector2i(window_pos_x, window_pos_y));
     window_.setFramerateLimit(60);
-    game_engine_ = this;
+    std::cout << "GameEngine constructor end" << std::endl;
 }
+
+/* GameEngine::GameEngine():
+window_(sf::VideoMode(w_width_ / 2, w_height_ / 2), "ATOMIC GOD") {
+    std::cout << "GameEngine constructor start" << std::endl;
+    game_engine_ = this;
+    std::cout << "GameEngine constructor end" << std::endl;
+} */
 
 void GameEngine::run() {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
-    window_.setPosition(sf::Vector2i(w_width_ / 4, w_height_ / 4));
+    // window_.setPosition(sf::Vector2i(w_width_ / 4, w_height_ / 4));
 
     while (window_.isOpen()) {
-        if (state_game_ != 'P')
-            update();
-        else
-            updateGame();
+        update();
         render();
     }
 
@@ -51,64 +63,28 @@ void GameEngine::run() {
 }
 
 void GameEngine::update() {
-    // sf::Event event{};
-    while (window_.pollEvent(event_)) {
-        if (event_.type == sf::Event::Closed) {
+    sf::Event event{};
+    while (window_.pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
             window_.close();
             break;
         }
 
-        if (state_manager_.getState() != StateManager::EnState::SINGLE_STATE)
-            state_manager_.update(event_);
-        else {
-            state_game_ = 'P';
-
-            initAssets();
-            initBG();
-            initPlayer();
-            initCamera();
-            initPUI();
-            initTiles();
-            // initParticles();
-            initEnemies();
-
-            collision_handler_ = new CollisionHandler();
-
-            clock_.restart().asSeconds();
-
-            return;
-        }
+        state_manager_.update(event);
     }
 }
 
 void GameEngine::render() {
-    if (state_manager_.getState() != StateManager::EnState::SINGLE_STATE) {
-        window_.clear(sf::Color::Green);
-        for (const auto& obj : state_manager_.getHeap()) {
-            window_.draw(*obj);
-        }
-    //    game_render_.render(state_manager_.getHeap());
-        window_.display();
-    } else {
-        if (state_game_ == 'P') {
-            window_.clear();
-
-            drawBG();
-
-            // Render game
-            drawTiles();
-            drawEnemies();
-            // drawParticles();
-            drawPlayer();
-
-            window_.setView(window_.getDefaultView());
-            player_user_interface_->draw(window_, sf::RenderStates());
-
-            window_.display();
-        }
+    window_.clear(sf::Color::Green);
+    for (const auto& obj : state_manager_.getHeap()) {
+        window_.draw(*obj);
     }
+//    game_render_.render(state_manager_.getHeap());
+    window_.display();
+
 }
 
+/*
 void GameEngine::initBG() {
     bg_.setTexture(AssetManager::getInstance()->getTexture("green_world_temple"));
     bg_.setScale(2.0f, 2.0f);
@@ -328,3 +304,4 @@ void GameEngine::updateGame() {
     
     updateCollision();
 }
+*/

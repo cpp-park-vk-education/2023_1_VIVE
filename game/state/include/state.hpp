@@ -18,6 +18,7 @@ class State {
 public:
     virtual void readMessage(const proto::Response &msg) = 0;
     virtual void update(const sf::Event& event) = 0;
+    virtual void load() = 0;
     void updateHeap();
     std::vector<DrawableShPtr> getHeap();
     void setHeap(std::vector<DrawableShPtr> objects);
