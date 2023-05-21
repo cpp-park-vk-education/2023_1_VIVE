@@ -8,21 +8,6 @@ SingleState::SingleState()
 
 SingleState::~SingleState()
 {
-    delete player_;
-    delete player_user_interface_;
-    delete camera_;
-
-    for (auto &tile : tiles_)
-    {
-        delete tile;
-    }
-
-    for (auto &enemy : enemies_)
-    {
-        delete enemy;
-    }
-
-    delete collision_handler_;
 }
 
 void SingleState::readMessage(const proto::Response &msg)
@@ -31,20 +16,32 @@ void SingleState::readMessage(const proto::Response &msg)
 
 void SingleState::update(const sf::Event &event)
 {
+    std::cout << "2.1.1" << std::endl;
     float delta_time = clock_.restart().asSeconds();
+    // std::cout << "2.1.2" << std::endl;
 
     updatePlayer(event, delta_time);
+    // std::cout << "2.1.3" << std::endl;
 
     updateCamera();
+    // std::cout << "2.1.4" << std::endl;
 
     updatePUI();
+    // std::cout << "2.1.5" << std::endl;
 
     updateTiles(event);
+    // std::cout << "2.1.6" << std::endl;
     updateEnemies(event, delta_time);
+    // std::cout << "2.1.7" << std::endl;
 
     updateNonExistentObjects();
+    // std::cout << "2.1.7" << std::endl;
 
     updateCollision();
+    // std::cout << "2.1.8" << std::endl;
+
+    updateHeap();
+    // std::cout << "2.1.9" << std::endl;
 }
 
 void SingleState::load()
@@ -72,10 +69,34 @@ void SingleState::load()
     std::cout << "Finished initions" << std::endl;
 }
 
+void SingleState::updateHeap()
+{
+    clearHeap();
+
+    heap_.push(bg_);
+    heap_.push(player_);
+    heap_.push(player_user_interface_);
+
+    for (auto &tile : tiles_)
+    {
+        heap_.push(tile);
+    }
+    for (auto &enemy : enemies_)
+    {
+        heap_.push(enemy);
+    }
+}
+
+ObjectsHeap &SingleState::getHeap()
+{
+    return heap_;
+}
+
 void SingleState::initBG()
 {
-    bg_.setTexture(AssetManager::getInstance()->getTexture("green_world_temple"));
-    bg_.setScale(2.0f, 2.0f);
+    bg_ = std::make_shared<BackGround>();
+    bg_->setTexture(AssetManager::getInstance()->getTexture("green_world_temple"));
+    bg_->setScale(2.0f, 2.0f);
 }
 
 void SingleState::initAssets()
@@ -87,14 +108,21 @@ void SingleState::initCamera()
 {
     sf::Vector2u window_size = GameEngine::getWindow().getSize();
     sf::Vector2f camera_size = sf::Vector2f(window_size.x, window_size.y);
-    sf::FloatRect camera_restriction_ = bg_.getGlobalBounds();
+    // sf::FloatRect camera_restriction_ = bg_->getGlobalBounds();
+    sf::FloatRect camera_restriction_ = sf::FloatRect(0, 0, 1000, 1000);
+
+    camera_ = new CameraTarget(camera_size, camera_restriction_);
+    camera_->setFollowByCoordinates(player_->getCenter().x, player_->getCenter().y);
 }
 
 void SingleState::initPUI()
 {
-    player_user_interface_ = new PUI(
+    player_user_interface_ = std::make_shared<PUI>(
         sf::Vector2f(GameEngine::getWindow().getSize().x,
                      GameEngine::getWindow().getSize().y));
+    // player_user_interface_ = new PUI(
+    //     sf::Vector2f(GameEngine::getWindow().getSize().x,
+    //                  GameEngine::getWindow().getSize().y));
     player_user_interface_->updateMaxStatusBar(false, player_->getHPMax());
     player_user_interface_->updateBar(false, player_->getHP());
     player_user_interface_->updateMoney(player_->getCoinsCount());
@@ -103,25 +131,20 @@ void SingleState::initPUI()
 
 void SingleState::initPlayer()
 {
-    player_ = new Player(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
-                         sf::Vector2f(100.f, 100.f));
+    player_ = std::make_shared<Player>(
+        sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
+        sf::Vector2f(100.f, 100.f));
+    // player_ = new Player(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
+    //                      sf::Vector2f(100.f, 100.f));
 }
 
 void SingleState::initTiles()
 {
     std::cout << "Started initing tiles" << std::endl;
     size_t tiles_count = 10;
-    std::cout << "1" << std::endl;
     float x = 0;
-    std::cout << "2" << std::endl;
     float y = 400;
-    std::cout << "3" << std::endl;
     sf::Vector2f tile_size(BASE_SIZE, BASE_SIZE);
-    std::cout << "4" << std::endl;
-
-    std::cout << GameEngine::getInstance()->getWindow().getSize().x << std::endl;
-
-    std::cout << "5" << std::endl;
 
     int cntr = 0;
     for (size_t i{}; i <= GameEngine::getWindow().getSize().x; i += BASE_SIZE)
@@ -129,8 +152,8 @@ void SingleState::initTiles()
         // std::cout << "4" << std::endl;
         x = i;
         sf::Vector2f tile_coords(x, y);
-        tiles_.push_back(new Tile(tile_size, tile_coords));
-        std::cout << "Tile #" << cntr << "created" << std::endl;
+        tiles_.push_back(std::make_shared<Tile>(tile_size, tile_coords));
+        std::cout << "Tile #" << ++cntr << " created" << std::endl;
     }
 }
 
@@ -141,7 +164,7 @@ void SingleState::initEnemies()
 
 void SingleState::initCollisionHandler()
 {
-    collision_handler_ = new CollisionHandler();
+    collision_handler_ = std::make_shared<CollisionHandler>();
 }
 
 void SingleState::updatePlayer(const sf::Event &event, const float delta_time)
@@ -152,8 +175,11 @@ void SingleState::updatePlayer(const sf::Event &event, const float delta_time)
 
 void SingleState::updateCamera()
 {
+    std::cout << "2.1.3.1" << std::endl;
     GameEngine::getWindow().setView(camera_->getView());
+    std::cout << "2.1.3.2" << std::endl;
     camera_->setFollowByCoordinates(player_->getCenter().x, player_->getCenter().y);
+    std::cout << "2.1.3.3" << std::endl;
 }
 
 void SingleState::updatePUI()
@@ -174,7 +200,7 @@ void SingleState::updateTiles(const sf::Event &event)
 
 void SingleState::updateCollision()
 {
-    std::vector<Player *> players;
+    std::vector<PlayerShPtr> players;
     players.push_back(player_);
 
     collision_handler_->run(players, tiles_, enemies_);
@@ -224,7 +250,7 @@ void SingleState::updateNonExistentObjects()
 
 void SingleState::drawBG()
 {
-    GameEngine::getWindow().draw(bg_);
+    bg_->draw(GameEngine::getWindow(), sf::RenderStates());
 }
 
 void SingleState::drawPlayer()
@@ -251,8 +277,7 @@ void SingleState::drawEnemies()
 void SingleState::spawnEnemies()
 {
     int enemy_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
-    Enemy *enemy = new Enemy(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
-                             sf::Vector2f(enemy_pos_x, 100.f));
+    EnemyShPtr enemy = std::make_shared<Enemy>(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2), sf::Vector2f(enemy_pos_x, 100.f));
 
     enemies_.push_back(enemy);
 }

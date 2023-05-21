@@ -34,3 +34,5 @@ public:
     sf::Vector2f getAcceleration() const;
     sf::Vector2f getDisplacement() const;
 };
+
+using MovableObjectShPtr = std::shared_ptr<MovableObject>;

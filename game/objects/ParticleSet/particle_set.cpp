@@ -21,7 +21,7 @@ void ParticleSet::initParticles()
     for (int i{}; i < particles_count_; ++i)
     {
         // std::cout << "Particle #" << i;
-        Particle *particle = new Particle(size_, position_, type_);
+        ParticleShPtr particle = std::make_shared<Particle>(size_, position_, type_);
         particles_.push_back(particle);
         // std::cout << std::endl;
     }
@@ -44,10 +44,10 @@ ParticleSet::ParticleSet(const unsigned int particles_count,
 
 ParticleSet::~ParticleSet()
 {
-    for (const auto &particle : particles_)
-    {
-        delete particle;
-    }
+    // for (const auto &particle : particles_)
+    // {
+    //     delete particle;
+    // }
 }
 
 void ParticleSet::setPosition(const sf::Vector2f &position)
@@ -98,12 +98,12 @@ bool ParticleSet::doesExist() const
     return exists_;
 }
 
-std::vector<Particle *>::iterator ParticleSet::begin()
+std::vector<ParticleShPtr>::iterator ParticleSet::begin()
 {
     return particles_.begin();
 }
 
-std::vector<Particle *>::iterator ParticleSet::end()
+std::vector<ParticleShPtr>::iterator ParticleSet::end()
 {
     return particles_.end();
 }

@@ -34,7 +34,7 @@ private:
     sf::RenderWindow window_;
     Client client_;  // при инициализации игры создается, но не подключается к серверу
     StateManager state_manager_;
-    GameRender game_render_;
+    // GameRender game_render_;
 
     // ISound sound_;
 

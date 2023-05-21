@@ -21,3 +21,5 @@ public:
     // PhysicalObject overrides
     void setPosition(const sf::Vector2f size) override;
 };
+
+using TileShPtr = std::shared_ptr<Tile>;

@@ -32,16 +32,19 @@ public:
 
     void changeState(EnState newState);
 
-    std::vector<DrawableShPtr> getHeap();
+    ObjectsHeap &getHeap();
+    void updateHeap();
 
     EnState getState() const {
         return curState_;
     }
 
+    void init();
+
 private:
-    EnState curState_ = MAIN_MENU_STATE;
+    EnState curState_ = SINGLE_STATE;
     std::unordered_map<EnState, StateShPtr> to_state_object_ {
-            {MAIN_MENU_STATE, std::make_shared<MainMenuState>()},
+            // {MAIN_MENU_STATE, std::make_shared<MainMenuState>()},
             // {INIT_MULTIPLAYER_STATE, std::make_shared<InitMultiplayerState>()},
             // {JOIN_STATE, std::make_shared<JoinState>()},
             {SINGLE_STATE, std::make_shared<SingleState>()},

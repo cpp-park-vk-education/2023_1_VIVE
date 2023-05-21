@@ -13,34 +13,34 @@
 class CollisionHandler
 {
 private:
-    bool checkAABBCollision(const PhysicalObject *obj1,
-                            const PhysicalObject *obj2);
+    bool checkAABBCollision(const PhysicalObjectShPtr obj1,
+                            const PhysicalObjectShPtr obj2);
 
     // TODO think about combining theese methods
-    void handleCollision(MovableObject *movable_obj,
-                         const PhysicalObject *static_obj);
+    void handleCollision(MovableObjectShPtr movable_obj,
+                         const PhysicalObjectShPtr static_obj);
 
-    void checkPlayerTilesCollision(Player *player,
-                                   std::vector<Tile *> &tiles);
+    void checkPlayerTilesCollision(PlayerShPtr player,
+                                   std::vector<TileShPtr> &tiles);
 
-    void checkParticleTileCollision(Particle *particle,
-                                   std::vector<Tile *> &tiles);
+    void checkParticleTileCollision(ParticleShPtr particle,
+                                    std::vector<TileShPtr> &tiles);
 
-    void checkParticleSetTileCollision(ParticleSet *particles,
-                                       std::vector<Tile *> &tiles);
+    void checkParticleSetTileCollision(ParticleSetShPtr particles,
+                                       std::vector<TileShPtr> &tiles);
 
-    void checkEnemyTileCollision(Enemy *enemy, std::vector<Tile *> &tiles);
+    void checkEnemyTileCollision(EnemyShPtr enemy, std::vector<TileShPtr> &tiles);
 
-    void checkPlayerParticleCollision(Player *player, Particle *particle);
+    void checkPlayerParticleCollision(PlayerShPtr player, ParticleShPtr particle);
 
 public:
     CollisionHandler();
     ~CollisionHandler();
 
-    void run(std::vector<Player *> &players,
-             std::vector<Tile *> &tiles,
-            //  ParticleSet *particles,
-             std::vector<Enemy *> &enemies);
+    void run(std::vector<PlayerShPtr> &players,
+             std::vector<TileShPtr> &tiles,
+             //  ParticleSetShPtrparticles,
+             std::vector<EnemyShPtr> &enemies);
 };
 
 using CollisionHandlerShPtr = std::shared_ptr<CollisionHandler>;

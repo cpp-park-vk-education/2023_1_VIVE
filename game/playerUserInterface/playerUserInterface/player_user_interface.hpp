@@ -41,3 +41,6 @@ private:
     std::unique_ptr<StatusPlayerBar> health_bar_;
     std::unique_ptr<StatusPlayerBar> mana_bar_;
 };
+
+using PUIShPtr = std::shared_ptr<PUI>;
+

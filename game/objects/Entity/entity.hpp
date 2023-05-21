@@ -33,9 +33,9 @@ protected:
     // Initions
     virtual void initStats() = 0;
 
-    bool isInDamageRadius(const PhysicalObject *target) const;
+    bool isInDamageRadius(const PhysicalObjectShPtr target) const;
 
-    virtual void attack(Entity *target);
+    virtual void attack(std::shared_ptr<Entity> target);
 
 public:
     Entity(const sf::Vector2f size, const sf::Vector2f position);
@@ -51,5 +51,7 @@ public:
     void spawn();
 
     virtual void updateHP(const unsigned int damage) = 0;
-    virtual void updateAttack(const sf::Event &event, Entity *target, const float delta_time) = 0;
+    virtual void updateAttack(const sf::Event &event, std::shared_ptr<Entity> target, const float delta_time) = 0;
 };
+
+using EntityShPtr = std::shared_ptr<Entity>;

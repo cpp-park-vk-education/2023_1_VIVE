@@ -13,9 +13,24 @@ Object::~Object()
 {
 }
 
-uint8_t Object::getPriority() const
+PRIORITY Object::getPriority() const
 {
     return priority_;
+}
+
+sf::FloatRect Object::getGlobalBounds() const
+{
+    return sprite_.getGlobalBounds();
+}
+
+void Object::setTexture(const sf::Texture &texture, bool resetRect)
+{
+    sprite_.setTexture(&texture, resetRect);
+}
+
+void Object::setScale(float factorX, float factorY)
+{
+    sprite_.setScale(factorX, factorY);
 }
 
 int random_int(const int min, const int max)

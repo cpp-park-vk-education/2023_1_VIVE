@@ -23,6 +23,11 @@ public:
     void readMessage(const proto::Response &msg) override;
     void load() override {}
 
+    // Heap methods
+    void updateHeap() override;
+    ObjectsHeap &getHeap() override;
+    void setHeap(std::vector<ObjectShPtr> objects) override {};
+
 private:
     void sendServerAboutInitMultiplayer_();
     void handlePressedButton(const ButtonShPtr &btn, StateManager *manager, const sf::Event &event);

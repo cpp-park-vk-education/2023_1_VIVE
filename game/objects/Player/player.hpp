@@ -45,7 +45,8 @@ public:
     void updateMovement(const float delta_time) override;
 
     // Entity overrides
-    virtual void updateAttack(const sf::Event &event, Entity *target, const float delta_time);
+    virtual void updateAttack(const sf::Event &event, EntityShPtr target,
+                              const float delta_time);
     virtual void updateHP(const unsigned int damage);
 };
 

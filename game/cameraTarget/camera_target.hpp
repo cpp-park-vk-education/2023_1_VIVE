@@ -33,3 +33,5 @@ private:
     sf::Vector2f camera_size_;
     sf::FloatRect restriction_;
 };
+
+// using CameraTargetShPtr = std::shared_ptr<CameraTarget>;

@@ -7,7 +7,17 @@ void StateManager::changeState(StateManager::EnState newState) {
     to_state_object_[curState_]->load();
 }
 
-std::vector<DrawableShPtr> StateManager::getHeap() {
+void StateManager::updateHeap()
+{
+    to_state_object_[curState_]->updateHeap();
+}
+
+void StateManager::init()
+{
+    to_state_object_[curState_]->load();
+}
+
+ObjectsHeap &StateManager::getHeap() {
     return to_state_object_[curState_]->getHeap();
 }
 

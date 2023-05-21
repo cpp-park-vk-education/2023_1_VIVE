@@ -52,6 +52,7 @@ void Player::initStats()
 Player::Player(const sf::Vector2f size, const sf::Vector2f position)
     : Entity(size, position)
 {
+    priority_ = PRIORITY::PLAYER;
     initSprite();
     initPhysics();
     initStats();
@@ -199,7 +200,7 @@ void Player::updateHP(const unsigned int damage)
     }
 }
 
-void Player::updateAttack(const sf::Event &event, Entity *target,
+void Player::updateAttack(const sf::Event &event, EntityShPtr target,
                           const float delta_time)
 {
     if (sec_since_last_hit_ <= attack_cooldown_)

@@ -8,7 +8,7 @@
 class ParticleSet
 {
 protected:
-    std::vector<Particle *> particles_;
+    std::vector<ParticleShPtr> particles_;
     unsigned int particles_count_;
     sf::Vector2f position_;
     sf::Vector2f size_;
@@ -36,8 +36,8 @@ public:
     bool doesExist() const;
 
     // Iterators
-    std::vector<Particle *>::iterator begin();
-    std::vector<Particle *>::iterator end();
+    std::vector<ParticleShPtr>::iterator begin();
+    std::vector<ParticleShPtr>::iterator end();
 };
 
 using ParticleSetShPtr = std::shared_ptr<ParticleSet>;

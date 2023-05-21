@@ -10,7 +10,7 @@
 
 const float BASE_SIZE = 24;
 
-enum PRIORITY:uint8_t {
+enum PRIORITY : uint8_t {
     BACKGROUND,
     TILES,
     ENEMIES,
@@ -25,7 +25,7 @@ protected:
     // TODO change to sf::Sprite
     sf::RectangleShape sprite_;
 
-    uint8_t priority_;
+    PRIORITY priority_;
 
     // Inits
     virtual void initSprite(){};
@@ -36,12 +36,25 @@ public:
     Object();
     virtual ~Object();
 
-    uint8_t getPriority() const;
+    // Getters
+    PRIORITY getPriority() const;
+    sf::FloatRect getGlobalBounds() const;
+
+    // Setters
+    void setTexture(const sf::Texture &texture, bool resetRect=false);
+    void setScale(float factorX, float factorY);
 };
 
 using ObjectShPtr = std::shared_ptr<Object>;
 using DrawableShPtr = std::shared_ptr<sf::Drawable>;
 
+struct CompareObjectsShPtr
+{
+    bool operator() (const ObjectShPtr &left, const ObjectShPtr &right)
+    {
+        return left->getPriority() > right->getPriority();
+    }
+};
 
 int random_int(const int max, const int min);
 

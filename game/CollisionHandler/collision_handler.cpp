@@ -8,8 +8,8 @@ CollisionHandler::~CollisionHandler()
 {
 }
 
-void CollisionHandler::checkPlayerTilesCollision(Player *player,
-                                                 std::vector<Tile *> &tiles)
+void CollisionHandler::checkPlayerTilesCollision(PlayerShPtr player,
+                                                 std::vector<TileShPtr> &tiles)
 {
     for (const auto &tile : tiles)
     {
@@ -17,8 +17,8 @@ void CollisionHandler::checkPlayerTilesCollision(Player *player,
     }
 }
 
-void CollisionHandler::checkParticleTileCollision(Particle *particle,
-                                                  std::vector<Tile *> &tiles)
+void CollisionHandler::checkParticleTileCollision(ParticleShPtr particle,
+                                                  std::vector<TileShPtr> &tiles)
 {
     for (const auto &tile : tiles)
     {
@@ -26,16 +26,16 @@ void CollisionHandler::checkParticleTileCollision(Particle *particle,
     }
 }
 
-void CollisionHandler::checkParticleSetTileCollision(ParticleSet *particles, std::vector<Tile *> &tiles)
+void CollisionHandler::checkParticleSetTileCollision(ParticleSetShPtr particles, std::vector<TileShPtr> &tiles)
 {
-    for (auto &particle : *particles)
+    for (auto &particle : *particles.get())
     {
         checkParticleTileCollision(particle, tiles);
     }
 }
 
-void CollisionHandler::checkEnemyTileCollision(Enemy *enemy,
-                                               std::vector<Tile *> &tiles)
+void CollisionHandler::checkEnemyTileCollision(EnemyShPtr enemy,
+                                               std::vector<TileShPtr> &tiles)
 {
     for (const auto &tile : tiles)
     {
@@ -45,8 +45,8 @@ void CollisionHandler::checkEnemyTileCollision(Enemy *enemy,
         }
         else
         {
-            ParticleSet *coin_particles = enemy->getCoinParticles();
-            ParticleSet *exp_particles = enemy->getExpParticles();
+            ParticleSetShPtr coin_particles = enemy->getCoinParticles();
+            ParticleSetShPtr exp_particles = enemy->getExpParticles();
 
             checkParticleSetTileCollision(coin_particles, tiles);
             checkParticleSetTileCollision(exp_particles, tiles);
@@ -54,8 +54,8 @@ void CollisionHandler::checkEnemyTileCollision(Enemy *enemy,
     }
 }
 
-void CollisionHandler::checkPlayerParticleCollision(Player *player,
-                                                    Particle *particle)
+void CollisionHandler::checkPlayerParticleCollision(PlayerShPtr player,
+                                                    ParticleShPtr particle)
 {
     if (particle->getVelocity() == sf::Vector2f(0, 0) &&
         checkAABBCollision(player, particle))
@@ -76,10 +76,10 @@ void CollisionHandler::checkPlayerParticleCollision(Player *player,
     }
 }
 
-void CollisionHandler::run(std::vector<Player *> &players,
-                           std::vector<Tile *> &tiles,
-                        //    ParticleSet *particles,
-                           std::vector<Enemy *> &enemies)
+void CollisionHandler::run(std::vector<PlayerShPtr> &players,
+                           std::vector<TileShPtr> &tiles,
+                           //    ParticleSetShPtrparticles,
+                           std::vector<EnemyShPtr> &enemies)
 {
     // Cheking Player/Tile collision
     for (auto &player : players)
@@ -96,10 +96,10 @@ void CollisionHandler::run(std::vector<Player *> &players,
         checkEnemyTileCollision(enemy, tiles);
         if (enemy->isDead())
         {
-            ParticleSet *coin_particles = enemy->getCoinParticles();
-            ParticleSet *exp_particles = enemy->getExpParticles();
+            ParticleSetShPtr coin_particles = enemy->getCoinParticles();
+            ParticleSetShPtr exp_particles = enemy->getExpParticles();
 
-            for (auto &coin_particle : *coin_particles)
+            for (auto &coin_particle : *coin_particles.get())
             {
                 checkParticleTileCollision(coin_particle, tiles);
                 for (auto &player : players)
@@ -107,7 +107,7 @@ void CollisionHandler::run(std::vector<Player *> &players,
                     checkPlayerParticleCollision(player, coin_particle);
                 }
             }
-            for (auto &exp_particle : *exp_particles)
+            for (auto &exp_particle : *exp_particles.get())
             {
                 checkParticleTileCollision(exp_particle, tiles);
                 for (auto &player : players)
@@ -119,8 +119,8 @@ void CollisionHandler::run(std::vector<Player *> &players,
     }
 }
 
-bool CollisionHandler::checkAABBCollision(const PhysicalObject *obj1,
-                                          const PhysicalObject *obj2)
+bool CollisionHandler::checkAABBCollision(const PhysicalObjectShPtr obj1,
+                                          const PhysicalObjectShPtr obj2)
 {
     HitBox hitbox1 = obj1->getHitBox();
     HitBox hitbox2 = obj2->getHitBox();
@@ -135,8 +135,8 @@ bool CollisionHandler::checkAABBCollision(const PhysicalObject *obj1,
     }
 }
 
-void CollisionHandler::handleCollision(MovableObject *movable_obj,
-                                       const PhysicalObject *static_obj)
+void CollisionHandler::handleCollision(MovableObjectShPtr movable_obj,
+                                       const PhysicalObjectShPtr static_obj)
 {
     if (checkAABBCollision(movable_obj, static_obj))
     {

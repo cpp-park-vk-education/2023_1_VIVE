@@ -5,30 +5,34 @@
 
 #include <iostream>
 
-GameEngine* GameEngine::game_engine_;
+GameEngine *GameEngine::game_engine_;
 
-GameEngine *GameEngine::getInstance() {
+GameEngine *GameEngine::getInstance()
+{
     // Check if an instance is uninitialized
     // assert(game_engine_ != nullptr);
     return game_engine_;
 }
 
-sf::RenderWindow& GameEngine::getWindow() {
-    GameEngine* game = getInstance();
+sf::RenderWindow &GameEngine::getWindow()
+{
+    GameEngine *game = getInstance();
     return game->window_;
 }
 
-StateManager *GameEngine::getStateManager() {
-    GameEngine* game = getInstance();
+StateManager *GameEngine::getStateManager()
+{
+    GameEngine *game = getInstance();
     return &game->state_manager_;
 }
 
-Client *GameEngine::getClient() {
-    GameEngine* game = getInstance();
+Client *GameEngine::getClient()
+{
+    GameEngine *game = getInstance();
     return &game->client_;
 }
 
-GameEngine::GameEngine() 
+GameEngine::GameEngine()
     : window_(sf::VideoMode(BASE_SIZE * 32, BASE_SIZE * 18), "ATOMIC GOD")
 {
     std::cout << "GameEngine constructor start" << std::endl;
@@ -50,38 +54,61 @@ window_(sf::VideoMode(w_width_ / 2, w_height_ / 2), "ATOMIC GOD") {
     std::cout << "GameEngine constructor end" << std::endl;
 } */
 
-void GameEngine::run() {
+void GameEngine::run()
+{
     GOOGLE_PROTOBUF_VERIFY_VERSION;
     // window_.setPosition(sf::Vector2i(w_width_ / 4, w_height_ / 4));
 
-    while (window_.isOpen()) {
+    state_manager_.init();
+    while (window_.isOpen())
+    {
+        std::cout << '1' << std::endl;
         update();
+        std::cout << '2' << std::endl;
         render();
+        std::cout << '3' << std::endl;
     }
 
     google::protobuf::ShutdownProtobufLibrary();
 }
 
-void GameEngine::update() {
-    sf::Event event{};
-    while (window_.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
+void GameEngine::update()
+{
+    sf::Event event;
+    while (window_.pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed)
+        {
             window_.close();
             break;
         }
-
-        state_manager_.update(event);
     }
+    
+    // std::cout << "2.1" << std::endl;
+    state_manager_.update(event);
+    // std::cout << "2.2" << std::endl;
+    // state_manager_.updateHeap();
 }
 
-void GameEngine::render() {
-    window_.clear(sf::Color::Green);
-    for (const auto& obj : state_manager_.getHeap()) {
+void GameEngine::render()
+{
+    window_.clear();
+    ObjectsHeap &heap = state_manager_.getHeap();
+    while (!heap.empty())
+    {
+        ObjectShPtr obj = heap.top();
+        if (obj->getPriority() == PRIORITY::PLAYER_USER_INTERFACE)
+        {
+            window_.setView(window_.getDefaultView());
+        }
         window_.draw(*obj);
+        heap.pop();
     }
-//    game_render_.render(state_manager_.getHeap());
+    // for (const auto& obj : state_manager_.getHeap()) {
+    //     window_.draw(*obj);
+    // }
+    //    game_render_.render(state_manager_.getHeap());
     window_.display();
-
 }
 
 /*
@@ -275,7 +302,7 @@ void GameEngine::spawnEnemies()
     int enemy_pos_x = random_int(0, window_.getSize().x);
     Enemy *enemy = new Enemy(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
                                 sf::Vector2f(enemy_pos_x, 100.f));
-    
+
     enemies_.push_back(enemy);
 }
 
@@ -301,7 +328,7 @@ void GameEngine::updateGame() {
     updateEnemies(delta_time);
 
     updateNonExistentObjects();
-    
+
     updateCollision();
 }
 */

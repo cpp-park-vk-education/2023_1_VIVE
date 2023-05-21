@@ -58,18 +58,19 @@ void Enemy::initParticles()
 {
     int coin_particles_count = random_int(5, 10);
     int exp_particles_count = random_int(5, 10);
-    coin_particles_ = new ParticleSet(coin_particles_count,
-                                      sf::Vector2f(10, 10),
-                                      getCenter(), TYPE::COIN);
+    coin_particles_ = std::make_shared<ParticleSet>(coin_particles_count,
+                                                    sf::Vector2f(10, 10),
+                                                    getCenter(), TYPE::COIN);
 
-    exp_particles_ = new ParticleSet(exp_particles_count,
-                                     sf::Vector2f(10, 10),
-                                     getCenter(), TYPE::EXP);
+    exp_particles_ = std::make_shared<ParticleSet>(exp_particles_count,
+                                                   sf::Vector2f(10, 10),
+                                                   getCenter(), TYPE::EXP);
 }
 
 Enemy::Enemy(const sf::Vector2f size, const sf::Vector2f position)
     : Entity(size, position)
 {
+    priority_ = PRIORITY::ENEMIES;
     initSprite();
     initPhysics();
     initStats();
@@ -78,16 +79,16 @@ Enemy::Enemy(const sf::Vector2f size, const sf::Vector2f position)
 
 Enemy::~Enemy()
 {
-    delete coin_particles_;
-    delete exp_particles_;
+    // delete coin_particles_;
+    // delete exp_particles_;
 }
 
-ParticleSet *Enemy::getCoinParticles()
+ParticleSetShPtr Enemy::getCoinParticles()
 {
     return coin_particles_;
 }
 
-ParticleSet *Enemy::getExpParticles()
+ParticleSetShPtr Enemy::getExpParticles()
 {
     return exp_particles_;
 }
@@ -122,7 +123,7 @@ void Enemy::updateHP(const unsigned int damage)
     }
 }
 
-void Enemy::updateAttack(const sf::Event &event, Entity *target,
+void Enemy::updateAttack(const sf::Event &event, EntityShPtr target,
                          const float delta_time)
 {
     if (sec_since_last_hit_ <= attack_cooldown_)
@@ -171,7 +172,7 @@ void Enemy::update(const sf::Event &event, const float delta_time)
 }
 
 void Enemy::update(const sf::Event &event, const float delta_time,
-                   Entity *target)
+                   EntityShPtr target)
 {
     // std::cout << "Enemy exists" << std::endl;
     if (isDead())
@@ -201,7 +202,7 @@ void Enemy::updateMovement(const float delta_time)
     }
 }
 
-void Enemy::updateMovement(const float delta_time, Entity *target)
+void Enemy::updateMovement(const float delta_time, EntityShPtr target)
 {
     // Calculate direction vector to target
     sf::Vector2f direction = target->getCenter() - getCenter();

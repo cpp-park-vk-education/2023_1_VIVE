@@ -8,6 +8,7 @@
 #include "enemy.hpp"
 #include "collision_handler.hpp"
 #include "asset_manager.hpp"
+#include "background.hpp"
 
 class SingleState: public GameState {
 public:
@@ -18,17 +19,23 @@ public:
     void update(const sf::Event& event) override;
     void load() override;
 
+    // Heap methods
+    void updateHeap() override;
+    ObjectsHeap &getHeap() override;
+    void setHeap(std::vector<ObjectShPtr> objects) override {};
+
 private:
     // Objects
     // TODO remake background
     // TODO remove raw pointers
-    sf::Sprite bg_;
-    Player *player_;
-    PUI* player_user_interface_;
-    CameraTarget* camera_;
-    std::vector<Tile *> tiles_;
-    std::vector<Enemy *> enemies_;
-    CollisionHandler *collision_handler_;
+    // sf::Sprite bg_;
+    BackGroundShPtr bg_;
+    PlayerShPtr player_;
+    PUIShPtr player_user_interface_;
+    CameraTarget *camera_;
+    std::vector<TileShPtr> tiles_;
+    std::vector<EnemyShPtr> enemies_;
+    CollisionHandlerShPtr collision_handler_;
 
     sf::Clock clock_;
 
