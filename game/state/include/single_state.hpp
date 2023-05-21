@@ -18,6 +18,7 @@ public:
     void readMessage(const proto::Response &msg) override;
     void update(const sf::Event& event) override;
     void load() override;
+    void unload() override {}
 
     // Heap methods
     void updateHeap() override;

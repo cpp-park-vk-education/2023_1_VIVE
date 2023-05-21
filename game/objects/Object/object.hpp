@@ -17,6 +17,7 @@ enum PRIORITY : uint8_t {
     PARTICLES,
     PLAYER,
     PLAYER_USER_INTERFACE,
+    BUTTON,
 };
 
 class Object : public sf::Drawable

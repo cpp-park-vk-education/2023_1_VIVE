@@ -16,6 +16,8 @@ private:
     void initPosition();
 
 public:
+    Button();
+    ~Button();
     void setParams(const std::string& txt, unsigned int charSize, const std::string& font, float frameThickness, float padding,
                    sf::Color textColor = sf::Color::Black, sf::Color backColor = sf::Color::Transparent);
 

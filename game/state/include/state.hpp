@@ -24,6 +24,7 @@ public:
     virtual void readMessage(const proto::Response &msg) = 0;
     virtual void update(const sf::Event &event) = 0;
     virtual void load() = 0;
+    virtual void unload() = 0;
 
     // Heap methods
     virtual void updateHeap() = 0;

@@ -6,29 +6,18 @@
 
 MainMenuState::MainMenuState()
 {
-    for (int i = 0; i < names_.size(); ++i)
-    {
-        name_to_en_btn_.insert({names_[i], en_buttons_[i]});
-
-        ButtonShPtr btn = std::make_shared<Button>();
-        btn->setParams(names_[i], 60, "../fonts/EightBits.ttf", 5, 15, sf::Color::Red);
-        btn->setPosition(100, (i + 1) * 100);
-        btn->setHoverColor(sf::Color::Yellow);
-        btn->setActiveColor(sf::Color(222, 238, 0));
-        buttons_.push_back(btn);
-    }
 }
 
 void MainMenuState::update(const sf::Event &event)
 {
-    // objects_.clear();
+    clearHeap();
 
     StateManager *manager = GameEngine::getStateManager();
     for (const auto &btn : buttons_)
     {
         btn->update(event, 0);
         handlePressedButton(btn, manager, event);
-        objects_.push_back(btn);
+        heap_.push(btn);
     }
 }
 
@@ -60,8 +49,19 @@ void MainMenuState::readMessage(const proto::Response &msg)
 {
 }
 
-void MainMenuState::updateHeap()
+void MainMenuState::load()
 {
+    for (int i = 0; i < names_.size(); ++i)
+    {
+        name_to_en_btn_.insert({names_[i], en_buttons_[i]});
+
+        ButtonShPtr btn = std::make_shared<Button>();
+        btn->setParams(names_[i], 60, "../fonts/EightBits.ttf", 5, 15, sf::Color::Red);
+        btn->setPosition(100, (i + 1) * 100);
+        btn->setHoverColor(sf::Color::Yellow);
+        btn->setActiveColor(sf::Color(222, 238, 0));
+        buttons_.push_back(btn);
+    }
 }
 
 ObjectsHeap &MainMenuState::getHeap()

@@ -2,8 +2,18 @@
 
 #include "game.hpp"
 
+Button::Button()
+{
+    priority_ = PRIORITY::BUTTON;
+}
+
+Button::~Button()
+{
+}
+
 void Button::setParams(const std::string &txt, unsigned int charSize, const std::string &fnt, float frameThickness, float padd,
-               sf::Color textColor, sf::Color backColor) {
+                       sf::Color textColor, sf::Color backColor)
+{
     padding = padd;
     back_color_ = backColor;
 

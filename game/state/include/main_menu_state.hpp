@@ -21,10 +21,11 @@ public:
 
     void update(const sf::Event &event) override;
     void readMessage(const proto::Response &msg) override;
-    void load() override {}
+    void load() override;
+    void unload() override {}
 
     // Heap methods
-    void updateHeap() override;
+    void updateHeap() override {};
     ObjectsHeap &getHeap() override;
     void setHeap(std::vector<ObjectShPtr> objects) override {};
 

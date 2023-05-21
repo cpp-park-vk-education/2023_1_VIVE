@@ -3,6 +3,7 @@
 #include <iostream>
 
 void StateManager::changeState(StateManager::EnState newState) {
+    to_state_object_[curState_]->unload();
     curState_ = newState;
     to_state_object_[curState_]->load();
 }
