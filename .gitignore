@@ -6,6 +6,5 @@ boost
 *ObjectManager/
 build.sh
 *test*
-*a*
 
 # protoc -I=messages --cpp_out=messages messages/message.proto   генерация классов для сообщения
