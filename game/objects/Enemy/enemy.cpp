@@ -137,6 +137,7 @@ void Enemy::updateAttack(const sf::Event &event, EntityShPtr target,
     if (isInDamageRadius(target) && !attacking_ &&
         sec_since_last_hit_ > attack_cooldown_)
     {
+        SoundManager::getInstance()->playSoundEffect(SoundType::ENEMY_CLOSE_ATTACK);
         attacking_ = true;
         attack(target);
         sec_since_last_hit_ = 0;
@@ -181,6 +182,7 @@ void Enemy::update(const sf::Event &event, const float delta_time,
     // std::cout << "Enemy exists" << std::endl;
     if (isDead())
     {
+        SoundManager::getInstance()->playSoundEffect(SoundType::ENEMY_DEATH);
         coin_particles_->update(event, delta_time);
         exp_particles_->update(event, delta_time);
     }

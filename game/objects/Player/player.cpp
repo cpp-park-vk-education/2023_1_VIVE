@@ -143,6 +143,7 @@ void Player::updateMovement(const float delta_time)
     // Moving left
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
+        SoundManager::getInstance()->playSoundEffect(SoundType::RUNNING);
         acceleration_.x = -speed_ / delta_time;
 
         // Ограничиваем скорость персонажа
@@ -157,6 +158,7 @@ void Player::updateMovement(const float delta_time)
     // Moving right
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
+        SoundManager::getInstance()->playSoundEffect(SoundType::RUNNING);
         acceleration_.x = speed_ / delta_time;
 
         // Ограничиваем скорость персонажа
@@ -174,6 +176,7 @@ void Player::updateMovement(const float delta_time)
         // Проверяем, находится ли персонаж на земле
         if (velocity_.y == 0)
         {
+            SoundManager::getInstance()->playSoundEffect(SoundType::JUMP);
             animation_->changeAnimation('j');
             is_jumping_ = true;
             jump_time_ = 0;
@@ -229,6 +232,7 @@ void Player::updateAttack(const sf::Event &event, EntityShPtr target,
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && !attacking_ &&
         sec_since_last_hit_ > attack_cooldown_)
     {
+        SoundManager::getInstance()->playSoundEffect(SoundType::CLOSE_ATTACK);
         animation_->changeAnimation('a');
         attacking_ = true;
         attack(target);

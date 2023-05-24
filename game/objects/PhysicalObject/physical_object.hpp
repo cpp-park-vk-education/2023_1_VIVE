@@ -2,6 +2,7 @@
 
 #include "object.hpp"
 #include "hit_box.hpp"
+#include "sound.hpp"
 
 #include <memory>
 
@@ -10,6 +11,7 @@ class PhysicalObject : public Object
 {
 protected:
     HitBox hitbox_;
+    SoundType sound_type_;
 
     // Initions
     void virtual initPhysics() = 0;

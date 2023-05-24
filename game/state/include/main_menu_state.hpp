@@ -4,6 +4,7 @@
 #include "button.hpp"
 #include "state_manager.hpp"
 #include "asset_manager.hpp"
+#include "sound.hpp"
 
 class StateManager;
 

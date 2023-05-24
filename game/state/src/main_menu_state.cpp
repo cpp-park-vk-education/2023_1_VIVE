@@ -10,6 +10,7 @@ MainMenuState::MainMenuState()
 
 void MainMenuState::update(const sf::Event &event)
 {
+    SoundManager::getInstance()->playMusic();
     clearHeap();
 
     StateManager *manager = GameEngine::getStateManager();
@@ -51,12 +52,16 @@ void MainMenuState::readMessage(const proto::Response &msg)
 
 void MainMenuState::load()
 {
+    AssetManager::getInstance()->loadAssets("main_menu");
+    SoundManager::getInstance()->loadSoundAndMusicForLevel("main_menu");
+    SoundManager::getInstance()->setVolumeMusic(50);
+
     for (int i = 0; i < names_.size(); ++i)
     {
         name_to_en_btn_.insert({names_[i], en_buttons_[i]});
 
         ButtonShPtr btn = std::make_shared<Button>();
-        btn->setParams(names_[i], 60, "../fonts/EightBits.ttf", 5, 15, sf::Color::Red);
+        btn->setParams(names_[i], 60, AssetManager::getInstance()->getFont("eight_bits"), 5, 15, sf::Color::Red);
         btn->setPosition(100, (i + 1) * 100);
         btn->setHoverColor(sf::Color::Yellow);
         btn->setActiveColor(sf::Color(222, 238, 0));

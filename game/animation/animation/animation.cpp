@@ -31,7 +31,7 @@ void Animation::changeAnimation(char current_state) {
     if (is_playing_ && current_state_ == 'a')
             return;
 
-    if (is_playing_ && current_state_ == 'j') {
+    if (is_playing_ && current_state_ == 'j' && current_state != 'a') {
             if (current_state == 'l')
                     is_left_run = true;
             else if (current_state == 'r')

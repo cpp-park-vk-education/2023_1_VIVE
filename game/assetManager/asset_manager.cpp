@@ -19,7 +19,6 @@ AssetManager* AssetManager::getInstance() {
 void AssetManager::clearAssets() {
     textures_.clear();
     fonts_.clear();
-    sounds_buffer_.clear();
 }
 
 bool AssetManager::loadAssets(const std::string& level) {
@@ -27,28 +26,29 @@ bool AssetManager::loadAssets(const std::string& level) {
 
     std::cout << level << std::endl;
 
-    std::filesystem::path path_to_data_folder = std::filesystem::current_path().parent_path() / "game" / "assetManager" / "data";
+    std::filesystem::path path_to_config_folder = std::filesystem::current_path().parent_path() / "game" / "assetManager" / "config";
     
-    for (const auto& entry : std::filesystem::directory_iterator(path_to_data_folder)) {
+    for (const auto& entry : std::filesystem::directory_iterator(path_to_config_folder)) {
         if (entry.path().stem().string() == level) {
-            path_to_data_folder = entry.path();
+            path_to_config_folder = entry.path();
             break;
         }
     }
 
-    std::fstream file(path_to_data_folder);
-    path_to_data_folder = path_to_data_folder.parent_path() / "assets";
+    std::fstream file(path_to_config_folder);
+    path_to_config_folder = std::filesystem::current_path().parent_path() / "assets";
 
     if (!file.is_open()) {
         std::cerr << "AssetManager: AssetsFolder is not existing. Make sure that you install the correct version of our game!" << std::endl;
         return false;
     }
 
-    std::string name, type, path;
+    int type;
+    std::string name, path;
     while(file >> name >> type >> path) {
-        std::filesystem::path path_to_file = path_to_data_folder / path;
-        if (type == "texture") {
+        std::filesystem::path path_to_file = path_to_config_folder / path;
 
+        if (type == FileType::TEXTURE) {
             sf::Texture texture; 
             if (!texture.loadFromFile(path_to_file)) {
                 std::cerr << "File is not existing. Make sure that you install the correct version of our game!" << std::endl;
@@ -56,17 +56,7 @@ bool AssetManager::loadAssets(const std::string& level) {
             }
             textures_[name] = texture;
 
-        } else if (type == "sound") {
-
-            sf::SoundBuffer sb;
-            if (!sb.loadFromFile(path_to_file)) {
-                std::cerr << "File is not existing. Make sure that you install the correct version of our game!" << std::endl;
-                return false;
-            }
-            sounds_buffer_[name] = sb;
-
-        } else if (type == "font") {
-
+        } else if (type == FileType::FONT) {
             sf::Font font;
             if (!font.loadFromFile(path_to_file)) {
                 std::cerr << "File is not existing. Make sure that you install the correct version of our game!" << std::endl;
@@ -77,6 +67,8 @@ bool AssetManager::loadAssets(const std::string& level) {
         }
     }
 
+    file.close();
+
     return true;
 }
 
@@ -86,8 +78,4 @@ sf::Texture& AssetManager::getTexture(const std::string& name) {
 
 sf::Font& AssetManager::getFont(const std::string& name) {
     return fonts_[name];
-}
-
-sf::SoundBuffer& AssetManager::getSoundBuffer(const std::string& name) {
-    return sounds_buffer_[name];
 }

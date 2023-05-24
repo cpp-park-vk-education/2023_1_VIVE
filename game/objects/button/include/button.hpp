@@ -18,10 +18,10 @@ private:
 public:
     Button();
     ~Button();
-    void setParams(const std::string& txt, unsigned int charSize, const std::string& font, float frameThickness, float padding,
+    void setParams(const std::string& txt, unsigned int charSize, const sf::Font& font, float frameThickness, float padding,
                    sf::Color textColor = sf::Color::Black, sf::Color backColor = sf::Color::Transparent);
 
-    void setFont(const std::string& fontPath);
+    void setFont(const sf::Font& font);
     void setPosition(float x, float y);
     void setBackColor(const sf::Color& color);
     void setHoverColor(const sf::Color& color);

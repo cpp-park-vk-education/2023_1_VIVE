@@ -3,6 +3,7 @@ add_subdirectory(game_engine)
 add_subdirectory(level)
 add_subdirectory(state)
 add_subdirectory(animation)
+add_subdirectory(sound)
 #add_subdirectory(saving)
 
 

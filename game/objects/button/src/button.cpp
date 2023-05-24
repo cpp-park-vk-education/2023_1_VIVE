@@ -11,7 +11,7 @@ Button::~Button()
 {
 }
 
-void Button::setParams(const std::string &txt, unsigned int charSize, const std::string &fnt, float frameThickness, float padd,
+void Button::setParams(const std::string &txt, unsigned int charSize, const sf::Font& font, float frameThickness, float padd,
                        sf::Color textColor, sf::Color backColor)
 {
     padding = padd;
@@ -20,7 +20,7 @@ void Button::setParams(const std::string &txt, unsigned int charSize, const std:
     text_.setString(txt);
     text_.setCharacterSize(charSize);
     text_.setFillColor(textColor);
-    setFont(fnt);
+    text_.setFont(font);
 
     updateFrameSize();
     frame.setFillColor(backColor);
@@ -34,8 +34,8 @@ void Button::initPosition() {
     text_.setPosition(padding, padding);
 }
 
-void Button::setFont(const std::string &fontPath) {
-    font_.loadFromFile(fontPath);
+void Button::setFont(const sf::Font& font) {
+    font_ = font;
     text_.setFont(font_);
 }
 
