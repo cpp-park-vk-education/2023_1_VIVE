@@ -5,13 +5,17 @@
 
 enum LEVEL
 {
-    L1 = 0,
+    L1 = 1,
 };
 
-class Level {
+class Level
+{
 public:
-    std::vector<ObjectShPtr> getObjects();
+    Level(LEVEL level_num);
+
+    // std::vector<ObjectShPtr> getObjects();
+
 private:
-    std::vector<SubLevel> sub_levels_;
-    unsigned int cur_level_;
+    // std::vector<SubLevel> sub_levels_;
+    LEVEL level_num_;
 };
