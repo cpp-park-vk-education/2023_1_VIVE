@@ -32,9 +32,9 @@ std::vector<ObjectShPtr> SubLevel::getObjects()
     {
         res.push_back(enemy);
     }
+    res.push_back(player_user_interface_);
     // TODO add background as ObjectShPtr
     // res.push_back(background_);
-    std::cout << "ObjectVec size = " << res.size() << std::endl;
     return res;
 }
 
