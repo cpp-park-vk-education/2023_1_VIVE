@@ -35,8 +35,8 @@ private:
     void readConfigAndLoadMusic(const std::string& level_name);
     void loadSoundEffects(const std::string& level_name);
 
-
     int8_t current_music_;
     std::vector<sf::Music*> musics_;
     std::unordered_map<SoundType, sf::Sound> sounds_;
+    std::unordered_map<SoundType, sf::SoundBuffer> sounds_buffer_;
 };

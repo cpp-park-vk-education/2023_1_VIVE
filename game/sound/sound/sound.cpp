@@ -39,19 +39,14 @@ void SoundManager::playMusic() {
 }
 
 void SoundManager::playSoundEffect(SoundType sound_type) {
-    std::cout << sound_type << std::endl;
     if (sounds_[sound_type].getStatus() == sf::SoundSource::Playing) {
-        std::cout << "PLAYING" << std::endl;
-        if (static_cast<int>(sound_type) > 0 && static_cast<int>(sound_type) < 10)
+        if (sound_type > SoundType::MUSIC && sound_type < SoundType::ENEMY_CLOSE_ATTACK)
+            sounds_[sound_type].stop();
+        else if (sound_type == SoundType::RUNNING)
             sounds_[sound_type].stop();
     }
 
-    std::cout << sounds_.size() << std::endl;
-    std::cout << "SOUND ATTACK" << std::endl;
-
     sounds_[sound_type].play();
-    sounds_[sound_type].setVolume(100);
-    std::cout << static_cast<bool>(sounds_[sound_type].Playing) << std::endl;
 }
 
 void SoundManager::stopMusic() {
@@ -97,6 +92,7 @@ void SoundManager::clearHeap() {
     }
 
     sounds_.clear();
+    sounds_buffer_.clear();
 
     current_music_ = -1;
 }
@@ -134,17 +130,17 @@ void SoundManager::readConfigAndLoadMusic(const std::string& file_name) {
             music->openFromFile(path_to_music_file);
             musics_.push_back(music);
         } else {
-            sf::SoundBuffer sb;
+            SoundType type_sound = static_cast<SoundType>(type);
 
             std::cout << type << std::endl;
             std::cout << static_cast<SoundType>(type) << std::endl;
 
-            if (!sb.loadFromFile(path_to_music_file)) {
+            if (!sounds_buffer_[type_sound].loadFromFile(path_to_music_file)) {
                 std::cerr << "Sound" << path_to_music_file.filename() << "is not existing. Make sure that you install the correct version of our game!" << std::endl;
                 return;
             }
 
-            sounds_[static_cast<SoundType>(type)].setBuffer(sb);
+            sounds_[type_sound].setBuffer(sounds_buffer_[type_sound]);
         }
     }
 

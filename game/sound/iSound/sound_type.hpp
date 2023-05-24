@@ -9,8 +9,8 @@ enum SoundType {
     SPROOT_ATTACK = 7,
     ENEMY_CLOSE_ATTACK = 10,
     ENEMY_FAR_ATTACK = 11,
+    RUNNING = 14,
     JUMP = 15,
     GET_DAMAGE = 16,
     LANDING_GROUND = 20,
-    LANDING_RUN = 21,
 };
