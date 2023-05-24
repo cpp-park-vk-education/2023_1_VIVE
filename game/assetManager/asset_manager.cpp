@@ -25,6 +25,8 @@ void AssetManager::clearAssets() {
 bool AssetManager::loadAssets(const std::string& level) {
     clearAssets();
 
+    std::cout << level << std::endl;
+
     std::filesystem::path path_to_data_folder = std::filesystem::current_path().parent_path() / "game" / "assetManager" / "data";
     
     for (const auto& entry : std::filesystem::directory_iterator(path_to_data_folder)) {
@@ -38,7 +40,7 @@ bool AssetManager::loadAssets(const std::string& level) {
     path_to_data_folder = path_to_data_folder.parent_path() / "assets";
 
     if (!file.is_open()) {
-        std::cerr << "File is not existing. Make sure that you install the correct version of our game!" << std::endl;
+        std::cerr << "AssetManager: AssetsFolder is not existing. Make sure that you install the correct version of our game!" << std::endl;
         return false;
     }
 

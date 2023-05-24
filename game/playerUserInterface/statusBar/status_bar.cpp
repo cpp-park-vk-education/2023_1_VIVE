@@ -26,6 +26,8 @@ StatusPlayerBar::StatusPlayerBar(bool is_mana_bar, const sf::Vector2f& camera_si
     procent_.setFont(AssetManager::getInstance()->getFont("eight_bits"));
     procent_.setString(std::to_string(100) + "%");
     procent_.setFillColor(sf::Color::Black);
+    procent_.setOutlineColor(sf::Color::White);
+    procent_.setOutlineThickness(0.5);
 
     //Set begining status
     max_status_ = 100;
