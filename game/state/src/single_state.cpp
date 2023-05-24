@@ -185,6 +185,7 @@ void SingleState::updatePlayer(const sf::Event &event, const float delta_time)
     }
     else
     {
+        SoundManager::getInstance()->playSoundEffect(SoundType::PLAYER_DEATH);
         if (player_->checkDeathFreeze(delta_time)) {
             int player_new_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
             player_->setPosition(sf::Vector2f(player_new_pos_x, 100.f));

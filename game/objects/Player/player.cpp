@@ -143,6 +143,7 @@ void Player::updateMovement(const float delta_time)
     // Moving left
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
+        SoundManager::getInstance()->playSoundEffect(SoundType::RUNNING);
         acceleration_.x = -speed_ / delta_time;
 
         // Ограничиваем скорость персонажа
@@ -157,6 +158,7 @@ void Player::updateMovement(const float delta_time)
     // Moving right
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
+        SoundManager::getInstance()->playSoundEffect(SoundType::RUNNING);
         acceleration_.x = speed_ / delta_time;
 
         // Ограничиваем скорость персонажа

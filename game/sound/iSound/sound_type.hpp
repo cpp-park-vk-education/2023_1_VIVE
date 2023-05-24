@@ -12,5 +12,7 @@ enum SoundType {
     RUNNING = 14,
     JUMP = 15,
     GET_DAMAGE = 16,
+    PLAYER_DEATH = 17,
+    ENEMY_DEATH = 18,
     LANDING_GROUND = 20,
 };

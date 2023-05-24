@@ -44,6 +44,8 @@ void SoundManager::playSoundEffect(SoundType sound_type) {
             sounds_[sound_type].stop();
         else if (sound_type == SoundType::RUNNING)
             sounds_[sound_type].stop();
+        else if (sound_type == SoundType::ENEMY_DEATH || sound_type == SoundType::PLAYER_DEATH)
+            return;
     }
 
     sounds_[sound_type].play();
