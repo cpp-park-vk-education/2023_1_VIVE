@@ -9,6 +9,7 @@
 class SoundManager : ISound {
 public:
     static SoundManager* getInstance();
+    ~SoundManager() override;
 
     void loadSoundAndMusicForLevel(const std::string& level_name);
 
@@ -20,22 +21,18 @@ public:
     void setVolumeMusic(float volume = 100.0f) override;
     void setVolumeSoundEffect(float volume = 100.0f) override;
 
-    bool isSoundEffectPlay(const std::string& name) override;
-    bool isMusicPlay(const std::string& name) override;
-
-    bool isSoundEffectStop(const std::string& name) override;
-    bool isMusicStop(const std::string& name) override;
-
 private:
     SoundManager();
-    ~SoundManager() override;
 
     void clearHeap();
 
     void readConfigAndLoadMusic(const std::string& level_name);
-    void loadSoundEffects(const std::string& level_name);
 
     int8_t current_music_;
+
+    float music_volume_;
+    float sound_volume_;
+
     std::vector<sf::Music*> musics_;
     std::unordered_map<SoundType, sf::Sound> sounds_;
     std::unordered_map<SoundType, sf::SoundBuffer> sounds_buffer_;

@@ -1,6 +1,6 @@
 #include "sound.hpp"
 
-SoundManager::SoundManager() : current_music_(-1) {
+SoundManager::SoundManager() : current_music_(-1), music_volume_(100.0f), sound_volume_(100.0f) {
 }
 
 SoundManager::~SoundManager() {
@@ -15,7 +15,6 @@ SoundManager *SoundManager::getInstance() {
 void SoundManager::loadSoundAndMusicForLevel(const std::string &level_name) {
     clearHeap();
     readConfigAndLoadMusic(level_name);
-    loadSoundEffects(level_name);
 }
 
 void SoundManager::playMusic() {
@@ -34,6 +33,7 @@ void SoundManager::playMusic() {
             return;
         }
 
+        musics_[current_music_]->setVolume(music_volume_);
         musics_[current_music_]->play();
     }
 }
@@ -48,6 +48,7 @@ void SoundManager::playSoundEffect(SoundType sound_type) {
             return;
     }
 
+    sounds_[sound_type].setVolume(sound_volume_);
     sounds_[sound_type].play();
 }
 
@@ -59,28 +60,11 @@ void SoundManager::stopMusic() {
 }
 
 void SoundManager::setVolumeMusic(float volume) {
-    for (int i = 0; i < musics_.size(); ++i) {
-        musics_[i]->setVolume(volume);
-    }
+    music_volume_ = volume;
 }
 
 void SoundManager::setVolumeSoundEffect(float volume) {
-}
-
-bool SoundManager::isSoundEffectPlay(const std::string &name) {
-    return false;
-}
-
-bool SoundManager::isMusicPlay(const std::string &name) {
-    return false;
-}
-
-bool SoundManager::isSoundEffectStop(const std::string &name) {
-    return false;
-}
-
-bool SoundManager::isMusicStop(const std::string &name) {
-    return false;
+    sound_volume_ = volume;
 }
 
 void SoundManager::clearHeap() {
@@ -147,7 +131,4 @@ void SoundManager::readConfigAndLoadMusic(const std::string& file_name) {
     }
 
     config_file.close();
-}
-
-void SoundManager::loadSoundEffects(const std::string &level_name) {
 }
