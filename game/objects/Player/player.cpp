@@ -57,7 +57,7 @@ void Player::initStats()
 Player::Player(const sf::Vector2f size, const sf::Vector2f position)
     : Entity(size, position)
 {
-    priority_ = PRIORITY::PLAYER;
+    priority_ = PRIORITY::PLAYERS;
     initAnimation();
     initSprite();
     initPhysics();

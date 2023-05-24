@@ -4,7 +4,7 @@
 
 Button::Button()
 {
-    priority_ = PRIORITY::BUTTON;
+    priority_ = PRIORITY::BUTTONS;
 }
 
 Button::~Button()

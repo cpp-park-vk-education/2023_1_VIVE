@@ -4,6 +4,8 @@
 
 SingleState::SingleState()
 {
+    std::cout << "Creating Single" << std::endl;
+    level_manager = new LevelManager;
 }
 
 SingleState::~SingleState()
@@ -16,73 +18,23 @@ void SingleState::readMessage(const proto::Response &msg)
 
 void SingleState::update(const sf::Event &event)
 {
-    float delta_time = clock_.restart().asSeconds();
-    // std::cout << "2.1.2" << std::endl;
-
-    updatePlayer(event, delta_time);
-    // std::cout << "2.1.3" << std::endl;
-
-    updateCamera();
-    // std::cout << "2.1.4" << std::endl;
-
-    updatePUI();
-    // std::cout << "2.1.5" << std::endl;
-
-    updateTiles(event);
-    // std::cout << "2.1.6" << std::endl;
-    updateEnemies(event, delta_time);
-    // std::cout << "2.1.7" << std::endl;
-
-    updateNonExistentObjects();
-    // std::cout << "2.1.7" << std::endl;
-
-    updateCollision();
-    // std::cout << "2.1.8" << std::endl;
-
+    level_manager->update(event);
     updateHeap();
-    // std::cout << "2.1.9" << std::endl;
 }
 
 void SingleState::load()
 {
-    std::cout << "Inited bg" << std::endl;
-    initAssets();
-    std::cout << "Started initions" << std::endl;
-    initPlayer();
-    std::cout << "Inited players" << std::endl;
-    initTiles();
-    std::cout << "Inited tiles" << std::endl;
-    initEnemies();
-    std::cout << "Inited enemies" << std::endl;
-    initBG();
-    std::cout << "Inited assets" << std::endl;
-    initCamera();
-    std::cout << "Inited camer" << std::endl;
-    initPUI();
-    std::cout << "Inited pui" << std::endl;
-    initCollisionHandler();
-    std::cout << "Inited collision handler" << std::endl;
-
-    clock_.restart();
-
-    std::cout << "Finished initions" << std::endl;
+    std::cout << "Loading LevelManager" << std::endl;
+    level_manager->load();
+    std::cout << "LevelManager loaded" << std::endl;
 }
 
 void SingleState::updateHeap()
 {
     clearHeap();
-
-    heap_.push(bg_);
-    heap_.push(player_);
-    heap_.push(player_user_interface_);
-
-    for (auto &tile : tiles_)
+    for (auto &object : level_manager->getObjects())
     {
-        heap_.push(tile);
-    }
-    for (auto &enemy : enemies_)
-    {
-        heap_.push(enemy);
+        heap_.push(object);
     }
 }
 
@@ -91,6 +43,7 @@ ObjectsHeap &SingleState::getHeap()
     return heap_;
 }
 
+/*
 void SingleState::initBG()
 {
     bg_ = std::make_shared<BackGround>();
@@ -291,3 +244,4 @@ void SingleState::spawnEnemies()
 
     enemies_.push_back(enemy);
 }
+*/

@@ -3,10 +3,19 @@
 #include "object.hpp"
 #include "sub_level.hpp"
 
-class Level {
+enum LEVEL
+{
+    L1 = 1,
+};
+
+class Level
+{
 public:
-    std::vector<Object> getObjects();
+    Level(LEVEL level_num);
+
+    // std::vector<ObjectShPtr> getObjects();
+
 private:
-    std::vector<SubLevel> sub_levels_;
-    unsigned int cur_level_;
+    // std::vector<SubLevel> sub_levels_;
+    LEVEL level_num_;
 };
