@@ -50,7 +50,7 @@ void Enemy::initStats()
 
     alive_ = true;
     attacking_ = false;
-    damage_ = 50;
+    damage_ = 10;
     damage_radius_ = BASE_SIZE;
     attack_cooldown_ = 2;
     sec_since_last_hit_ = attack_cooldown_;
