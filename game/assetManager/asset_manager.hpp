@@ -4,6 +4,11 @@
 #include <SFML/Audio.hpp>
 #include <unordered_map>
 
+enum FileType{
+    TEXTURE,
+    FONT,
+};
+
 class AssetManager {
 public:
     static AssetManager* getInstance();
@@ -16,13 +21,11 @@ public:
     bool loadAssets(const std::string& level);
     sf::Texture& getTexture(const std::string& name);
     sf::Font& getFont(const std::string& name);
-    sf::SoundBuffer& getSoundBuffer(const std::string& name);
 
 private:
     AssetManager();
     ~AssetManager();
     void clearAssets();
     std::unordered_map<std::string, sf::Texture> textures_;
-    std::unordered_map<std::string, sf::SoundBuffer> sounds_buffer_;
     std::unordered_map<std::string, sf::Font> fonts_;
 };

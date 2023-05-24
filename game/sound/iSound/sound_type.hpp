@@ -1,0 +1,16 @@
+enum SoundType {
+    MUSIC = 0,
+    CLOSE_ATTACK = 1,
+    MIDDLE_ATTACK = 2,
+    FAR_ATTACK = 3,
+    FIRE_ATTACK = 4,
+    STUN_ATTACK = 5,
+    COLD_ATTACK = 6,
+    SPROOT_ATTACK = 7,
+    ENEMY_CLOSE_ATTACK = 10,
+    ENEMY_FAR_ATTACK = 11,
+    JUMP = 15,
+    GET_DAMAGE = 16,
+    LANDING_GROUND = 20,
+    LANDING_RUN = 21,
+};

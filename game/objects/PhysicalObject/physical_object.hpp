@@ -2,6 +2,7 @@
 
 #include "object.hpp"
 #include "hit_box.hpp"
+#include "sound.hpp"
 
 #include <memory>
 

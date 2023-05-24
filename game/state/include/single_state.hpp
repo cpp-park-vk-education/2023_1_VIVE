@@ -41,6 +41,7 @@ private:
     sf::Clock clock_;
 
     // Initions
+    void initSound();
     void initBG();
     void initAssets();
     void initCamera();

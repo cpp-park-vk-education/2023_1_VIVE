@@ -19,6 +19,8 @@ void SingleState::update(const sf::Event &event)
     float delta_time = clock_.restart().asSeconds();
     // std::cout << "2.1.2" << std::endl;
 
+    SoundManager::getInstance()->playMusic();
+
     updatePlayer(event, delta_time);
     // std::cout << "2.1.3" << std::endl;
 
@@ -45,23 +47,25 @@ void SingleState::update(const sf::Event &event)
 
 void SingleState::load()
 {
-    std::cout << "Inited bg" << std::endl;
-    initAssets();
     std::cout << "Started initions" << std::endl;
-    initPlayer();
-    std::cout << "Inited players" << std::endl;
-    initTiles();
-    std::cout << "Inited tiles" << std::endl;
-    initEnemies();
-    std::cout << "Inited enemies" << std::endl;
-    initBG();
     std::cout << "Inited assets" << std::endl;
-    initCamera();
+    initAssets();
+    std::cout << "Inited sound" << std::endl;
+    initSound();
+    std::cout << "Inited players" << std::endl;
+    initPlayer();
+    std::cout << "Inited tiles" << std::endl;
+    initTiles();
+    std::cout << "Inited enemies" << std::endl;
+    initEnemies();
+    std::cout << "Inited bg" << std::endl;
+    initBG();
     std::cout << "Inited camer" << std::endl;
-    initPUI();
+    initCamera();
     std::cout << "Inited pui" << std::endl;
-    initCollisionHandler();
+    initPUI();
     std::cout << "Inited collision handler" << std::endl;
+    initCollisionHandler();
 
     clock_.restart();
 
@@ -101,6 +105,11 @@ void SingleState::initBG()
 void SingleState::initAssets()
 {
     AssetManager::getInstance()->loadAssets("level_1");
+}
+
+void SingleState::initSound() 
+{
+    SoundManager::getInstance()->loadSoundAndMusicForLevel("level_1");
 }
 
 void SingleState::initCamera()

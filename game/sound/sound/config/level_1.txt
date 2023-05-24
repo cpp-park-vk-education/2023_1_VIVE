@@ -1,0 +1,3 @@
+music/song1_ground_world_level1.wav 0
+music/song2_ground_world_level1.wav 0
+sounds/close_attack.wav 1

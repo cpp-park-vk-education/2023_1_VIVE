@@ -1,0 +1,2 @@
+music/main_menu_theme.wav   0
+music/main_menu_theme_2.wav 0

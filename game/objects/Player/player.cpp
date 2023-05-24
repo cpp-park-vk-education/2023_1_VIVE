@@ -229,6 +229,8 @@ void Player::updateAttack(const sf::Event &event, EntityShPtr target,
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && !attacking_ &&
         sec_since_last_hit_ > attack_cooldown_)
     {
+        std::cout << "PLAYER ATTACK" << std::endl;
+        SoundManager::getInstance()->playSoundEffect(SoundType::CLOSE_ATTACK);
         animation_->changeAnimation('a');
         attacking_ = true;
         attack(target);
