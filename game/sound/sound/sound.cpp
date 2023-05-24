@@ -43,7 +43,7 @@ void SoundManager::playSoundEffect(SoundType sound_type) {
         if (sound_type > SoundType::MUSIC && sound_type < SoundType::ENEMY_CLOSE_ATTACK)
             sounds_[sound_type].stop();
         else if (sound_type == SoundType::RUNNING)
-            sounds_[sound_type].stop();
+            return;
         else if (sound_type == SoundType::ENEMY_DEATH || sound_type == SoundType::PLAYER_DEATH)
             return;
     }
