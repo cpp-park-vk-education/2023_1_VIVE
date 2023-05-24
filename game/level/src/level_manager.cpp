@@ -24,6 +24,7 @@ void LevelManager::loadSubLevel()
 void LevelManager::load()
 {
     AssetManager::getInstance()->loadAssets(std::string("level" + std::to_string(curr_level_num_) + "_" + std::to_string(curr_sublevel_num_)));
+    SoundManager::getInstance()->loadSoundAndMusicForLevel(std::string("level" + std::to_string(curr_level_num_) + "_" + std::to_string(curr_sublevel_num_)));
     std::cout << "Loading Level #" << curr_level_num_ << std::endl;
     loadLevel();
     std::cout << "Loading SubLevel #" << curr_sublevel_num_ << std::endl;

@@ -42,6 +42,7 @@ void SubLevel::update(const sf::Event &event)
 {
     float delta_time = clock_.restart().asSeconds();
 
+    SoundManager::getInstance()->playMusic();
     updatePlayer(event, delta_time);
     updateCamera();
     updatePUI();
