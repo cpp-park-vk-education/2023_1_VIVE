@@ -112,8 +112,25 @@ void SubLevel::updatePlayer(const sf::Event &event, const float delta_time)
 {
     for (auto &player : players_)
     {
-        player->update(event, delta_time);
-        player->updateAttack(event, enemies_.front(), delta_time);
+        if (!player->isDead())
+        {
+            player->update(event, delta_time);
+            player->updateAttack(event, enemies_.front(), delta_time);
+
+            if (!player->isAttack() && !player->isJumping() && !player->isRunning())
+                player->setStayAnimation();
+        }
+        else
+        {
+            if (player->checkDeathFreeze(delta_time))
+            {
+                int player_new_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
+                player->setPosition(sf::Vector2f(player_new_pos_x, 100.f));
+                player->spawn();
+                player->setStayAnimation();
+            }
+        }
+        player->updateAnimation(delta_time);
     }
 }
 
