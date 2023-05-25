@@ -13,6 +13,10 @@ class GameEngine
 {
 public:
     GameEngine();
+    GameEngine(const GameEngine& other) = delete;
+    GameEngine& operator=(const GameEngine& other) = delete;
+
+    ~GameEngine();
 
     void run();
 
@@ -20,6 +24,8 @@ public:
     static sf::RenderWindow& getWindow();
     static StateManager* getStateManager();
     static Client* getClient();
+    static void readMessage(const proto::Response& msg);
+    static void writeMessage(const proto::Request& msg);
 
 private:
     void update();

@@ -17,19 +17,29 @@ using ClientConnectionShPtr = std::shared_ptr<ClientConnection>;
 class ClientConnection : public std::enable_shared_from_this<ClientConnection>
 {
 public:
-    ClientConnection(net::io_context& io_context,
-           const tcp::resolver::results_type& endpoints);
+    ClientConnection(const std::string& ip, const std::string& port);
+
+    void startConnect();
+    bool isConnected() const;
 
     void write(const std::string& msg);
+
     void close();
+
 private:
-    void do_connect(const tcp::resolver::results_type& endpoint);
-    void do_write();
-    void do_read_header();
-    void do_read_body();
+    void handleConnect(boost::system::error_code ec, const tcp::endpoint&);
+
+    void doReadHeader();
+    void doReadBody();
+
+    void doWrite();
+
 private:
-    boost::asio::io_context& io_context_;
+    boost::asio::io_context io_context_;
     tcp::socket socket_;
+
+    tcp::resolver resolver_;
+    tcp::resolver::results_type endpoint_;
 
     std::string read_msg_;
     std::string read_msg_size_;
