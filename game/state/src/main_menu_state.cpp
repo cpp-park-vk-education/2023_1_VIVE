@@ -36,6 +36,7 @@ void MainMenuState::handlePressedButton(const ButtonShPtr& btn, StateManager* ma
         EnButton en_btn = name_to_en_btn_[btn->getText()];
         if (en_btn == START) {
             manager->changeState(StateManager::SINGLE_STATE);
+            GameEngine::getClient()->disconnect();
         }
         if (en_btn == START_MULTIPLAYER) {
             manager->changeState(StateManager::INIT_MULTIPLAYER_STATE);
@@ -48,13 +49,12 @@ void MainMenuState::handlePressedButton(const ButtonShPtr& btn, StateManager* ma
 }
 
 void MainMenuState::readMessage(const proto::Response &msg) {
-
+    
 }
 
 void MainMenuState::sendServerAboutInitMultiplayer_() {
     proto::Request msg;
-    proto::Request::InitMultiplayerState state;
-    msg.set_allocated_init_multiplayer_state(&state);
-    std::cout << msg.has_init_multiplayer_state() << std::endl;
-    GameEngine::getClient()->write(msg);
+    proto::Request::InitMultiplayerState initState;
+    *msg.mutable_init_multiplayer_state() = initState;
+    GameEngine::writeMessage(msg);
 }

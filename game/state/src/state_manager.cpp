@@ -15,6 +15,12 @@ void StateManager::update(const sf::Event &event) {
 }
 
 void StateManager::readMessage(const proto::Response &msg) {
+    if (msg.has_join_state()) {
+        to_state_object_[JOIN_STATE]->readMessage(msg);
+    }
+    if (msg.has_init_multiplayer_state()) {
+        to_state_object_[INIT_MULTIPLAYER_STATE]->readMessage(msg);
+    }
     to_state_object_[curState_]->readMessage(msg);
 }
 

@@ -1,14 +1,8 @@
-#include "game.hpp"
-
 #include <iostream>
 
-#include <string>
-
-using namespace std;
+#include "game.hpp"
 
 int main() {
-//    GameEngine::getClient()->connect();
     GameEngine game;
     game.run();
-    return 0;
 }

@@ -13,18 +13,27 @@ using net::ip::tcp;
 class Client
 {
 public:
-    void connect();
-    void write(const proto::Request& msg);
+    Client() = default;
+    Client(const Client& other) = delete;
+    Client& operator=(const Client& other) = delete;
+    ~Client();
 
+    void connect();
+    void disconnect();
+    void readMessage(const std::string& msg_str);
+    void writeMessage(const proto::Request &msg);
 
 private:
-    boost::asio::io_context io_context_;
+    void write(const std::string &msg);
+
     ClientConnectionShPtr c_ = nullptr;
 
-    bool connected_ = false;
+    bool connected_ = true;
+
+//    std::string ip_ = "25.18.161.202";
+//    std::string port_ = "1234";
 
     std::string ip_ = "127.0.0.1";
     std::string port_ = "5555";
-
 };
 

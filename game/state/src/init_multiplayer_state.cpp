@@ -84,6 +84,7 @@ void InitMultiplayerState::update(const sf::Event &event) {
 void InitMultiplayerState::readMessage(const proto::Response &msg) {
     if (msg.has_init_multiplayer_state()) {
         code_string_ = msg.init_multiplayer_state().code();
+        code_->setString(code_string_);
         is_waiting_ = false;
     }
     if (msg.has_join_state()) {

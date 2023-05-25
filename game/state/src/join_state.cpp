@@ -69,12 +69,15 @@ void JoinState::sendCodeToServer_(const std::string &code) {
     proto::Request msg;
     proto::Request::JoinState state;
     state.set_code(code);
-    msg.set_allocated_join_state(&state);
-    std::cout << msg.has_join_state() << std::endl;
-    GameEngine::getClient()->write(msg);
+    *msg.mutable_join_state() = state;
+    GameEngine::writeMessage(msg);
 }
 
 void JoinState::readMessage(const proto::Response &msg) {
-
+    if (msg.has_join_state()) {
+        if (msg.join_state().ok()) {
+            GameEngine::getStateManager()->changeState(StateManager::COOP_STATE);
+        }
+    }
 }
 

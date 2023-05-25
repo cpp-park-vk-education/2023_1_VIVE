@@ -28,19 +28,17 @@ Client *GameEngine::getClient() {
 
 GameEngine::GameEngine():
 window_(sf::VideoMode(w_width_ / 2, w_height_ / 2), "ATOMIC GOD") {
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
     game_engine_ = this;
 }
 
 void GameEngine::run() {
-    GOOGLE_PROTOBUF_VERIFY_VERSION;
     window_.setPosition(sf::Vector2i(w_width_ / 4, w_height_ / 4));
 
     while (window_.isOpen()) {
         update();
         render();
     }
-
-    google::protobuf::ShutdownProtobufLibrary();
 }
 
 void GameEngine::update() {
@@ -64,3 +62,17 @@ void GameEngine::render() {
     window_.display();
 
 }
+
+GameEngine::~GameEngine() {
+    google::protobuf::ShutdownProtobufLibrary();
+}
+
+void GameEngine::readMessage(const proto::Response &msg) {
+    getStateManager()->readMessage(msg);
+}
+
+void GameEngine::writeMessage(const proto::Request &msg) {
+    getClient()->writeMessage(msg);
+}
+
+
