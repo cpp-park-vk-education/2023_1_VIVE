@@ -5,6 +5,7 @@
 
 enum LEVEL
 {
+    L_NONE,
     L1 = 1,
 };
 

@@ -2,7 +2,11 @@
 
 void LevelManager::loadLevel()
 {
-    curr_level_ = new Level(curr_level_num_);
+    // curr_level_ = new Level(curr_level_num_);
+}
+
+void LevelManager::unloadLevel()
+{
 }
 
 void LevelManager::loadSubLevel()
@@ -21,14 +25,68 @@ void LevelManager::loadSubLevel()
     curr_sublevel_ = parseLevelFile(file_path);
 }
 
+void LevelManager::unloadSubLevel()
+{
+    if (!curr_sublevel_)
+    {
+        delete curr_sublevel_;
+    }
+}
+
 void LevelManager::load()
 {
     AssetManager::getInstance()->loadAssets(std::string("level" + std::to_string(curr_level_num_) + "_" + std::to_string(curr_sublevel_num_)));
+
     std::cout << "Loading Level #" << curr_level_num_ << std::endl;
     loadLevel();
     std::cout << "Loading SubLevel #" << curr_sublevel_num_ << std::endl;
     loadSubLevel();
     std::cout << "Loaded successfully" << std::endl;
+}
+
+void LevelManager::unload()
+{
+    delete curr_sublevel_;
+}
+
+bool LevelManager::checkLevelNum(const LEVEL level)
+{
+    return level_info.find(level) != level_info.end();
+}
+
+bool LevelManager::checkSubLevelNum(const LEVEL level, const SUBLEVEL sublevel)
+{
+    if (!checkLevelNum(level))
+    {
+        return false;
+    }
+    auto it = std::find(
+        level_info[level].begin(),
+        level_info[level].end(),
+        sublevel);
+
+    return it != level_info[level].end();
+}
+
+void LevelManager::changeTo(const LEVEL level, const SUBLEVEL sublevel)
+{
+    if (curr_level_num_ == level)
+    {
+        if (curr_level_num_ != curr_level_num_ &&
+            checkSubLevelNum(curr_level_num_, sublevel))
+        {
+            changeSubLevel(sublevel);
+        }
+    }
+    else
+    {
+        if (checkLevelNum(level))
+        {
+            changeLevel(level);
+            changeSubLevel(sublevel);
+        }
+    }
+    load();
 }
 
 void LevelManager::update(const sf::Event &event)
@@ -111,9 +169,9 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
 
 LevelManager::LevelManager()
 {
-    curr_level_num_ = LEVEL::L1;
+    curr_level_num_ = LEVEL::L_NONE;
     // loadLevel();
-    curr_sublevel_num_ = SUBLEVEL::SBL1;
+    curr_sublevel_num_ = SUBLEVEL::SBL_NONE;
     // loadSubLevel();
 }
 
@@ -127,27 +185,16 @@ LevelManager::LevelManager(const LEVEL level, const SUBLEVEL sublevel)
 
 void LevelManager::changeLevel(const LEVEL level)
 {
-    // Check if given level is in the game
-    if (level_info.find(level) != level_info.end())
-    {
-        curr_level_num_ = level;
-        loadLevel();
-    }
+    // unloadLevel();
+    curr_level_num_ = level;
+    // loadLevel();
 }
 
 void LevelManager::changeSubLevel(const SUBLEVEL sublevel)
 {
-    // Check if given level is in the game
-    auto it = std::find(
-        level_info[curr_level_num_].begin(),
-        level_info[curr_level_num_].end(),
-        sublevel);
-
-    if (it != level_info[curr_level_num_].end())
-    {
-        curr_sublevel_num_ = sublevel;
-        loadSubLevel();
-    }
+    // unloadSubLevel();
+    curr_sublevel_num_ = sublevel;
+    // loadSubLevel();
 }
 
 std::vector<ObjectShPtr> LevelManager::getObjects()

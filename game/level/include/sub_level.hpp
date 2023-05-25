@@ -12,6 +12,7 @@
 
 enum SUBLEVEL
 {
+    SBL_NONE,
     SBL1 = 1,
 };
 

@@ -45,6 +45,12 @@ private:
                     }},
     };
 
+    void load();
+    void unload();
+
+    bool checkLevelNum(const LEVEL level);
+    bool checkSubLevelNum(const LEVEL level, const SUBLEVEL sublevel);
+
 public:
     LevelManager();
     LevelManager(const LEVEL level, const SUBLEVEL sublevel);
@@ -53,8 +59,10 @@ public:
     void changeSubLevel(const SUBLEVEL sublevel);
 
     void loadLevel();
+    void unloadLevel();
     void loadSubLevel();
-    void load();
+    void unloadSubLevel();
+    void changeTo(const LEVEL level, const SUBLEVEL sublevel);
 
     void update(const sf::Event &event);
 
