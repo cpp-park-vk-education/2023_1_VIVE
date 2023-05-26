@@ -29,12 +29,10 @@ public:
     // Heap methods
     virtual void updateHeap() = 0;
     virtual ObjectsHeap &getHeap() = 0;
-    virtual void setHeap(std::vector<ObjectShPtr> objects) = 0;
 
 protected:
     std::vector<Player> players_;
-    std::vector<DrawableShPtr> objects_;
-
     ObjectsHeap heap_;
+
     void clearHeap();
 };

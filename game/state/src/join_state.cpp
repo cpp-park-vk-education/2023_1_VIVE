@@ -4,23 +4,23 @@
 #include <iostream>
 
 JoinState::JoinState() {
-    fnt_ = AssetManager::getInstance()->getFont("eight_bits");
+}
 
+void JoinState::load() {
     return_ = std::make_shared<Button>();
-    return_->setParams("Return", 60, fnt_, 5, 15, sf::Color::Red);
+    return_->setParams("Return", 60, 5, 15, sf::Color::Red);
     return_->setPosition(20, 20);
     return_->setHoverColor(sf::Color::Yellow);
     return_->setActiveColor(sf::Color(222, 238, 0));
 
-    template_ = std::make_shared<sf::Text>();
+    template_ = std::make_shared<Text>(template_string_);
     template_->setString(template_string_);
     template_->setCharacterSize(60);
     template_->setPosition(300, 100);
     template_->setFillColor(sf::Color::Red);
-    template_->setFont(fnt_);
 
     input_field_ = std::make_shared<Button>();
-    input_field_->setParams("", 60, fnt_, 5, 15, sf::Color::Red);
+    input_field_->setParams("", 60, 5, 15, sf::Color::Red);
     input_field_->setPosition(50, 300);
 }
 
@@ -54,13 +54,9 @@ void JoinState::update(const sf::Event &event) {
         }
     }
 
-
     return_->update(event, 0);
 
-    objects_.clear();
-    objects_.push_back(return_);
-    objects_.push_back(template_);
-    objects_.push_back(input_field_);
+    updateHeap();
 }
 
 void JoinState::sendCodeToServer_(const std::string &code) {
@@ -78,4 +74,16 @@ void JoinState::readMessage(const proto::Response &msg) {
         }
     }
 }
+
+void JoinState::updateHeap() {
+    clearHeap();
+    heap_.push(return_);
+    heap_.push(template_);
+    heap_.push(input_field_);
+}
+
+ObjectsHeap &JoinState::getHeap() {
+    return heap_;
+}
+
 

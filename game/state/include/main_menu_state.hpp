@@ -28,7 +28,6 @@ public:
     // Heap methods
     void updateHeap() override {};
     ObjectsHeap &getHeap() override;
-    void setHeap(std::vector<ObjectShPtr> objects) override {};
 
 private:
     void sendServerAboutInitMultiplayer_();

@@ -37,17 +37,13 @@ void MainMenuState::handlePressedButton(const ButtonShPtr &btn, StateManager *ma
         if (en_btn == START_MULTIPLAYER)
         {
             manager->changeState(StateManager::INIT_MULTIPLAYER_STATE);
-            sendServerAboutInitMultiplayer_();
+//            sendServerAboutInitMultiplayer_();
         }
         if (en_btn == JOIN)
         {
             manager->changeState(StateManager::JOIN_STATE);
         }
     }
-}
-
-void MainMenuState::readMessage(const proto::Response &msg)
-{
 }
 
 void MainMenuState::load()
@@ -61,7 +57,7 @@ void MainMenuState::load()
         name_to_en_btn_.insert({names_[i], en_buttons_[i]});
 
         ButtonShPtr btn = std::make_shared<Button>();
-        btn->setParams(names_[i], 60, AssetManager::getInstance()->getFont("eight_bits"), 5, 15, sf::Color::Red);
+        btn->setParams(names_[i], 60, 5, 15, sf::Color::Red);
         btn->setPosition(100, (i + 1) * 100);
         btn->setHoverColor(sf::Color::Yellow);
         btn->setActiveColor(sf::Color(222, 238, 0));
@@ -80,5 +76,10 @@ void MainMenuState::sendServerAboutInitMultiplayer_()
     proto::Request::InitMultiplayerState state;
     msg.set_allocated_init_multiplayer_state(&state);
     std::cout << msg.has_init_multiplayer_state() << std::endl;
-    GameEngine::getClient()->write(msg);
+    GameEngine::getClient()->writeMessage(msg);
+}
+
+void MainMenuState::readMessage(const proto::Response &msg)
+{
+
 }

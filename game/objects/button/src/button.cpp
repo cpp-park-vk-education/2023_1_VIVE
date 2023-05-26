@@ -1,17 +1,19 @@
 #include "button.hpp"
 
 #include "game.hpp"
+#include "asset_manager.hpp"
 
 Button::Button()
 {
     priority_ = PRIORITY::BUTTONS;
+    font_ = AssetManager::getInstance()->getFont("eight_bits");
 }
 
 Button::~Button()
 {
 }
 
-void Button::setParams(const std::string &txt, unsigned int charSize, const sf::Font& font, float frameThickness, float padd,
+void Button::setParams(const std::string &txt, unsigned int charSize, float frameThickness, float padd,
                        sf::Color textColor, sf::Color backColor)
 {
     padding = padd;
@@ -20,7 +22,7 @@ void Button::setParams(const std::string &txt, unsigned int charSize, const sf::
     text_.setString(txt);
     text_.setCharacterSize(charSize);
     text_.setFillColor(textColor);
-    text_.setFont(font);
+    text_.setFont(font_);
 
     updateFrameSize();
     frame.setFillColor(backColor);

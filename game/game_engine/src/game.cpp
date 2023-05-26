@@ -35,12 +35,11 @@ window_(sf::VideoMode(w_width_ / 2, w_height_ / 2), "ATOMIC GOD") {
 void GameEngine::run() {
     window_.setPosition(sf::Vector2i(w_width_ / 4, w_height_ / 4));
 
+    state_manager_.init();
     while (window_.isOpen()) {
         update();
         render();
     }
-
-    google::protobuf::ShutdownProtobufLibrary();
 }
 
 void GameEngine::update() {
@@ -50,12 +49,12 @@ void GameEngine::update() {
             window_.close();
             break;
         }
-        state_manager_.update(event);
     }
+    state_manager_.update(event);
 }
 
 void GameEngine::render() {
-    window_.clear();
+    window_.clear(sf::Color::Green);
     ObjectsHeap &heap = state_manager_.getHeap();
     while (!heap.empty())
     {

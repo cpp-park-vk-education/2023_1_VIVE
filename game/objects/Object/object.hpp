@@ -20,6 +20,11 @@ enum PRIORITY : uint8_t {
     BUTTONS,
 };
 
+class Object;
+
+using DrawableShPtr = std::shared_ptr<sf::Drawable>;
+using ObjectShPtr = std::shared_ptr<Object>;
+
 class Object : public sf::Drawable
 {
 protected:

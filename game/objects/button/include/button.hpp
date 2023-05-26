@@ -18,7 +18,7 @@ private:
 public:
     Button();
     ~Button();
-    void setParams(const std::string& txt, unsigned int charSize, const sf::Font& font, float frameThickness, float padding,
+    void setParams(const std::string& txt, unsigned int charSize, float frameThickness, float padding,
                    sf::Color textColor = sf::Color::Black, sf::Color backColor = sf::Color::Transparent);
 
     void setFont(const sf::Font& font);
@@ -38,8 +38,9 @@ public:
 private:
     void updateFrameSize();
 
-    sf::Text text_;
     sf::Font font_;
+
+    sf::Text text_;
     sf::RectangleShape frame;
     float padding = 0;
 

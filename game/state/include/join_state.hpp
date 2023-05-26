@@ -2,6 +2,7 @@
 
 #include "state.hpp"
 #include "button.hpp"
+#include "text.hpp"
 
 class JoinState : public State {
 public:
@@ -10,14 +11,19 @@ public:
     void update(const sf::Event &event) override;
     void readMessage(const proto::Response &msg);
 
+    void load() override;
+    void unload() override {};
+
+    void updateHeap() override;
+    ObjectsHeap &getHeap() override;
+
 private:
     void sendCodeToServer_(const std::string &code);
 
 private:
-    sf::Font fnt_;
     ButtonShPtr return_;
 
-    std::shared_ptr<sf::Text> template_;
+    TextShPtr template_;
 
     std::string template_string_ = "Type the code and press 'Enter'";
 

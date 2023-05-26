@@ -2,6 +2,7 @@
 
 #include "state.hpp"
 #include "button.hpp"
+#include "text.hpp"
 
 class InitMultiplayerState : public State {
 public:
@@ -10,13 +11,22 @@ public:
     void update(const sf::Event &event) override;
     void readMessage(const proto::Response &msg);
 
+    void load() override;
+    void unload() override {};
+
+    void updateHeap() override;
+    ObjectsHeap &getHeap() override;
+
 private:
     void initObjects_();
 
     sf::Font fnt_;
-    std::shared_ptr<sf::Text> template_;
-    std::shared_ptr<sf::Text> code_;
-    std::shared_ptr<sf::Text> copy_;
+
+
+
+    TextShPtr template_;
+    TextShPtr code_;
+    TextShPtr copy_;
 
     std::string template_string_ = "Unique code for connection: ";
     std::string code_string_ = "Please wait...";

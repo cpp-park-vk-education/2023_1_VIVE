@@ -28,8 +28,6 @@ private:
 
     ClientConnectionShPtr c_ = nullptr;
 
-    bool connected_ = true;
-
 //    std::string ip_ = "25.18.161.202";
 //    std::string port_ = "1234";
 

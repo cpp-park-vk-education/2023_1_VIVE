@@ -22,9 +22,6 @@ void Client::write(const std::string &msg) {
     if (!c_) {
         connect();
     }
-//    if (!c_->isConnected()) {
-//        c_->startConnect();
-//    }
     c_->write(msg);
 
 }
