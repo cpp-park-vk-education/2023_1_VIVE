@@ -14,8 +14,8 @@ void Particle::initSprite()
     {
         sprite_.setTexture(AssetManager::getInstance()->getTexture("star_particle"));
     }
-    // sprite_.setSize(hitbox_.getSize());
-    // sprite_.setPosition(hitbox_.getPosition());
+    sprite_.setScale(0.05f, 0.05f);
+    sprite_.setPosition(hitbox_.getPosition());
 }
 
 void Particle::initPhysics()
@@ -43,6 +43,7 @@ Particle::Particle(const sf::Vector2f size, const sf::Vector2f position,
       exists_(false),
       type_(type)
 {
+    priority_ = PRIORITY::PARTICLES;
     initSprite();
     initPhysics();
 }
@@ -84,7 +85,7 @@ void Particle::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
     if (exists_)
     {
-        // target.draw(sprite_);
+        target.draw(sprite_);
     }
 }
 
