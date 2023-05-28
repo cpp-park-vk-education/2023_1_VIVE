@@ -8,11 +8,11 @@ void Particle::initSprite()
 {
     if (type_ == TYPE::COIN)
     {
-        // sprite_.setFillColor(sf::Color::Yellow);
+        sprite_.setTexture(AssetManager::getInstance()->getTexture("money_particle"));
     }
     else if (type_ == TYPE::EXP)
     {
-        // sprite_.setFillColor(sf::Color::Blue);
+        sprite_.setTexture(AssetManager::getInstance()->getTexture("star_particle"));
     }
     // sprite_.setSize(hitbox_.getSize());
     // sprite_.setPosition(hitbox_.getPosition());

@@ -1,4 +1,4 @@
-green_world_temple  0 backgrounds/level1.1.png
+green_world_temple  0 backgrounds/level1_1.png
 eight_bits  1   fonts/EightBits.ttf
 inventory_icon  0  objects/InventoryIcon.png
 level_points_icon   0 objects/LevelPointsIcon.png
@@ -10,3 +10,5 @@ level   0 objects/Level.png
 sword   0 objects/Sword.png
 player_animation 0 animation/player_animation.png
 ground_world_level 0 level_objects/ground_world_objects.png
+money_particle  0   objects/MoneyParticle.png
+star_particle  0   objects/StarParticle.png

@@ -33,8 +33,7 @@ std::vector<ObjectShPtr> SubLevel::getObjects()
         res.push_back(enemy);
     }
     res.push_back(player_user_interface_);
-    // TODO add background as ObjectShPtr
-    // res.push_back(background_);
+    res.push_back(background_);
     return res;
 }
 
@@ -43,6 +42,7 @@ void SubLevel::update(const sf::Event &event)
     float delta_time = clock_.restart().asSeconds();
 
     SoundManager::getInstance()->playMusic();
+    updateBackGround();
     updatePlayer(event, delta_time);
     updateCamera();
     updatePUI();
@@ -65,6 +65,7 @@ sf::Vector2u SubLevel::getMapSize() const
 
 void SubLevel::init()
 {
+    background_ = std::make_shared<BackGround>(GameEngine::getWindow().getSize());
     initCamera();
     initPUI();
     initCollisionHandler();
@@ -107,6 +108,10 @@ void SubLevel::spawnEnemies()
     EnemyShPtr enemy = std::make_shared<Enemy>(sf::Vector2f(BASE_SIZE, BASE_SIZE * 2), sf::Vector2f(enemy_pos_x, 100.f));
 
     enemies_.push_back(enemy);
+}
+
+void SubLevel::updateBackGround() {
+    background_->move(camera_->getTopLeftCameraCoordinates());
 }
 
 void SubLevel::updatePlayer(const sf::Event &event, const float delta_time)
