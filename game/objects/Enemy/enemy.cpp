@@ -10,7 +10,7 @@ void Enemy::spawnParticles()
 }
 
 void Enemy::initAnimation() {
-    animation_ = std::make_unique<Animation>("player_animation");
+    animation_ = std::make_unique<Animation>("enemy_animation");
     animation_->updateSpriteSize(hitbox_.getSize());
 }
 
