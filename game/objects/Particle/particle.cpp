@@ -89,7 +89,7 @@ void Particle::draw(sf::RenderTarget &target, sf::RenderStates state) const
     }
 }
 
-void Particle::setNewAnimation(char current_state) {
+void Particle::setNewAnimation(AnimStates current_state) {
     
 }
 

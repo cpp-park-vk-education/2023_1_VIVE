@@ -3,7 +3,7 @@
 
 class Animation : IAnimatable {
 public:
-    Animation(const std::string& name_of_animation_object, float frame_duration);
+    Animation(const std::string& name_of_animation_object);
     ~Animation() override;
 
     Animation(const Animation&) = delete;
@@ -14,7 +14,7 @@ public:
     bool isLeftRun() const;
 
     void updateSpriteSize(const sf::Vector2f& size_of_sprite);
-    void changeAnimation(char current_state) override;
+    void changeAnimation(AnimStates current_state) override;
     void update(float delta_time) override;
     sf::Sprite getSpriteAnimation() const override;
 
@@ -26,6 +26,7 @@ private:
     void setAttackAnimation();
     void setJumpAnimation();
 
+    void playAnimation(float delta_time);
     void playStayAnimation(float delta_time);
     void playLeftRunAnimation(float delta_time);
     void playRightRunAnimation(float delta_time);
@@ -36,11 +37,10 @@ private:
     sf::Vector2f size_of_sprite_;
     sf::Sprite sprite_of_animation_;
     float current_frame_;
-    uint8_t count_of_frames_;
-    float frame_duration_;
-    float elapsed_time_;
-    bool looped_;
-    bool is_playing_;
     bool is_left_run;
-    char current_state_;
+    bool is_playing_;
+    int current_offset_;
+    AnimParametrs current_animation_;
+    AnimStates current_state_;
+    std::unordered_map<AnimStates, AnimParametrs> anim_settigns_;
 };

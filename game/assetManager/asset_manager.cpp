@@ -1,7 +1,4 @@
 #include "asset_manager.hpp"
-#include <filesystem>
-#include <iostream>
-#include <fstream>
 
 AssetManager::AssetManager() {
 

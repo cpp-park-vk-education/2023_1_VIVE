@@ -3,7 +3,7 @@
 bool Entity::isDead() const
 {
     if (!alive_) {
-        animation_->changeAnimation('d');
+        animation_->changeAnimation(AnimStates::DEATH_ANIM);
         return true;
     }
 

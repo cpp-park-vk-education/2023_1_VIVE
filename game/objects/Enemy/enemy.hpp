@@ -31,7 +31,7 @@ public:
     void update(const sf::Event &event, const float delta_time, EntityShPtr target);
 
     // MovableObject overrides
-    void setNewAnimation(char current_state) override;
+    void setNewAnimation(AnimStates current_state) override;
     void updateAnimation(float delta_time) override;
     void updateMovement(const float delta_time) override;
     void updateMovement(const float delta_time, EntityShPtr target);
@@ -52,7 +52,7 @@ public:
     }
 
     void setStayAnnimation() {
-        animation_->changeAnimation('s');
+        animation_->changeAnimation(AnimStates::STAY_ANIM);
     }
 };
 

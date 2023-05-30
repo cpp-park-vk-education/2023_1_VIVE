@@ -27,7 +27,7 @@ public:
     MovableObject(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~MovableObject();
 
-    virtual void setNewAnimation(char current_state) = 0;
+    virtual void setNewAnimation(AnimStates current_state) = 0;
 
     virtual void move(const sf::Vector2f displacement);
     virtual void updateAnimation(float delta_time) = 0;

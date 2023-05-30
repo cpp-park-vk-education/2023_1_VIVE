@@ -1,7 +1,7 @@
 #include "player.hpp"
 
 void Player::initAnimation() {
-    animation_ = std::make_unique<Animation>("player_animation", 2.0f);
+    animation_ = std::make_unique<Animation>("player_animation");
     animation_->updateSpriteSize(hitbox_.getSize());
 }
 
@@ -121,7 +121,7 @@ void Player::update(const sf::Event &event, Entity *target,
     }
 }
 
-void Player::setNewAnimation(char current_state) {
+void Player::setNewAnimation(AnimStates current_state) {
     animation_->changeAnimation(current_state);
     sprite_.setPosition(hitbox_.getSize());
 }
@@ -152,7 +152,7 @@ void Player::updateMovement(const float delta_time)
             velocity_.x = -max_speed_;
         }
         is_moving = true;
-        animation_->changeAnimation('l');
+        animation_->changeAnimation(AnimStates::LEFT_RUN_ANIM);
     }
 
     // Moving right
@@ -167,7 +167,7 @@ void Player::updateMovement(const float delta_time)
             velocity_.x = max_speed_;
         }
         is_moving = true;
-        animation_->changeAnimation('r');
+        animation_->changeAnimation(AnimStates::RIGHT_RUN_ANIM);
     }
 
     // Обрабатываем прыжок персонажа
@@ -177,7 +177,7 @@ void Player::updateMovement(const float delta_time)
         if (velocity_.y == 0)
         {
             SoundManager::getInstance()->playSoundEffect(SoundType::JUMP);
-            animation_->changeAnimation('j');
+            animation_->changeAnimation(AnimStates::JUMP_ANIM);
             is_jumping_ = true;
             jump_time_ = 0;
             velocity_.y = -jump_speed_;
@@ -233,7 +233,7 @@ void Player::updateAttack(const sf::Event &event, EntityShPtr target,
         sec_since_last_hit_ > attack_cooldown_)
     {
         SoundManager::getInstance()->playSoundEffect(SoundType::CLOSE_ATTACK);
-        animation_->changeAnimation('a');
+        animation_->changeAnimation(AnimStates::ATTACK_ANIM);
         attacking_ = true;
         attack(target);
         sec_since_last_hit_ = 0;

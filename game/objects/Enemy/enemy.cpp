@@ -10,7 +10,7 @@ void Enemy::spawnParticles()
 }
 
 void Enemy::initAnimation() {
-    animation_ = std::make_unique<Animation>("player_animation", 0);
+    animation_ = std::make_unique<Animation>("player_animation");
     animation_->updateSpriteSize(hitbox_.getSize());
 }
 
@@ -141,7 +141,7 @@ void Enemy::updateAttack(const sf::Event &event, EntityShPtr target,
         attacking_ = true;
         attack(target);
         sec_since_last_hit_ = 0;
-        animation_->changeAnimation('a');
+        animation_->changeAnimation(AnimStates::ATTACK_ANIM);
     }
     else if (attacking_)
     {
@@ -200,7 +200,7 @@ void Enemy::update(const sf::Event &event, const float delta_time,
     }
 }
 
-void Enemy::setNewAnimation(char current_state) {
+void Enemy::setNewAnimation(AnimStates current_state) {
     
 }
 

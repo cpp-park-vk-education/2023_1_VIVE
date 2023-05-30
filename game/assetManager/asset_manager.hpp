@@ -3,6 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <unordered_map>
+#include <filesystem>
+#include <iostream>
+#include <fstream>
 
 enum FileType{
     TEXTURE,
