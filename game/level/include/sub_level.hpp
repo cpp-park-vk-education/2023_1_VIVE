@@ -6,6 +6,7 @@
 #include "player.hpp"
 #include "tile.hpp"
 #include "enemy.hpp"
+#include "boss.hpp"
 #include "player_user_interface.hpp"
 #include "collision_handler.hpp"
 #include "camera_target.hpp"
@@ -21,7 +22,8 @@ public:
     SubLevel(const sf::Vector2u size,
              std::vector<PlayerShPtr> players,
              std::vector<TileShPtr> tiles,
-             std::vector<EnemyShPtr> enemies);
+             std::vector<EnemyShPtr> enemies,
+             BossShPtr boss);
 
     std::vector<ObjectShPtr> getObjects();
 
@@ -40,6 +42,7 @@ private:
     std::vector<TileShPtr> tiles_;
     std::vector<PlayerShPtr> players_;
     std::vector<EnemyShPtr> enemies_;
+    BossShPtr boss_;
     PUIShPtr player_user_interface_;
     CollisionHandlerShPtr collision_handler_;
     // Boss boss_;
@@ -58,6 +61,7 @@ private:
     void updateTiles(const sf::Event& event);
     void updateCollision();
     void updateEnemies(const sf::Event& event, const float delta_time);
+    void updateBoss(const sf::Event& event, const float delta_time);
     void updateNonExistentObjects();
 
 

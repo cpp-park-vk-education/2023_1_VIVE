@@ -76,6 +76,14 @@ void CollisionHandler::checkPlayerParticleCollision(PlayerShPtr player,
     }
 }
 
+void CollisionHandler::checkBossTileCollision(BossShPtr boss, std::vector<TileShPtr> &tiles)
+{
+    for (const auto &tile : tiles)
+    {
+        handleCollision(boss, tile);
+    }
+}
+
 void CollisionHandler::run(std::vector<PlayerShPtr> &players,
                            std::vector<TileShPtr> &tiles,
                            //    ParticleSetShPtrparticles,
@@ -117,6 +125,15 @@ void CollisionHandler::run(std::vector<PlayerShPtr> &players,
             }
         }
     }
+}
+
+void CollisionHandler::run(std::vector<PlayerShPtr> &players,
+                           std::vector<TileShPtr> &tiles,
+                           std::vector<EnemyShPtr> &enemies,
+                           BossShPtr boss)
+{
+    run(players, tiles, enemies);
+    checkBossTileCollision(boss, tiles);
 }
 
 bool CollisionHandler::checkAABBCollision(const PhysicalObjectShPtr obj1,

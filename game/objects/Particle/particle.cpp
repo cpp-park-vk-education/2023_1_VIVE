@@ -43,7 +43,7 @@ Particle::Particle(const sf::Vector2f size, const sf::Vector2f position,
       exists_(false),
       type_(type)
 {
-    priority_ = PRIORITY::PARTICLES;
+    priority_ = Priority::PARTICLES;
     initSprite();
     initPhysics();
 }

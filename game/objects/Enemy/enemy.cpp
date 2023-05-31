@@ -9,7 +9,8 @@ void Enemy::spawnParticles()
     exp_particles_->generate();
 }
 
-void Enemy::initAnimation() {
+void Enemy::initAnimation()
+{
     animation_ = std::make_unique<Animation>("player_animation", 0);
     animation_->updateSpriteSize(hitbox_.getSize());
 }
@@ -72,7 +73,7 @@ void Enemy::initParticles()
 Enemy::Enemy(const sf::Vector2f size, const sf::Vector2f position)
     : Entity(size, position)
 {
-    priority_ = PRIORITY::ENEMIES;
+    priority_ = Priority::ENEMIES;
     initAnimation();
     initSprite();
     initPhysics();
@@ -99,15 +100,13 @@ ParticleSetShPtr Enemy::getExpParticles()
 bool Enemy::doesExist() const
 {
     // if particles still exist
-    if (isDead() &&
-        !coin_particles_->doesExist() &&
-        !exp_particles_->doesExist())
+    if (isDead())
     {
-        return false;
+        return coin_particles_->doesExist() || exp_particles_->doesExist();
     }
     else
     {
-        return true;
+        return PhysicalObject::doesExist();
     }
 }
 
@@ -136,7 +135,6 @@ void Enemy::updateAttack(const sf::Event &event, EntityShPtr target,
         sec_since_last_hit_ += delta_time;
     }
 
-    std::cout << target->doesExist() << std::endl;
     if (isInDamageRadius(target) && !attacking_ &&
         sec_since_last_hit_ > attack_cooldown_)
     {
@@ -184,19 +182,19 @@ void Enemy::update(const sf::Event &event, const float delta_time,
         sprite_ = animation_->getSpriteAnimation();
         sprite_.setPosition(hitbox_.getPosition());
 
-        if(!isAttack())
+        if (!isAttack())
             setStayAnnimation();
-        
+
         updateHP();
     }
 }
 
-void Enemy::setNewAnimation(char current_state) {
-    
+void Enemy::setNewAnimation(char current_state)
+{
 }
 
-void Enemy::updateAnimation(float delta_time) {
-
+void Enemy::updateAnimation(float delta_time)
+{
 }
 
 void Enemy::updateMovement(const float delta_time)

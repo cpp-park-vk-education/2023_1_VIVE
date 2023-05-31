@@ -1,7 +1,7 @@
 #include "player_user_interface.hpp"
 
 PUI::PUI(const sf::Vector2f& camera_size) {
-    priority_ = PRIORITY::PLAYER_USER_INTERFACE;
+    priority_ = Priority::PLAYER_USER_INTERFACE;
     weapon_status_ = std::make_unique<StatusWeapon>(camera_size);
     status_expirience_ = std::make_unique<StatusExpirience>(camera_size);
     money_status_ = std::make_unique<StatusMoney>(camera_size);

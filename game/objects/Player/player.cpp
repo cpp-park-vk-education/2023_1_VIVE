@@ -1,6 +1,7 @@
 #include "player.hpp"
 
-void Player::initAnimation() {
+void Player::initAnimation()
+{
     animation_ = std::make_unique<Animation>("player_animation", 2.0f);
     animation_->updateSpriteSize(hitbox_.getSize());
 }
@@ -57,7 +58,7 @@ void Player::initStats()
 Player::Player(const sf::Vector2f size, const sf::Vector2f position)
     : Entity(size, position)
 {
-    priority_ = PRIORITY::PLAYERS;
+    priority_ = Priority::PLAYERS;
     initAnimation();
     initSprite();
     initPhysics();
@@ -117,7 +118,8 @@ void Player::update(const sf::Event &event, Entity *target,
     }
 }
 
-void Player::setNewAnimation(char current_state) {
+void Player::setNewAnimation(char current_state)
+{
     animation_->changeAnimation(current_state);
     sprite_.setPosition(hitbox_.getSize());
 }

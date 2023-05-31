@@ -6,25 +6,42 @@
 class Boss : public Entity
 {
 protected:
-    int type_;
-    ParticleSet exp_particles_;
-    ParticleSet coin_particles_;
+    sf::RectangleShape shape_;
+    // int type_;
+    // ParticleSet exp_particles_;
+    // ParticleSet coin_particles_;
+    float sight_radius_;
+
+    // Initions
+    void initAnimation() override;
+    void initSprite() override;
+    void initPhysics() override;
+    void initStats() override;
+    // void initParticles();
 
 public:
     Boss(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~Boss();
 
-    ParticleSet getCoinParticles();
-    ParticleSet getExpParticles();
+    // ParticleSet getCoinParticles();
+    // ParticleSet getExpParticles();
 
     // Object overrides
-    void update(const sf::Event &event, const float delta_time) override;
+    void update(const sf::Event &event, const float delta_time) override {};
+    void update(const sf::Event &event, const float delta_time,
+                EntityShPtr target);
+
+
     void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 
-    // PhysicalObject overrides
-    void setPosition(const sf::Vector2f size) override;
+    virtual void setNewAnimation(char current_state) override {};
 
     // MovableObject overrides
-    void move(const sf::Vector2f displacement) override;
     void updateMovement(const float delta_time) override;
+    void updateMovement(const float delta_time, EntityShPtr target);
+    virtual void updateAnimation(float delta_time) override {};
+
+    virtual void updateAttack(const sf::Event &event, std::shared_ptr<Entity> target, const float delta_time) override;
 };
+
+using BossShPtr = std::shared_ptr<Boss>;

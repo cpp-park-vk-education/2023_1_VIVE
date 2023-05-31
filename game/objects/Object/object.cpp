@@ -13,7 +13,7 @@ Object::~Object()
 {
 }
 
-PRIORITY Object::getPriority() const
+Priority Object::getPriority() const
 {
     return priority_;
 }

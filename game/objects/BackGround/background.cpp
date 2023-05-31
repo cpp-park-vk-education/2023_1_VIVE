@@ -1,7 +1,7 @@
 #include "background.hpp"
 
 BackGround::BackGround(const sf::Vector2u& window_size) : window_size_(window_size) {
-    priority_ = PRIORITY::BACKGROUND;
+    priority_ = Priority::BACKGROUND;
 
     maps_[GREEN_WORLD_TEMPLE] = "green_world_temple";
 
