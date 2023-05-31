@@ -190,12 +190,13 @@ void Boss::attack(EntityShPtr target)
     if (attack_dir_dist.first.x > 0)
     {
         dir_x = std::cos(alpha_1);
+        dir_y = -std::sin(alpha_1);
     }
     else
     {
         dir_x = -std::cos(alpha_2);
+        dir_y = std::sin(alpha_2);
     }
-    dir_y = std::sin(std::min(alpha_1, alpha_2));
 
     sf::Vector2f attack_dir(dir_x, dir_y);
 
