@@ -12,6 +12,8 @@ protected:
     ParticleSetShPtr exp_particles_;
     ParticleSetShPtr coin_particles_;
     float sight_radius_;
+    float death_cooldown_;
+    bool death_anim_;
 
     void spawnParticles();
 

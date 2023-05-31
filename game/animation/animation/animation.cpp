@@ -84,6 +84,7 @@ void Animation::changeAnimation(AnimStates current_state) {
             setStayAnimation();
             break;
     case AnimStates::DEATH_ANIM:
+            std::cout << "setDeathAnimation()" << std::endl;
             setDeathAnimation();
             break;
     case AnimStates::ATTACK_ANIM:

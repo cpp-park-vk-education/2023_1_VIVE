@@ -15,7 +15,7 @@ BackGround::BackGround(const sf::Vector2u &window_size, bool parallax_effect) : 
         sprites_[0].setScale(static_cast<float>(window_size_.x) / texture.getSize().x, 
                         static_cast<float>(window_size_.y) / texture.getSize().y);
     } else {
-        sprites_.resize(7);
+        sprites_.resize(13);
 
         maps_[GREEN_WORLD_TEMPLE] = "green_world_temple";
         maps_[GREEN_WORLD_TEMPLE_BACK_MOUNATIN] = "green_world_temple_mt_1";
