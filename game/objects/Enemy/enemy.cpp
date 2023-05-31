@@ -10,7 +10,7 @@ void Enemy::spawnParticles()
 }
 
 void Enemy::initAnimation() {
-    animation_ = std::make_unique<Animation>("player_animation");
+    animation_ = std::make_unique<Animation>("enemy_animation");
     animation_->updateSpriteSize(hitbox_.getSize());
 }
 
@@ -138,10 +138,10 @@ void Enemy::updateAttack(const sf::Event &event, EntityShPtr target,
         sec_since_last_hit_ > attack_cooldown_)
     {
         SoundManager::getInstance()->playSoundEffect(SoundType::ENEMY_CLOSE_ATTACK);
+        animation_->changeAnimation(AnimStates::ATTACK_ANIM);
         attacking_ = true;
         attack(target);
         sec_since_last_hit_ = 0;
-        animation_->changeAnimation(AnimStates::ATTACK_ANIM);
     }
     else if (attacking_)
     {
@@ -214,6 +214,12 @@ void Enemy::updateMovement(const float delta_time)
     move(displacement_);
 
     velocity_ = velocity_ + acceleration_ * delta_time;
+
+    if (velocity_.x > 0) {
+        animation_->changeAnimation(AnimStates::RIGHT_RUN_ANIM);
+    } else if (velocity_.x < 0) {
+        animation_->changeAnimation(AnimStates::LEFT_RUN_ANIM);
+    }
 
     // Limit velocity.x
     if (std::abs(velocity_.x) > max_speed_)

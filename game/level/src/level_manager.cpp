@@ -80,7 +80,7 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
 
             case BLOCK_TYPE::ENEMY:
                 enemy = std::make_shared<Enemy>(
-                    sf::Vector2f(BASE_SIZE, BASE_SIZE * 2),
+                    sf::Vector2f(BASE_SIZE * 2.5f, BASE_SIZE * 3),
                     sf::Vector2f(x_coord, y_coord));
                 enemies.push_back(enemy);
                 x_coord += BASE_SIZE;

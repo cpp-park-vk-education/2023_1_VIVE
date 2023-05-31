@@ -27,12 +27,8 @@ private:
     void setJumpAnimation();
 
     void playAnimation(float delta_time);
-    void playStayAnimation(float delta_time);
     void playLeftRunAnimation(float delta_time);
     void playRightRunAnimation(float delta_time);
-    void playDeathAnimation(float delta_time);
-    void playAttackAnimation(float delta_time);
-    void playJumpAnimation(float delta_time);
 
     sf::Vector2f size_of_sprite_;
     sf::Sprite sprite_of_animation_;

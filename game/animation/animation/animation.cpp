@@ -52,10 +52,7 @@ void Animation::updateSpriteSize(const sf::Vector2f &size_of_sprite) {
     size_of_sprite_ = size_of_sprite;
 }
 
-void Animation::changeAnimation(AnimStates current_state) {
-    if (is_playing_ && current_state == AnimStates::LEFT_RUN_ANIM && current_state_ != AnimStates::LEFT_RUN_ANIM)
-            return;
-    
+void Animation::changeAnimation(AnimStates current_state) {    
     if (current_state_ == AnimStates::DEATH_ANIM && current_state == AnimStates::DEATH_ANIM)
         return;
 
@@ -110,9 +107,6 @@ void Animation::update(float delta_time) {
 
     switch (current_state_)
     {
-    case AnimStates::STAY_ANIM:
-            playStayAnimation(current_frame_);
-            break;
     case AnimStates::LEFT_RUN_ANIM:
             playLeftRunAnimation(current_frame_);
             break;
@@ -172,13 +166,6 @@ void Animation::playAnimation(float delta_time) {
                                         current_animation_.begin_pos_y, current_animation_.offset_x, current_animation_.offset_y));
 }
 
-void Animation::playStayAnimation(float delta_time) {
-    if (is_left_run)
-            sprite_of_animation_.setTextureRect(sf::IntRect(24 + current_offset_ * int(current_frame_), 4, -17, 27));
-    else
-            sprite_of_animation_.setTextureRect(sf::IntRect(7 + current_offset_ * int(current_frame_), 4, 17, 27));
-}
-
 void Animation::playLeftRunAnimation(float delta_time) { 
     sprite_of_animation_.setTextureRect(sf::IntRect(current_animation_.begin_pos_x + current_offset_ * int(current_frame_), 
                                         current_animation_.begin_pos_y, current_animation_.offset_x, current_animation_.offset_y));
@@ -187,25 +174,4 @@ void Animation::playLeftRunAnimation(float delta_time) {
 void Animation::playRightRunAnimation(float delta_time) {
     sprite_of_animation_.setTextureRect(sf::IntRect(current_animation_.begin_pos_x + current_offset_ * int(current_frame_), 
                                         current_animation_.begin_pos_y, current_animation_.offset_x, current_animation_.offset_y));
-}
-
-void Animation::playJumpAnimation(float delta_time) {
-    if (is_left_run)
-            sprite_of_animation_.setTextureRect(sf::IntRect(24 + current_offset_ * int(current_frame_), 162, -17, 29));
-    else
-            sprite_of_animation_.setTextureRect(sf::IntRect(7 + current_offset_ * int(current_frame_), 162, 17, 29));
-}
-
-void Animation::playAttackAnimation(float delta_time) {
-    if (is_left_run)
-            sprite_of_animation_.setTextureRect(sf::IntRect(24 + current_offset_ * int(current_frame_), 260, -17, 27));
-    else
-            sprite_of_animation_.setTextureRect(sf::IntRect(7 + current_offset_ * int(current_frame_), 260, 17, 27));
-}
-
-void Animation::playDeathAnimation(float delta_time) {
-    if (is_left_run)
-            sprite_of_animation_.setTextureRect(sf::IntRect(24 + current_offset_ * int(current_frame_), 196, -17, 27));
-    else
-            sprite_of_animation_.setTextureRect(sf::IntRect(7 + current_offset_ * int(current_frame_), 196, 17, 27));
 }
