@@ -89,6 +89,16 @@ void CollisionHandler::checkBossTileCollision(BossShPtr boss, std::vector<TileSh
     }
 }
 
+void CollisionHandler::checkBossFireBallPlayerCollision(BossShPtr boss, PlayerShPtr player)
+{
+    if (boss->fireBallOut() &&
+        intersects(boss->getFireBall()->getHitBox(), player->getHitBox()))
+    {
+        player->updateDamageTaken(boss->getDamage());
+        boss->getFireBall()->pop();
+    }
+}
+
 void CollisionHandler::run(std::vector<PlayerShPtr> &players,
                            std::vector<TileShPtr> &tiles,
                            //    ParticleSetShPtrparticles,
@@ -138,7 +148,13 @@ void CollisionHandler::run(std::vector<PlayerShPtr> &players,
                            BossShPtr boss)
 {
     run(players, tiles, enemies);
+
+    // check Boss collision
     checkBossTileCollision(boss, tiles);
+    for (auto &player : players)
+    {
+        checkBossFireBallPlayerCollision(boss, player);
+    }
 }
 
 bool CollisionHandler::checkAABBCollision(const PhysicalObjectShPtr obj1,
@@ -165,7 +181,6 @@ void CollisionHandler::handleCollision(MovableObjectShPtr movable_obj,
         float delta = movable_obj->getPosition().y +
                       movable_obj->getGlobalBounds().height -
                       static_obj->getPosition().y;
-
 
         sf::Vector2f movable_obj_pos = movable_obj->getPosition();
 

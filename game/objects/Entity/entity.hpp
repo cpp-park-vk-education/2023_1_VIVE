@@ -51,6 +51,7 @@ public:
     // virtual bool doesExist() const;
     int getHP() const;
     int getHPMax() const;
+    unsigned int getDamage() const;
 
     // Setters
     void spawn();

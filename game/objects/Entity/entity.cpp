@@ -47,8 +47,14 @@ int Entity::getHPMax() const
     return hp_max_;
 }
 
+unsigned int Entity::getDamage() const
+{
+    return damage_;
+}
+
 void Entity::spawn()
 {
+    hitbox_.appear();
     alive_ = true;
     hp_ = hp_max_;
 }

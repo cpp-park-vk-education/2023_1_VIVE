@@ -166,14 +166,6 @@ void Boss::updateMovement(const float delta_time, EntityShPtr target)
 
 void Boss::updateAttack(const sf::Event &event, std::shared_ptr<Entity> target, const float delta_time)
 {
-    if (fireball_->doesExist() &&
-        intersects(getHitBox(), target->getHitBox()))
-    {
-        std::cout << "Damage" << std::endl;
-        target->updateDamageTaken(damage_);
-        fireball_->pop();
-    }
-
     if (sec_since_last_hit_ <= attack_cooldown_)
     {
         sec_since_last_hit_ += delta_time;

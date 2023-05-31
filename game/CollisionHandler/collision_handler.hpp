@@ -35,6 +35,8 @@ private:
     void checkPlayerParticleCollision(PlayerShPtr player, ParticleShPtr particle);
 
     void checkBossTileCollision(BossShPtr boss, std::vector<TileShPtr> &tiles);
+    void checkBossFireBallPlayerCollision(BossShPtr boss,
+                                          PlayerShPtr player);
 
 public:
     CollisionHandler();
