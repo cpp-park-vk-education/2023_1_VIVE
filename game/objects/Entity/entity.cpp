@@ -2,7 +2,8 @@
 
 bool Entity::isDead() const
 {
-    if (!alive_) {
+    if (!alive_)
+    {
         animation_->changeAnimation('d');
         return true;
     }
@@ -18,7 +19,7 @@ bool Entity::isInDamageRadius(const PhysicalObjectShPtr target) const
         sf::Vector2f target_pos = target->getCenter();
 
         float distance = std::sqrt(std::pow(executor_pos.x - target_pos.x, 2) +
-                                std::pow(executor_pos.y - target_pos.y, 2));
+                                   std::pow(executor_pos.y - target_pos.y, 2));
 
         return distance <= damage_radius_;
     }
@@ -57,6 +58,8 @@ void Entity::spawn()
     hitbox_.appear();
     alive_ = true;
     hp_ = hp_max_;
+    velocity_ = {0, 0};
+    acceleration_ = {0, gravity_acceleration_};
 }
 
 void Entity::updateHP()

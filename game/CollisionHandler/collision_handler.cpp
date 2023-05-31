@@ -92,7 +92,7 @@ void CollisionHandler::checkBossTileCollision(BossShPtr boss, std::vector<TileSh
 void CollisionHandler::checkBossFireBallPlayerCollision(BossShPtr boss, PlayerShPtr player)
 {
     if (boss->fireBallOut() &&
-        intersects(boss->getFireBall()->getHitBox(), player->getHitBox()))
+        checkAABBCollision(boss->getFireBall(), player))
     {
         player->updateDamageTaken(boss->getDamage());
         boss->getFireBall()->pop();
