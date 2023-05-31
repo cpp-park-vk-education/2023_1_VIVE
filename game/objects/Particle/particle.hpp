@@ -26,7 +26,7 @@ protected:
     void initPhysics() override;
 
     // MovableObject overrides
-    void setNewAnimation(char current_state) override;
+    void setNewAnimation(AnimStates current_state) override;
     void updateAnimation(float delta_time) override;
     void updateMovement(const float delta_time) override;
 

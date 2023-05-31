@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "object.hpp"
+#include "background.hpp"
 #include "level.hpp"
 #include "sub_level.hpp"
 

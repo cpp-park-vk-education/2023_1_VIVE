@@ -30,6 +30,11 @@ GameEngine::GameEngine():
 window_(sf::VideoMode(w_width_ / 2, w_height_ / 2), "ATOMIC GOD") {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
     game_engine_ = this;
+    int window_pos_x = sf::VideoMode::getDesktopMode().width / 2 - window_.getSize().x / 2;
+    int window_pos_y = sf::VideoMode::getDesktopMode().height / 2 - window_.getSize().y / 2;
+    window_.setPosition(sf::Vector2i(window_pos_x, window_pos_y));
+    window_.setFramerateLimit(60);
+    std::cout << "GameEngine constructor end" << std::endl;
 }
 
 void GameEngine::run() {
@@ -66,7 +71,6 @@ void GameEngine::render() {
         window_.draw(*obj);
         heap.pop();
     }
-
     window_.display();
 }
 

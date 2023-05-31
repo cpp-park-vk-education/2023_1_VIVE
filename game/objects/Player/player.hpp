@@ -54,7 +54,7 @@ public:
     }
 
     void setStayAnimation() const {
-        animation_->changeAnimation('s');
+        animation_->changeAnimation(AnimStates::STAY_ANIM);
     }
 
     // Getters
@@ -74,7 +74,7 @@ public:
     void update(const sf::Event &event, Entity *target, const float delta_time);
 
     // MovableObject overrides
-    void setNewAnimation(char current_state) override;
+    void setNewAnimation(AnimStates current_state) override;
     void updateAnimation(float delta_time) override;
     void updateMovement(const float delta_time) override;
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-
+#include "background.hpp"
 #include "object.hpp"
 #include "player.hpp"
 #include "tile.hpp"
@@ -35,6 +35,7 @@ public:
 
 private:
 
+    BackGroundShPtr background_;
     // sf::Sprite background_;
     std::vector<TileShPtr> tiles_;
     std::vector<PlayerShPtr> players_;
@@ -50,6 +51,7 @@ private:
     sf::Clock clock_;
 
     // Updates
+    void updateBackGround();
     void updatePlayer(const sf::Event& event, const float delta_time);
     void updateCamera();
     void updatePUI();
