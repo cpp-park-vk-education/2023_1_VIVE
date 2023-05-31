@@ -53,10 +53,34 @@ void Entity::spawn()
     hp_ = hp_max_;
 }
 
+void Entity::updateHP()
+{
+    int new_hp = hp_ - damage_taken_;
+    if (new_hp <= 0)
+    {
+        hp_ = 0;
+        alive_ = false;
+        hitbox_.remove();
+    }
+    else
+    {
+        hp_ = new_hp;
+    }
+    damage_taken_ = 0;
+}
+
+void Entity::updateDamageTaken(const unsigned int damage)
+{
+    if (!isDead() && doesExist())
+    {
+        damage_taken_ += damage;
+    }
+}
+
 void Entity::attack(EntityShPtr target)
 {
     if (isInDamageRadius(target))
     {
-        target->updateHP(damage_);
+        target->updateDamageTaken(damage_);
     }
 }

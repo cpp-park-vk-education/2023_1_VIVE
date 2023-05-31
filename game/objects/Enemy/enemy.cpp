@@ -98,6 +98,7 @@ ParticleSetShPtr Enemy::getExpParticles()
 
 bool Enemy::doesExist() const
 {
+    // if particles still exist
     if (isDead() &&
         !coin_particles_->doesExist() &&
         !exp_particles_->doesExist())
@@ -110,9 +111,9 @@ bool Enemy::doesExist() const
     }
 }
 
-void Enemy::updateHP(const unsigned int damage)
+void Enemy::updateHP()
 {
-    int new_hp = hp_ - damage;
+    int new_hp = hp_ - damage_taken_;
     if (new_hp <= 0)
     {
         hp_ = 0;
@@ -124,6 +125,7 @@ void Enemy::updateHP(const unsigned int damage)
     {
         hp_ = new_hp;
     }
+    damage_taken_ = 0;
 }
 
 void Enemy::updateAttack(const sf::Event &event, EntityShPtr target,
@@ -134,6 +136,7 @@ void Enemy::updateAttack(const sf::Event &event, EntityShPtr target,
         sec_since_last_hit_ += delta_time;
     }
 
+    std::cout << target->doesExist() << std::endl;
     if (isInDamageRadius(target) && !attacking_ &&
         sec_since_last_hit_ > attack_cooldown_)
     {
@@ -162,20 +165,6 @@ void Enemy::draw(sf::RenderTarget &target, sf::RenderStates state) const
     }
 }
 
-void Enemy::update(const sf::Event &event, const float delta_time)
-{
-    // std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
-    // if (isDead())
-    // {
-    //     coin_particles_->update(event, delta_time);
-    //     exp_particles_->update(event, delta_time);
-    // }
-    // else
-    // {
-    //     updateMovement(delta_time);
-    // }
-}
-
 void Enemy::update(const sf::Event &event, const float delta_time,
                    EntityShPtr target)
 {
@@ -197,6 +186,8 @@ void Enemy::update(const sf::Event &event, const float delta_time,
 
         if(!isAttack())
             setStayAnnimation();
+        
+        updateHP();
     }
 }
 

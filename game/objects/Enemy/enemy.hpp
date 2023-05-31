@@ -27,7 +27,7 @@ public:
     virtual ~Enemy();
 
     // Object overrides
-    void update(const sf::Event &event, const float delta_time) override;
+    virtual void update(const sf::Event &event, const float delta_time) {}
     void update(const sf::Event &event, const float delta_time, EntityShPtr target);
 
     // MovableObject overrides
@@ -37,7 +37,7 @@ public:
     void updateMovement(const float delta_time, EntityShPtr target);
 
     // Entity overrides
-    virtual void updateHP(const unsigned int damage) override;
+    virtual void updateHP() override;
     virtual void updateAttack(const sf::Event &event, EntityShPtr target, const float delta_time);
 
     // Getters
@@ -47,14 +47,15 @@ public:
 
     virtual void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 
-    bool isAttack() const {
+    bool isAttack() const
+    {
         return attacking_;
     }
 
-    void setStayAnnimation() {
+    void setStayAnnimation()
+    {
         animation_->changeAnimation('s');
     }
 };
-
 
 using EnemyShPtr = std::shared_ptr<Enemy>;

@@ -20,7 +20,7 @@ void Particle::initSprite()
 
 void Particle::initPhysics()
 {
-    drag_ = 0.7;
+    drag_ = 0.1;
     gravity_acceleration_ = 600;
 
     max_speed_ = 300;

@@ -5,6 +5,10 @@
 #include <cstdint>
 #include <cmath>
 
+class Entity;
+
+using EntityShPtr = std::shared_ptr<Entity>;
+
 class Entity : public MovableObject
 {
 protected:
@@ -18,6 +22,7 @@ protected:
     float attack_cooldown_;
     float sec_since_last_hit_;
     unsigned int damage_;
+    unsigned int damage_taken_;
     float damage_radius_;
     bool attacking_;
 
@@ -35,7 +40,7 @@ protected:
 
     bool isInDamageRadius(const PhysicalObjectShPtr target) const;
 
-    virtual void attack(std::shared_ptr<Entity> target);
+    virtual void attack(EntityShPtr target);
 
 public:
     Entity(const sf::Vector2f size, const sf::Vector2f position);
@@ -43,15 +48,14 @@ public:
 
     // Getters
     bool isDead() const;
-    virtual bool doesExist() const = 0;
+    // virtual bool doesExist() const;
     int getHP() const;
     int getHPMax() const;
 
     // Setters
     void spawn();
 
-    virtual void updateHP(const unsigned int damage) = 0;
+    virtual void updateHP();
     virtual void updateAttack(const sf::Event &event, std::shared_ptr<Entity> target, const float delta_time) = 0;
+    virtual void updateDamageTaken(const unsigned int damage);
 };
-
-using EntityShPtr = std::shared_ptr<Entity>;

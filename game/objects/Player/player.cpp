@@ -97,11 +97,6 @@ int Player::getCoinsCount()
     return coins_count_;
 }
 
-bool Player::doesExist() const
-{
-    return true;
-}
-
 void Player::updateCoinsCount(const uint16_t coins_count)
 {
     coins_count_ += coins_count;
@@ -110,6 +105,7 @@ void Player::updateCoinsCount(const uint16_t coins_count)
 void Player::update(const sf::Event &event, const float delta_time)
 {
     updateMovement(delta_time);
+    updateHP();
 }
 
 void Player::update(const sf::Event &event, Entity *target,
@@ -207,20 +203,20 @@ void Player::updateMovement(const float delta_time)
     acceleration_.x = 0;
 }
 
-void Player::updateHP(const unsigned int damage)
-{
-    int new_hp = hp_ - damage;
-    if (new_hp <= 0)
-    {
-        hp_ = 0;
-        alive_ = false;
-        // hitbox_.remove();
-    }
-    else
-    {
-        hp_ = new_hp;
-    }
-}
+// void Player::updateHP(const unsigned int damage)
+// {
+//     int new_hp = hp_ - damage;
+//     if (new_hp <= 0)
+//     {
+//         hp_ = 0;
+//         alive_ = false;
+//         // hitbox_.remove();
+//     }
+//     else
+//     {
+//         hp_ = new_hp;
+//     }
+// }
 
 void Player::updateAttack(const sf::Event &event, EntityShPtr target,
                           const float delta_time)
