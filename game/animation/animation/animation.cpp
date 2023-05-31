@@ -26,7 +26,7 @@ Animation::Animation(const std::string& name_of_animation_object)
     file >> current_offset_;
 
     file >> ap.begin_pos_x >> ap.begin_pos_y >> ap.offset_x >> ap.offset_y >> ap.frame_duration >> ap.looped >> ap.count_of_frames;
-    anim_settigns_[AnimStates::LEFT_RUN_ANIM] = ap;
+    anim_settigns_[AnimStates::STAY_ANIM] = ap;
     file >> ap.begin_pos_x >> ap.begin_pos_y >> ap.offset_x >> ap.offset_y >> ap.frame_duration >> ap.looped >> ap.count_of_frames;
     anim_settigns_[AnimStates::LEFT_RUN_ANIM] = ap;
     file >> ap.begin_pos_x >> ap.begin_pos_y >> ap.offset_x >> ap.offset_y >> ap.frame_duration >> ap.looped >> ap.count_of_frames;
@@ -110,6 +110,9 @@ void Animation::update(float delta_time) {
 
     switch (current_state_)
     {
+    case AnimStates::STAY_ANIM:
+            playStayAnimation(current_frame_);
+            break;
     case AnimStates::LEFT_RUN_ANIM:
             playLeftRunAnimation(current_frame_);
             break;
@@ -132,7 +135,7 @@ sf::Sprite Animation::getSpriteAnimation() const {
 }
 
 void Animation::setStayAnimation() {
-    current_animation_ = anim_settigns_[AnimStates::LEFT_RUN_ANIM];
+    current_animation_ = anim_settigns_[AnimStates::STAY_ANIM];
 }
 
 void Animation::setLeftRunAnimation() {
@@ -163,7 +166,7 @@ void Animation::setJumpAnimation() {
 void Animation::playAnimation(float delta_time) {
     if (is_left_run)
         sprite_of_animation_.setTextureRect(sf::IntRect(current_animation_.begin_pos_x + current_animation_.offset_x + current_offset_ * int(current_frame_),
-                                        current_animation_.begin_pos_y, -current_animation_.offset_x, current_animation_.offset_y));
+                                        current_animation_.begin_pos_y, 0 - current_animation_.offset_x, current_animation_.offset_y));
     else
         sprite_of_animation_.setTextureRect(sf::IntRect(current_animation_.begin_pos_x + current_offset_ * int(current_frame_),
                                         current_animation_.begin_pos_y, current_animation_.offset_x, current_animation_.offset_y));
