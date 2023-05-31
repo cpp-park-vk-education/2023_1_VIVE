@@ -28,11 +28,10 @@ public:
 
     // Heap methods
     virtual void updateHeap() = 0;
-    virtual ObjectsHeap getHeap() = 0;
+    ObjectsHeap getHeap();
+    void clearHeap();
 
 protected:
     std::vector<Player> players_;
     ObjectsHeap heap_;
-
-    void clearHeap();
 };

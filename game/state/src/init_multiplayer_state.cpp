@@ -71,7 +71,6 @@ void InitMultiplayerState::update(const sf::Event &event) {
     return_->update(event, 0);
     copy_btn->update(event, 0);
 
-    clearHeap();
     heap_.push(template_);
     heap_.push(code_);
     heap_.push(return_);
@@ -90,10 +89,6 @@ void InitMultiplayerState::readMessage(const proto::Response &msg) {
     if (msg.has_join_state()) {
         GameEngine::getStateManager()->changeState(StateManager::COOP_STATE);
     }
-}
-
-ObjectsHeap InitMultiplayerState::getHeap() {
-    return heap_;
 }
 
 void InitMultiplayerState::updateHeap() {

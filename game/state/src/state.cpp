@@ -1,11 +1,11 @@
 #include "state.hpp"
 
-// std::vector<DrawableShPtr> State::getHeap() {
-//     return objects_;
-// }
-
 void State::readMessage(const proto::Response &msg) {
 
+}
+
+ObjectsHeap State::getHeap() {
+    return heap_;
 }
 
 void State::clearHeap()
@@ -14,4 +14,6 @@ void State::clearHeap()
     {
         heap_.pop();
     }
+    std::cout << "heap size in state: " << heap_.size() << std::endl;
 }
+

@@ -27,7 +27,6 @@ public:
 
     // Heap methods
     void updateHeap() override {};
-    ObjectsHeap getHeap() override;
 
 private:
     void sendServerAboutInitMultiplayer_();

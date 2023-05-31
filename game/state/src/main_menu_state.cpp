@@ -11,7 +11,6 @@ MainMenuState::MainMenuState()
 void MainMenuState::update(const sf::Event &event)
 {
     SoundManager::getInstance()->playMusic();
-    clearHeap();
 
     StateManager *manager = GameEngine::getStateManager();
     for (const auto &btn : buttons_)
@@ -63,11 +62,6 @@ void MainMenuState::load()
         btn->setActiveColor(sf::Color(222, 238, 0));
         buttons_.push_back(btn);
     }
-}
-
-ObjectsHeap MainMenuState::getHeap()
-{
-    return heap_;
 }
 
 void MainMenuState::sendServerAboutInitMultiplayer_()

@@ -81,9 +81,3 @@ void JoinState::updateHeap() {
     heap_.push(template_);
     heap_.push(input_field_);
 }
-
-ObjectsHeap JoinState::getHeap() {
-    return heap_;
-}
-
-

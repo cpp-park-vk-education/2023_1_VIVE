@@ -34,6 +34,7 @@ public:
 
     ObjectsHeap getHeap();
     void updateHeap();
+    void clearHeap();
 
     EnState getState() const {
         return curState_;

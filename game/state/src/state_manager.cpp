@@ -22,7 +22,12 @@ ObjectsHeap StateManager::getHeap() {
     return to_state_object_[curState_]->getHeap();
 }
 
+void StateManager::clearHeap() {
+    to_state_object_[curState_]->clearHeap();
+}
+
 void StateManager::update(const sf::Event &event) {
+    clearHeap();
     to_state_object_[curState_]->update(event);
 }
 

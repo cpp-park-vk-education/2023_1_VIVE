@@ -15,7 +15,6 @@ public:
     void unload() override {};
 
     void updateHeap() override;
-    ObjectsHeap getHeap() override;
 
 private:
     void initObjects_();
