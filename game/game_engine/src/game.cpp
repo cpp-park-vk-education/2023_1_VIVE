@@ -101,10 +101,6 @@ void GameEngine::render()
         window_.draw(*obj);
         heap.pop();
     }
-    // for (const auto& obj : state_manager_.getHeap()) {
-    //     window_.draw(*obj);
-    // }
-    //    game_render_.render(state_manager_.getHeap());
     window_.display();
 }
 
