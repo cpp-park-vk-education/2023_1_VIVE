@@ -63,11 +63,11 @@ void Enemy::initParticles()
     int exp_particles_count = random_int(5, 10);
     coin_particles_ = std::make_shared<ParticleSet>(coin_particles_count,
                                                     sf::Vector2f(10, 10),
-                                                    getCenter(), TYPE::COIN);
+                                                    getCenter(), ParticeType::COIN);
 
     exp_particles_ = std::make_shared<ParticleSet>(exp_particles_count,
                                                    sf::Vector2f(10, 10),
-                                                   getCenter(), TYPE::EXP);
+                                                   getCenter(), ParticeType::EXP);
 }
 
 Enemy::Enemy(const sf::Vector2f size, const sf::Vector2f position)

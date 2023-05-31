@@ -6,10 +6,11 @@
 #include <memory>
 #include <iostream>
 
-enum TYPE
+enum ParticeType
 {
     COIN,
-    EXP
+    EXP,
+    FIRE_BALL,
 };
 
 float random_float(const float max, const float min);
@@ -17,12 +18,18 @@ float random_float(const float max, const float min);
 class Particle : public MovableObject
 {
 protected:
-    TYPE type_;
+    ParticeType type_;
     bool exists_;
+
+    // TODO remove shape
+    sf::RectangleShape shape_;
 
     // Initions
     void initAnimation() override;
     void initSprite() override;
+    void initVelocity(sf::Vector2f direction,
+                      const float &init_velocity);
+
     void initPhysics() override;
 
     // MovableObject overrides
@@ -31,21 +38,25 @@ protected:
     void updateMovement(const float delta_time) override;
 
 public:
-    Particle(const sf::Vector2f size, const sf::Vector2f position,
-             const TYPE type);
+    Particle(const sf::Vector2f &size, const sf::Vector2f &position,
+             const ParticeType type, const float max_speed,
+             const float gravity_acceleration);
+
     virtual ~Particle();
 
+    void shoot(const sf::Vector2f &init_pos, sf::Vector2f direction);
     void create();
     void pop();
 
     // Getters
     bool doesExist() const;
-    TYPE getType() const;
+    ParticeType getType() const;
+    float getGravitiAcceleration() const;
+    float getMaxSpeed() const;
 
     // Object overrides
     void update(const sf::Event &event, const float delta_time) override;
     void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
-
 };
 
 using ParticleShPtr = std::shared_ptr<Particle>;

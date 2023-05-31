@@ -12,7 +12,7 @@ protected:
     unsigned int particles_count_;
     sf::Vector2f position_;
     sf::Vector2f size_;
-    TYPE type_;
+    ParticeType type_;
     bool exists_;
 
     void clear();
@@ -24,7 +24,7 @@ public:
     ParticleSet();
     
     ParticleSet(const unsigned int particles_count, const sf::Vector2f size,
-                const sf::Vector2f position, TYPE type);
+                const sf::Vector2f position, ParticeType type);
     virtual ~ParticleSet();
 
     // Setters

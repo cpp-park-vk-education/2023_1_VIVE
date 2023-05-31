@@ -1,7 +1,7 @@
 #pragma once
 
 #include "entity.hpp"
-#include "particle_set.hpp"
+#include "particle.hpp"
 
 class Boss : public Entity
 {
@@ -12,12 +12,17 @@ protected:
     // ParticleSet coin_particles_;
     float sight_radius_;
 
+    ParticleShPtr fireball_;
+
     // Initions
     void initAnimation() override;
     void initSprite() override;
     void initPhysics() override;
     void initStats() override;
+    void initFireBall();
     // void initParticles();
+
+    void updateFireBall(const sf::Event &event, const float delta_time);
 
 public:
     Boss(const sf::Vector2f size, const sf::Vector2f position);
@@ -42,6 +47,10 @@ public:
     virtual void updateAnimation(float delta_time) override {};
 
     virtual void updateAttack(const sf::Event &event, std::shared_ptr<Entity> target, const float delta_time) override;
+
+    virtual void attack(EntityShPtr target) override;
 };
 
 using BossShPtr = std::shared_ptr<Boss>;
+
+

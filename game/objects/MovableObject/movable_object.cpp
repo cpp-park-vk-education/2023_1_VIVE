@@ -1,7 +1,22 @@
 #include "movable_object.hpp"
 
+std::pair<sf::Vector2f, float> MovableObject::directionTo(
+    const MovableObjectShPtr &target)
+{
+    // Calculate direction vector to target
+    sf::Vector2f direction = target->getCenter() - getCenter();
+
+    // Normalize direction vector
+    float length = std::sqrt(direction.x * direction.x +
+                             direction.y * direction.y);
+    direction /= length;
+    
+    std::pair<sf::Vector2f, float> res{direction, length};
+    return res;
+}
+
 MovableObject::MovableObject(const sf::Vector2f size,
-    const sf::Vector2f position)
+                             const sf::Vector2f position)
     : PhysicalObject(size, position)
 {
 }

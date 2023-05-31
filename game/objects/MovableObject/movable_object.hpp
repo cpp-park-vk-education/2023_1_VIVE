@@ -3,6 +3,10 @@
 #include "physical_object.hpp"
 #include "animation.hpp"
 
+class MovableObject;
+
+using MovableObjectShPtr = std::shared_ptr<MovableObject>;
+
 class MovableObject : public PhysicalObject
 {
 protected:
@@ -19,6 +23,8 @@ protected:
     std::unique_ptr<Animation> animation_;
 
     bool is_moving;
+    std::pair<sf::Vector2f, float> directionTo(
+        const MovableObjectShPtr &target);
 
 public:
     //Init
@@ -45,4 +51,3 @@ public:
     sf::Vector2f getDisplacement() const;
 };
 
-using MovableObjectShPtr = std::shared_ptr<MovableObject>;

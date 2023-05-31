@@ -63,10 +63,10 @@ void CollisionHandler::checkPlayerParticleCollision(PlayerShPtr player,
         particle->pop();
         switch (particle->getType())
         {
-        case TYPE::COIN:
+        case ParticeType::COIN:
             player->updateCoinsCount(1);
             break;
-        case TYPE::EXP:
+        case ParticeType::EXP:
             player->updateExp(1);
             break;
 
