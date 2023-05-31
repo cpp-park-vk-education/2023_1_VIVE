@@ -63,6 +63,7 @@ Particle::Particle(const sf::Vector2f &size, const sf::Vector2f &position,
       exists_(false),
       type_(type)
 {
+    hitbox_.remove();
     priority_ = Priority::PARTICLES;
     max_speed_ = max_speed;
     gravity_acceleration_ = gravity_acceleration;
@@ -89,6 +90,7 @@ void Particle::shoot(const sf::Vector2f &init_pos, sf::Vector2f direction)
 void Particle::create()
 {
     exists_ = true;
+    hitbox_.appear();
 }
 
 void Particle::pop()
@@ -121,7 +123,6 @@ void Particle::update(const sf::Event &event, const float delta_time)
 {
     if (exists_)
     {
-        std::cout << "Particle Update" << std::endl;
         updateMovement(delta_time);
         if (type_ == ParticeType::FIRE_BALL)
         {

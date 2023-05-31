@@ -81,6 +81,11 @@ void CollisionHandler::checkBossTileCollision(BossShPtr boss, std::vector<TileSh
     for (const auto &tile : tiles)
     {
         handleCollision(boss, tile);
+        if (boss->fireBallOut())
+        {
+            // std::cout << "Collision" << std::endl;
+            handleCollision(boss->getFireBall(), tile);
+        }
     }
 }
 
@@ -157,25 +162,16 @@ void CollisionHandler::handleCollision(MovableObjectShPtr movable_obj,
 {
     if (checkAABBCollision(movable_obj, static_obj))
     {
-        // std::cout << "Collision" << std::endl;
-
-        // std::cout << "Tile upper bound coord = " << tile->getPosition().y << std::endl;
-        // std::cout << "Player lower bound coord = " << player->getPosition().y + player->getGlobalBounds().height << std::endl;
-
         float delta = movable_obj->getPosition().y +
                       movable_obj->getGlobalBounds().height -
                       static_obj->getPosition().y;
 
-        // std::cout << "delta =" << delta << std::endl;
 
         sf::Vector2f movable_obj_pos = movable_obj->getPosition();
-        // std::cout << "player_pos_y = " << player_pos.y << std::endl;
 
         movable_obj_pos.y -= delta;
-        // std::cout << "player_new_pos_y = " << player_pos.y << std::endl;
 
         movable_obj->setPosition(movable_obj_pos);
-        // std::cout << "player_pos_y = " << player->getPosition().y << std::endl;
 
         movable_obj->setVelocity(sf::Vector2f(movable_obj->getVelocity().x, 0));
         movable_obj->slowDown();

@@ -11,6 +11,7 @@ protected:
     // ParticleSet exp_particles_;
     // ParticleSet coin_particles_;
     float sight_radius_;
+    float curr_fireball_lifetime_;
 
     ParticleShPtr fireball_;
 
@@ -30,6 +31,8 @@ public:
 
     // ParticleSet getCoinParticles();
     // ParticleSet getExpParticles();
+    ParticleShPtr getFireBall() const;
+    bool fireBallOut() const;
 
     // Object overrides
     void update(const sf::Event &event, const float delta_time) override {};

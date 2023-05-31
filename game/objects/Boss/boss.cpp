@@ -42,6 +42,7 @@ void Boss::initPhysics()
 void Boss::initStats()
 {
     sight_radius_ = 500;
+    // fireball_lifetime_ =
 
     hp_ = 500;
     hp_max_ = hp_;
@@ -65,7 +66,19 @@ void Boss::initFireBall()
 
 void Boss::updateFireBall(const sf::Event &event, const float delta_time)
 {
-    fireball_->update(event, delta_time);
+    if (fireball_->doesExist())
+    {
+        if (curr_fireball_lifetime_ > attack_cooldown_)
+        {
+            fireball_->pop();
+            curr_fireball_lifetime_ = 0;
+        }
+        else
+        {
+            fireball_->update(event, delta_time);
+            curr_fireball_lifetime_ += delta_time;
+        }
+    }
 }
 
 Boss::Boss(const sf::Vector2f size, const sf::Vector2f position)
@@ -81,6 +94,16 @@ Boss::Boss(const sf::Vector2f size, const sf::Vector2f position)
 
 Boss::~Boss()
 {
+}
+
+ParticleShPtr Boss::getFireBall() const
+{
+    return fireball_;
+}
+
+bool Boss::fireBallOut() const
+{
+    return fireball_->doesExist();
 }
 
 void Boss::update(const sf::Event &event, const float delta_time,
@@ -100,7 +123,10 @@ void Boss::draw(sf::RenderTarget &target, sf::RenderStates state) const
     {
         // target.draw(sprite_);
         target.draw(shape_);
-        fireball_->draw(target, sf::RenderStates());
+        if (fireball_->doesExist())
+        {
+            fireball_->draw(target, sf::RenderStates());
+        }
     }
 }
 
@@ -140,6 +166,14 @@ void Boss::updateMovement(const float delta_time, EntityShPtr target)
 
 void Boss::updateAttack(const sf::Event &event, std::shared_ptr<Entity> target, const float delta_time)
 {
+    if (fireball_->doesExist() &&
+        intersects(getHitBox(), target->getHitBox()))
+    {
+        std::cout << "Damage" << std::endl;
+        target->updateDamageTaken(damage_);
+        fireball_->pop();
+    }
+
     if (sec_since_last_hit_ <= attack_cooldown_)
     {
         sec_since_last_hit_ += delta_time;
@@ -201,4 +235,5 @@ void Boss::attack(EntityShPtr target)
     sf::Vector2f attack_dir(dir_x, dir_y);
 
     fireball_->shoot(getCenter(), attack_dir);
+    curr_fireball_lifetime_ = 0;
 }
