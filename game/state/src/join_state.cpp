@@ -82,7 +82,7 @@ void JoinState::updateHeap() {
     heap_.push(input_field_);
 }
 
-ObjectsHeap &JoinState::getHeap() {
+ObjectsHeap JoinState::getHeap() {
     return heap_;
 }
 

@@ -18,7 +18,7 @@ void StateManager::init()
     to_state_object_[curState_]->load();
 }
 
-ObjectsHeap &StateManager::getHeap() {
+ObjectsHeap StateManager::getHeap() {
     return to_state_object_[curState_]->getHeap();
 }
 

@@ -23,7 +23,7 @@ public:
 
     // Heap methods
     void updateHeap() override;
-    ObjectsHeap &getHeap() override;
+    ObjectsHeap getHeap() override;
 
 private:
     LevelManager *level_manager;

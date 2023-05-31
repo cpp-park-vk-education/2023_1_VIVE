@@ -49,13 +49,13 @@ void GameEngine::update() {
             window_.close();
             break;
         }
+        state_manager_.update(event);
     }
-    state_manager_.update(event);
 }
 
 void GameEngine::render() {
     window_.clear(sf::Color::Green);
-    ObjectsHeap &heap = state_manager_.getHeap();
+    ObjectsHeap heap = state_manager_.getHeap();
     while (!heap.empty())
     {
         ObjectShPtr obj = heap.top();

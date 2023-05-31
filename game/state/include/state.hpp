@@ -28,7 +28,7 @@ public:
 
     // Heap methods
     virtual void updateHeap() = 0;
-    virtual ObjectsHeap &getHeap() = 0;
+    virtual ObjectsHeap getHeap() = 0;
 
 protected:
     std::vector<Player> players_;

@@ -92,7 +92,7 @@ void InitMultiplayerState::readMessage(const proto::Response &msg) {
     }
 }
 
-ObjectsHeap &InitMultiplayerState::getHeap() {
+ObjectsHeap InitMultiplayerState::getHeap() {
     return heap_;
 }
 

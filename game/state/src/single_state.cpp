@@ -38,7 +38,7 @@ void SingleState::updateHeap()
     }
 }
 
-ObjectsHeap &SingleState::getHeap()
+ObjectsHeap SingleState::getHeap()
 {
     return heap_;
 }

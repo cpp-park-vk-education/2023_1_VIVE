@@ -32,7 +32,7 @@ public:
 
     void changeState(EnState newState);
 
-    ObjectsHeap &getHeap();
+    ObjectsHeap getHeap();
     void updateHeap();
 
     EnState getState() const {

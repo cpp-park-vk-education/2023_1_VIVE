@@ -37,7 +37,7 @@ void MainMenuState::handlePressedButton(const ButtonShPtr &btn, StateManager *ma
         if (en_btn == START_MULTIPLAYER)
         {
             manager->changeState(StateManager::INIT_MULTIPLAYER_STATE);
-//            sendServerAboutInitMultiplayer_();
+            sendServerAboutInitMultiplayer_();
         }
         if (en_btn == JOIN)
         {
@@ -65,7 +65,7 @@ void MainMenuState::load()
     }
 }
 
-ObjectsHeap &MainMenuState::getHeap()
+ObjectsHeap MainMenuState::getHeap()
 {
     return heap_;
 }
