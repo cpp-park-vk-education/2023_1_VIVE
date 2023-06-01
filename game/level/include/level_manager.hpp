@@ -51,14 +51,14 @@ private:
                     }},
     };
 
-public:
     LevelManager();
     LevelManager(const LEVEL level, const SUBLEVEL sublevel);
 
-    LevelManager(const LevelManager&) = delete;
-    LevelManager(LevelManager&&) = delete;
-    LevelManager& operator=(const LevelManager&) = delete;
-    LevelManager& operator=(LevelManager&&) = delete;
+public:
+    LevelManager(const LevelManager &) = delete;
+    LevelManager(LevelManager &&) = delete;
+    LevelManager &operator=(const LevelManager &) = delete;
+    LevelManager &operator=(LevelManager &&) = delete;
     static LevelManager *getInstance();
 
     bool checkLevel(const LEVEL level);
