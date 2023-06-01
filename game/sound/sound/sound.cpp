@@ -19,7 +19,7 @@ void SoundManager::loadSoundAndMusicForLevel(const std::string &level_name) {
 
 void SoundManager::playWinningMusic() {
     musics_[current_music_]->stop();
-    current_music_ = 3;
+    current_music_ = 1;
     musics_[current_music_]->play();
 }
 

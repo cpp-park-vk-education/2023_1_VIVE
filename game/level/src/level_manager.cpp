@@ -58,7 +58,8 @@ void LevelManager::nextLevel()
 
     // auto players = curr_sublevel_->getPlayers();
     delete curr_sublevel_;
-    loadSubLevel();
+    delete curr_level_;
+    load();
 }
 
 void LevelManager::update(const sf::Event &event)
