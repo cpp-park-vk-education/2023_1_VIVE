@@ -1,6 +1,7 @@
 #include "particle.hpp"
 
-void Particle::initAnimation() {
+void Particle::initAnimation()
+{
     animation_ = std::make_unique<Animation>("fire_ball_animation");
     animation_->updateSpriteSize(hitbox_.getSize());
 }
@@ -22,15 +23,24 @@ void Particle::initSprite()
         sprite_ = animation_->getSpriteAnimation();
         break;
 
+    case ParticleType::GEM:
+        // initAnimation();
+        // sprite_ = animation_->getSpriteAnimation();
+        // TODO remove shape_
+        shape_.setFillColor(sf::Color::Green);
+        shape_.setPosition(hitbox_.getPosition());
+        shape_.setSize(hitbox_.getSize());
+        break;
+
     default:
         break;
     }
 
-    // if (type_ != ParticleType::FIRE_BALL)
-    // {
+    if (type_ != ParticleType::GEM)
+    {
         sprite_.setScale(0.05f, 0.05f);
         sprite_.setPosition(hitbox_.getPosition());
-    // }
+    }
 }
 
 void Particle::initVelocity(sf::Vector2f direction,
@@ -63,7 +73,6 @@ void Particle::initPhysics()
 
     displacement_ = sf::Vector2f(0.f, 0.f);
     acceleration_ = sf::Vector2f(0.f, gravity_acceleration_);
-
 }
 
 Particle::Particle(const sf::Vector2f &size, const sf::Vector2f &position,
@@ -132,6 +141,11 @@ void Particle::update(const sf::Event &event, const float delta_time)
 {
     if (exists_)
     {
+        // TODO remove shape_
+        if (type_ == ParticleType::GEM)
+        {
+            shape_.setPosition(hitbox_.getPosition());
+        }
         updateMovement(delta_time);
         if (type_ == ParticleType::FIRE_BALL)
         {
@@ -156,12 +170,20 @@ void Particle::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
     if (exists_)
     {
-        target.draw(sprite_);
+        // TODO remove shape_
+        if (type_ != ParticleType::GEM)
+        {
+            target.draw(sprite_);
+        }
+        else
+        {
+            target.draw(shape_);
+        }
     }
 }
 
-void Particle::setNewAnimation(AnimStates current_state) {
-    
+void Particle::setNewAnimation(AnimStates current_state)
+{
 }
 
 void Particle::updateAnimation(float delta_time)

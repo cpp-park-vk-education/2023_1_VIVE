@@ -45,12 +45,14 @@ public:
 
     void run(std::vector<PlayerShPtr> &players,
              std::vector<TileShPtr> &tiles,
+             std::vector<ParticleShPtr> &particles,
              //  ParticleSetShPtrparticles,
              std::vector<EnemyShPtr> &enemies,
              std::vector<TriggerShPtr> &triggers);
 
     void run(std::vector<PlayerShPtr> &players,
              std::vector<TileShPtr> &tiles,
+             std::vector<ParticleShPtr> &particles,
              //  ParticleSetShPtrparticles,
              std::vector<EnemyShPtr> &enemies,
              std::vector<TriggerShPtr> &triggers,

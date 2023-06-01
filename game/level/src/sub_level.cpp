@@ -51,6 +51,13 @@ std::vector<ObjectShPtr> SubLevel::getObjects()
             res.push_back(trigger);
         }
     }
+    for (auto &item : drop_)
+    {
+        if (item->doesExist() && checkObjectInCamera(item))
+        {
+            res.push_back(item);
+        }
+    }
     res.push_back(player_user_interface_);
     res.push_back(background_);
     if (boss_)
@@ -73,6 +80,7 @@ void SubLevel::update(const sf::Event &event)
     updateEnemies(event, delta_time);
     updateTriggers(event);
     updateBoss(event, delta_time);
+    updateDrop(event, delta_time);
     updateNonExistentObjects();
     updateCollision();
     // updateHeap();
@@ -295,6 +303,15 @@ void SubLevel::updateCollision()
             enemies.push_back(enemy);
         }
     }
+
+    std::vector<ParticleShPtr> particles{};
+    for (auto &particle : drop_)
+    {
+        if (checkObjectInCamera(particle))
+        {
+            particles.push_back(particle);
+        }
+    }
     
     std::vector<TriggerShPtr> triggers{};
     for (auto &trigger : triggers_)
@@ -307,20 +324,20 @@ void SubLevel::updateCollision()
 
     if (boss_ && checkObjectInCamera(boss_))
     {
-        collision_handler_->run(players_, tiles, enemies, triggers, boss_);
+        collision_handler_->run(players_, tiles, particles, enemies, triggers, boss_);
     }
     else
     {
-        collision_handler_->run(players_, tiles, enemies, triggers);
+        collision_handler_->run(players_, tiles, particles, enemies, triggers);
     }
 }
 
 void SubLevel::updateEnemies(const sf::Event &event, const float delta_time)
 {
-    if (enemies_.empty())
-    {
-        spawnEnemies();
-    }
+    // if (enemies_.empty())
+    // {
+    //     spawnEnemies();
+    // }
 
     for (auto &enemy : enemies_)
     {
@@ -343,7 +360,30 @@ void SubLevel::updateBoss(const sf::Event &event, const float delta_time)
 {
     if (boss_)
     {
+        // std::cout << boss_->getHP() << std::endl;
         boss_->update(event, delta_time, players_.front());
+        if (boss_->isDead() && !boss_->didDrop())
+        {
+            boss_->drop();
+            ParticleShPtr gem = std::make_shared<Particle>(
+                sf::Vector2f(BASE_SIZE / 2, BASE_SIZE / 2),
+                boss_->getCenter(),
+                ParticleType::GEM
+            );
+            gem->create();
+            drop_.push_back(gem);
+        }
+    }
+}
+
+void SubLevel::updateDrop(const sf::Event &event, const float delta_time)
+{
+    for (auto &item : drop_)
+    {
+        if (checkObjectInCamera(item))
+        {
+            item->update(event, delta_time);
+        }
     }
 }
 

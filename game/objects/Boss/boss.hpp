@@ -14,6 +14,8 @@ protected:
     float death_cooldown_;
     bool death_anim_;
 
+    bool droped_;
+
     ParticleShPtr fireball_;
 
     // Initions
@@ -34,6 +36,7 @@ public:
     // ParticleSet getExpParticles();
     ParticleShPtr getFireBall() const;
     bool fireBallOut() const;
+    bool didDrop() const;
 
     // Object overrides
     void update(const sf::Event &event, const float delta_time) override {};
@@ -44,6 +47,7 @@ public:
     void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 
     virtual void setNewAnimation(AnimStates current_state) override {};
+    void drop();
 
     virtual void updateHP() override;
 
