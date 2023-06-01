@@ -38,7 +38,7 @@ std::vector<ObjectShPtr> SubLevel::getObjects()
     }
     res.push_back(player_user_interface_);
     res.push_back(background_);
-    if (boss_)
+    if (boss_ && !boss_->isDead())
     {
         res.push_back(boss_);
     }
@@ -224,6 +224,7 @@ void SubLevel::updateBoss(const sf::Event &event, const float delta_time)
 {
     if (boss_)
     {
+        // std::cout << boss_->getHP() << "/" << boss_->getHPMax() << std::endl;
         boss_->update(event, delta_time, players_.front());
     }
 }
