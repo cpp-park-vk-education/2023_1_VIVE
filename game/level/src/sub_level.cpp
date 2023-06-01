@@ -141,9 +141,15 @@ void SubLevel::updatePlayer(const sf::Event &event, const float delta_time)
         if (!player->isDead())
         {
             player->update(event, delta_time);
+
+            // attacks
             for (auto &enemy : enemies_)
             {
                 player->updateAttack(event, enemy, delta_time);
+            }
+            if (boss_)
+            {
+                player->updateAttack(event, boss_, delta_time);
             }
 
             if (!player->isAttack() && !player->isJumping() && !player->isRunning())

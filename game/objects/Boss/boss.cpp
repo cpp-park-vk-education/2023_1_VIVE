@@ -50,7 +50,7 @@ void Boss::initStats()
     attacking_ = false;
     damage_ = 50;
     damage_radius_ = 250;
-    attack_cooldown_ = 3;
+    attack_cooldown_ = 1;
     sec_since_last_hit_ = attack_cooldown_;
 }
 
@@ -107,12 +107,19 @@ bool Boss::fireBallOut() const
 void Boss::update(const sf::Event &event, const float delta_time,
                   EntityShPtr target)
 {
-    updateMovement(delta_time, target);
-    // TODO remove shape
-    shape_.setPosition(hitbox_.getPosition());
-    updateAttack(event, target, delta_time);
-    updateFireBall(event, delta_time);
-    updateHP();
+    if (!isDead())
+    {
+        updateMovement(delta_time, target);
+        // TODO remove shape
+        shape_.setPosition(hitbox_.getPosition());
+        updateAttack(event, target, delta_time);
+        updateFireBall(event, delta_time);
+        updateHP();
+    }
+    else if (fireBallOut())
+    {
+        updateFireBall(event, delta_time);
+    }
 }
 
 void Boss::draw(sf::RenderTarget &target, sf::RenderStates state) const
