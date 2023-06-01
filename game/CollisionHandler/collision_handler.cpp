@@ -63,10 +63,10 @@ void CollisionHandler::checkPlayerParticleCollision(PlayerShPtr player,
         particle->pop();
         switch (particle->getType())
         {
-        case ParticeType::COIN:
+        case ParticleType::COIN:
             player->updateCoinsCount(1);
             break;
-        case ParticeType::EXP:
+        case ParticleType::EXP:
             player->updateExp(1);
             break;
 
@@ -78,15 +78,15 @@ void CollisionHandler::checkPlayerParticleCollision(PlayerShPtr player,
 
 void CollisionHandler::checkBossTileCollision(BossShPtr boss, std::vector<TileShPtr> &tiles)
 {
-    for (const auto &tile : tiles)
-    {
-        handleCollision(boss, tile);
-        if (boss->fireBallOut())
-        {
-            // std::cout << "Collision" << std::endl;
-            handleCollision(boss->getFireBall(), tile);
-        }
-    }
+    // for (const auto &tile : tiles)
+    // {
+    //     // handleCollision(boss, tile);
+    //     if (boss->fireBallOut())
+    //     {
+    //         // std::cout << "Collision" << std::endl;
+    //         handleCollision(boss->getFireBall(), tile);
+    //     }
+    // }
 }
 
 void CollisionHandler::checkBossFireBallPlayerCollision(BossShPtr boss, PlayerShPtr player)

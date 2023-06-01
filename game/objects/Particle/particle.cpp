@@ -8,15 +8,15 @@ void Particle::initSprite()
 {
     switch (type_)
     {
-    case ParticeType::COIN:
+    case ParticleType::COIN:
         sprite_.setTexture(AssetManager::getInstance()->getTexture("money_particle"));
         break;
 
-    case ParticeType::EXP:
+    case ParticleType::EXP:
         sprite_.setTexture(AssetManager::getInstance()->getTexture("star_particle"));
         break;
 
-    case ParticeType::FIRE_BALL:
+    case ParticleType::FIRE_BALL:
         // TODO remove shape
         shape_.setFillColor(sf::Color::Yellow);
         shape_.setOutlineColor(sf::Color::Red);
@@ -29,7 +29,7 @@ void Particle::initSprite()
         break;
     }
 
-    if (type_ != ParticeType::FIRE_BALL)
+    if (type_ != ParticleType::FIRE_BALL)
     {
         sprite_.setScale(0.05f, 0.05f);
         sprite_.setPosition(hitbox_.getPosition());
@@ -52,21 +52,30 @@ void Particle::initPhysics()
 {
     drag_ = 0.1;
 
+    if (type_ == ParticleType::FIRE_BALL)
+    {
+        max_speed_ = 500;
+        gravity_acceleration_ = 1000;
+    }
+    else
+    {
+        max_speed_ = 300;
+        gravity_acceleration_ = 600;
+    }
+
     displacement_ = sf::Vector2f(0.f, 0.f);
     acceleration_ = sf::Vector2f(0.f, gravity_acceleration_);
+
 }
 
 Particle::Particle(const sf::Vector2f &size, const sf::Vector2f &position,
-                   const ParticeType type, const float max_speed,
-                   const float gravity_acceleration)
+                   const ParticleType type)
     : MovableObject(size, position),
       exists_(false),
       type_(type)
 {
     hitbox_.remove();
     priority_ = Priority::PARTICLES;
-    max_speed_ = max_speed;
-    gravity_acceleration_ = gravity_acceleration;
     initSprite();
     initPhysics();
     // random initial direction
@@ -104,7 +113,7 @@ bool Particle::doesExist() const
     return exists_;
 }
 
-ParticeType Particle::getType() const
+ParticleType Particle::getType() const
 {
     return type_;
 }
@@ -124,7 +133,7 @@ void Particle::update(const sf::Event &event, const float delta_time)
     if (exists_)
     {
         updateMovement(delta_time);
-        if (type_ == ParticeType::FIRE_BALL)
+        if (type_ == ParticleType::FIRE_BALL)
         {
             shape_.setPosition(hitbox_.getPosition());
         }
@@ -135,7 +144,7 @@ void Particle::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
     if (exists_)
     {
-        if (type_ != ParticeType::FIRE_BALL)
+        if (type_ != ParticleType::FIRE_BALL)
         {
             target.draw(sprite_);
         }

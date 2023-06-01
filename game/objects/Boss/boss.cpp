@@ -23,7 +23,7 @@ void Boss::initPhysics()
     drag_ = 0.65;
     gravity_acceleration_ = 1000;
 
-    max_speed_ = 50;
+    max_speed_ = 100;
     speed_ = 10;
 
     jump_speed_ = 50;
@@ -36,13 +36,12 @@ void Boss::initPhysics()
 
     displacement_ = sf::Vector2f(0.f, 0.f);
     velocity_ = sf::Vector2f(0.f, 0.f);
-    acceleration_ = sf::Vector2f(0.f, gravity_acceleration_);
+    acceleration_ = sf::Vector2f(0.f, 0.f);
 }
 
 void Boss::initStats()
 {
     sight_radius_ = 500;
-    // fireball_lifetime_ =
 
     hp_ = 500;
     hp_max_ = hp_;
@@ -60,8 +59,7 @@ void Boss::initFireBall()
     fireball_ = std::make_shared<Particle>(
         sf::Vector2f(BASE_SIZE, BASE_SIZE),
         // TODO think about initial position
-        sf::Vector2f(0, 0), ParticeType::FIRE_BALL,
-        500, 1000);
+        sf::Vector2f(0, 0), ParticleType::FIRE_BALL);
 }
 
 void Boss::updateFireBall(const sf::Event &event, const float delta_time)
@@ -151,9 +149,14 @@ void Boss::updateMovement(const float delta_time, EntityShPtr target)
     auto direction = dir_dist.first;
     auto length = dir_dist.second;
 
-    if (length < sight_radius_ && length > damage_radius_)
+    if (/* length < sight_radius_ &&  */ length > damage_radius_)
     {
         acceleration_.x = (speed_ * direction.x) / delta_time;
+        updateMovement(delta_time);
+    }
+    else if (length < damage_radius_ * 0.9)
+    {
+        acceleration_.x = -(speed_ * direction.x) / delta_time;
         updateMovement(delta_time);
     }
     else

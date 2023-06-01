@@ -6,7 +6,7 @@
 #include <memory>
 #include <iostream>
 
-enum ParticeType
+enum ParticleType
 {
     COIN,
     EXP,
@@ -18,7 +18,7 @@ float random_float(const float max, const float min);
 class Particle : public MovableObject
 {
 protected:
-    ParticeType type_;
+    ParticleType type_;
     bool exists_;
 
     // TODO remove shape
@@ -39,8 +39,7 @@ protected:
 
 public:
     Particle(const sf::Vector2f &size, const sf::Vector2f &position,
-             const ParticeType type, const float max_speed,
-             const float gravity_acceleration);
+             const ParticleType type);
 
     virtual ~Particle();
 
@@ -50,7 +49,7 @@ public:
 
     // Getters
     bool doesExist() const;
-    ParticeType getType() const;
+    ParticleType getType() const;
     float getGravitiAcceleration() const;
     float getMaxSpeed() const;
 

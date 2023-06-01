@@ -21,7 +21,7 @@ void ParticleSet::initParticles()
     for (int i{}; i < particles_count_; ++i)
     {
         // std::cout << "Particle #" << i;
-        ParticleShPtr particle = std::make_shared<Particle>(size_, position_, type_, 200, 600);
+        ParticleShPtr particle = std::make_shared<Particle>(size_, position_, type_);
         particles_.push_back(particle);
         // std::cout << std::endl;
     }
@@ -33,7 +33,7 @@ ParticleSet::ParticleSet()
 
 ParticleSet::ParticleSet(const unsigned int particles_count,
                          const sf::Vector2f size, const sf::Vector2f position,
-                         ParticeType type)
+                         ParticleType type)
     : particles_count_(particles_count),
       position_(position),
       size_(size),
