@@ -116,7 +116,6 @@ void CollisionHandler::run(std::vector<PlayerShPtr> &players,
     // Checking Enemy/Tile and Player/Particle collisions
     for (auto &enemy : enemies)
     {
-        checkEnemyTileCollision(enemy, tiles);
         if (enemy->isDead())
         {
             ParticleSetShPtr coin_particles = enemy->getCoinParticles();
@@ -138,6 +137,10 @@ void CollisionHandler::run(std::vector<PlayerShPtr> &players,
                     checkPlayerParticleCollision(player, exp_particle);
                 }
             }
+        }
+        else
+        {
+            checkEnemyTileCollision(enemy, tiles);
         }
     }
 }
