@@ -48,11 +48,11 @@ BackGround::BackGround(const sf::Vector2u &window_size, bool parallax_effect) :
         }
 
         layers_speed_[0] = 0.0f;
-        layers_speed_[1] = 0.5f;
-        layers_speed_[2] = 0.75f;
-        layers_speed_[3] = 1.15f;
-        layers_speed_[4] = 1.30f;
-        layers_speed_[5] = 1.50f;
+        layers_speed_[1] = 0.05f;
+        layers_speed_[2] = 0.10f;
+        layers_speed_[3] = 0.35f;
+        layers_speed_[4] = 0.75f;
+        layers_speed_[5] = 1.15f;
         layers_speed_[6] = 2.00f;
     }
 }
@@ -88,9 +88,9 @@ void BackGround::move(sf::Vector2f goal_coor, char current_state) {
     int8_t factor = 0;
 
     if (current_state == 'l') {
-        factor = -1;
-    } else if (current_state == 'r') {
         factor = 1;
+    } else if (current_state == 'r') {
+        factor = -1;
     }
 
     if (current_state != 's' && last_offset_.x - goal_coor.x != 0) {
