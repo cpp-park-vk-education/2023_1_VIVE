@@ -10,7 +10,7 @@ std::pair<sf::Vector2f, float> MovableObject::directionTo(
     float length = std::sqrt(direction.x * direction.x +
                              direction.y * direction.y);
     direction /= length;
-    
+
     std::pair<sf::Vector2f, float> res{direction, length};
     return res;
 }
@@ -27,8 +27,23 @@ MovableObject::~MovableObject()
 
 void MovableObject::move(const sf::Vector2f displacement)
 {
-    sprite_.move(displacement);
-    hitbox_.move(displacement);
+    const float MAX_DISPLACEMENT = max_speed_ * 0.1;
+    float distance = std::sqrt(
+        std::pow(displacement.x, 2) +
+        std::pow(displacement.y, 2));
+
+    if (distance > MAX_DISPLACEMENT)
+    {
+        sf::Vector2f new_displacement = displacement / distance;
+        new_displacement *= MAX_DISPLACEMENT;
+        sprite_.move(new_displacement);
+        hitbox_.move(new_displacement);
+    }
+    else
+    {
+        sprite_.move(displacement);
+        hitbox_.move(displacement);
+    }
 }
 
 void MovableObject::slowDown()
