@@ -62,17 +62,17 @@ void Enemy::initParticles()
     int exp_particles_count = random_int(5, 10);
     coin_particles_ = std::make_shared<ParticleSet>(coin_particles_count,
                                                     sf::Vector2f(10, 10),
-                                                    getCenter(), TYPE::COIN);
+                                                    getCenter(), ParticleType::COIN);
 
     exp_particles_ = std::make_shared<ParticleSet>(exp_particles_count,
                                                    sf::Vector2f(10, 10),
-                                                   getCenter(), TYPE::EXP);
+                                                   getCenter(), ParticleType::EXP);
 }
 
 Enemy::Enemy(const sf::Vector2f size, const sf::Vector2f position)
     : Entity(size, position)
 {
-    priority_ = PRIORITY::ENEMIES;
+    priority_ = Priority::ENEMIES;
     initAnimation();
     initSprite();
     initPhysics();
@@ -98,21 +98,20 @@ ParticleSetShPtr Enemy::getExpParticles()
 
 bool Enemy::doesExist() const
 {
-    if (isDead() &&
-        !coin_particles_->doesExist() &&
-        !exp_particles_->doesExist())
+    // if particles still exist
+    if (isDead())
     {
-        return false;
+        return coin_particles_->doesExist() || exp_particles_->doesExist();
     }
     else
     {
-        return true;
+        return PhysicalObject::doesExist();
     }
 }
 
-void Enemy::updateHP(const unsigned int damage)
+void Enemy::updateHP()
 {
-    int new_hp = hp_ - damage;
+    int new_hp = hp_ - damage_taken_;
     if (new_hp <= 0)
     {
         hp_ = 0;
@@ -124,6 +123,7 @@ void Enemy::updateHP(const unsigned int damage)
     {
         hp_ = new_hp;
     }
+    damage_taken_ = 0;
 }
 
 void Enemy::updateAttack(const sf::Event &event, EntityShPtr target,
@@ -162,20 +162,6 @@ void Enemy::draw(sf::RenderTarget &target, sf::RenderStates state) const
     }
 }
 
-void Enemy::update(const sf::Event &event, const float delta_time)
-{
-    // std::cout << "Enemy: " << getHP() << "/" << getHPMax() << std::endl;
-    // if (isDead())
-    // {
-    //     coin_particles_->update(event, delta_time);
-    //     exp_particles_->update(event, delta_time);
-    // }
-    // else
-    // {
-    //     updateMovement(delta_time);
-    // }
-}
-
 void Enemy::update(const sf::Event &event, const float delta_time,
                    EntityShPtr target)
 {
@@ -195,8 +181,10 @@ void Enemy::update(const sf::Event &event, const float delta_time,
         sprite_ = animation_->getSpriteAnimation();
         sprite_.setPosition(hitbox_.getPosition());
 
-        if(!isAttack())
+        if (!isAttack())
             setStayAnnimation();
+
+        updateHP();
     }
 }
 
@@ -204,8 +192,8 @@ void Enemy::setNewAnimation(AnimStates current_state) {
     
 }
 
-void Enemy::updateAnimation(float delta_time) {
-
+void Enemy::updateAnimation(float delta_time)
+{
 }
 
 void Enemy::updateMovement(const float delta_time)

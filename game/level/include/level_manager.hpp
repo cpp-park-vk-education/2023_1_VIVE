@@ -23,8 +23,9 @@ enum BLOCK_TYPE : char
 {
     NONE = '-',
     TILE = '#',
-    PLAYER = '1',
-    ENEMY = '2',
+    PLAYER = 'P',
+    ENEMY = 'E',
+    BOSS = 'B',
 };
 
 class LevelManager

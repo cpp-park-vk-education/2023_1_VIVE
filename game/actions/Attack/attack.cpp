@@ -23,10 +23,10 @@ Attack::~Attack()
 
 void Attack::action(Entity *executor, Entity *target)
 {
-    if (isInRadius(executor, target))
-    {
-        target->updateHP(damage_);
-    }
+    // if (isInRadius(executor, target))
+    // {
+    //     target->updateHP(damage_);
+    // }
 }
 
 void Attack::update()

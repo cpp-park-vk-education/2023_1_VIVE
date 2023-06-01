@@ -10,10 +10,12 @@
 
 const float BASE_SIZE = 24;
 
-enum PRIORITY : uint8_t {
+enum Priority : uint8_t
+{
     BACKGROUND,
     TILES,
     ENEMIES,
+    BOSSES,
     PARTICLES,
     PLAYERS,
     PLAYER_USER_INTERFACE,
@@ -30,7 +32,7 @@ class Object : public sf::Drawable
 protected:
     sf::Sprite sprite_;
 
-    PRIORITY priority_;
+    Priority priority_;
 
     // Inits
     virtual void initSprite(){};
@@ -42,11 +44,11 @@ public:
     virtual ~Object();
 
     // Getters
-    PRIORITY getPriority() const;
+    Priority getPriority() const;
     sf::FloatRect getGlobalBounds() const;
 
     // Setters
-    void setTexture(const sf::Texture &texture, bool resetRect=false);
+    void setTexture(const sf::Texture &texture, bool resetRect = false);
     void setScale(float factorX, float factorY);
 };
 
@@ -55,7 +57,7 @@ using DrawableShPtr = std::shared_ptr<sf::Drawable>;
 
 struct CompareObjectsShPtr
 {
-    bool operator() (const ObjectShPtr &left, const ObjectShPtr &right)
+    bool operator()(const ObjectShPtr &left, const ObjectShPtr &right)
     {
         return left->getPriority() > right->getPriority();
     }

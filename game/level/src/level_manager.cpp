@@ -50,6 +50,7 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
     TileShPtr tile{};
     PlayerShPtr player{};
     EnemyShPtr enemy{};
+    BossShPtr boss{};
 
     size_t x_coord = 0;
     size_t y_coord = 0;
@@ -85,6 +86,13 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
                 enemies.push_back(enemy);
                 x_coord += BASE_SIZE;
                 break;
+            
+            case BLOCK_TYPE::BOSS:
+                boss = std::make_shared<Boss>(
+                    sf::Vector2f(BASE_SIZE * 3, BASE_SIZE * 3),
+                    sf::Vector2f(x_coord, y_coord));
+                x_coord += BASE_SIZE;
+                break;
 
             case BLOCK_TYPE::NONE:
                 x_coord += BASE_SIZE;
@@ -97,11 +105,12 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
                 break;
 
             default:
+                x_coord += BASE_SIZE;
                 break;
             }
         }
         size.y = y_coord;
-        return new SubLevel(size, players, tiles, enemies);
+        return new SubLevel(size, players, tiles, enemies, boss);
     }
     else
     {

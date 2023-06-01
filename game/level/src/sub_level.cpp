@@ -5,11 +5,13 @@
 SubLevel::SubLevel(const sf::Vector2u size,
                    std::vector<PlayerShPtr> players,
                    std::vector<TileShPtr> tiles,
-                   std::vector<EnemyShPtr> enemies)
+                   std::vector<EnemyShPtr> enemies,
+                   BossShPtr boss)
     : map_size_(size),
       players_(players),
       tiles_(tiles),
-      enemies_(enemies)
+      enemies_(enemies),
+      boss_(boss)
 {
     std::cout << "Creating SubLevel" << std::endl;
     init();
@@ -34,6 +36,10 @@ std::vector<ObjectShPtr> SubLevel::getObjects()
     }
     res.push_back(player_user_interface_);
     res.push_back(background_);
+    if (boss_)
+    {
+        res.push_back(boss_);
+    }
     return res;
 }
 
@@ -48,6 +54,7 @@ void SubLevel::update(const sf::Event &event)
     updatePUI();
     updateTiles(event);
     updateEnemies(event, delta_time);
+    updateBoss(event, delta_time);
     updateNonExistentObjects();
     updateCollision();
     // updateHeap();
@@ -165,7 +172,14 @@ void SubLevel::updateTiles(const sf::Event &event)
 
 void SubLevel::updateCollision()
 {
-    collision_handler_->run(players_, tiles_, enemies_);
+    if (boss_)
+    {
+        collision_handler_->run(players_, tiles_, enemies_, boss_);
+    }
+    else
+    {
+        collision_handler_->run(players_, tiles_, enemies_);
+    }
 }
 
 void SubLevel::updateEnemies(const sf::Event &event, const float delta_time)
@@ -184,6 +198,11 @@ void SubLevel::updateEnemies(const sf::Event &event, const float delta_time)
         enemy->update(event, delta_time, players_.front());
         // enemy->updateAttack(event_, player_, delta_time);
     }
+}
+
+void SubLevel::updateBoss(const sf::Event &event, const float delta_time)
+{
+    boss_->update(event, delta_time, players_.front());
 }
 
 void SubLevel::updateNonExistentObjects()

@@ -62,7 +62,6 @@ public:
     int getExpMax();
     int getCurrLvl();
     int getCoinsCount();
-    virtual bool doesExist() const override;
 
     // Updates
     void updateExp(const uint16_t exp);
@@ -81,7 +80,7 @@ public:
     // Entity overrides
     virtual void updateAttack(const sf::Event &event, EntityShPtr target,
                               const float delta_time);
-    virtual void updateHP(const unsigned int damage);
+    // virtual void updateHP(const unsigned int damage);
 };
 
 using PlayerShPtr = std::shared_ptr<Player>;

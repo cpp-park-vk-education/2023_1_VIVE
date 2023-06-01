@@ -43,6 +43,11 @@ void HitBox::remove()
     exists_ = false;
 }
 
+void HitBox::appear()
+{
+    exists_ = true;
+}
+
 void HitBox::setPosition(const sf::Vector2f position)
 {
     shape_.setPosition(position);

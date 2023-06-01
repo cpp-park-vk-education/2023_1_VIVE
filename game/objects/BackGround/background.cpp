@@ -3,7 +3,7 @@
 BackGround::BackGround(const sf::Vector2u &window_size, bool parallax_effect) : window_size_(window_size), is_parallax_(parallax_effect)
 {
 
-    priority_ = PRIORITY::BACKGROUND;
+    priority_ = Priority::BACKGROUND;
 
 
     if (!is_parallax_) {

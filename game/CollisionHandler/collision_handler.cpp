@@ -63,16 +63,39 @@ void CollisionHandler::checkPlayerParticleCollision(PlayerShPtr player,
         particle->pop();
         switch (particle->getType())
         {
-        case TYPE::COIN:
+        case ParticleType::COIN:
             player->updateCoinsCount(1);
             break;
-        case TYPE::EXP:
+        case ParticleType::EXP:
             player->updateExp(1);
             break;
 
         default:
             break;
         }
+    }
+}
+
+void CollisionHandler::checkBossTileCollision(BossShPtr boss, std::vector<TileShPtr> &tiles)
+{
+    // for (const auto &tile : tiles)
+    // {
+    //     // handleCollision(boss, tile);
+    //     if (boss->fireBallOut())
+    //     {
+    //         // std::cout << "Collision" << std::endl;
+    //         handleCollision(boss->getFireBall(), tile);
+    //     }
+    // }
+}
+
+void CollisionHandler::checkBossFireBallPlayerCollision(BossShPtr boss, PlayerShPtr player)
+{
+    if (boss->fireBallOut() &&
+        checkAABBCollision(boss->getFireBall(), player))
+    {
+        player->updateDamageTaken(boss->getDamage());
+        boss->getFireBall()->pop();
     }
 }
 
@@ -119,6 +142,21 @@ void CollisionHandler::run(std::vector<PlayerShPtr> &players,
     }
 }
 
+void CollisionHandler::run(std::vector<PlayerShPtr> &players,
+                           std::vector<TileShPtr> &tiles,
+                           std::vector<EnemyShPtr> &enemies,
+                           BossShPtr boss)
+{
+    run(players, tiles, enemies);
+
+    // check Boss collision
+    checkBossTileCollision(boss, tiles);
+    for (auto &player : players)
+    {
+        checkBossFireBallPlayerCollision(boss, player);
+    }
+}
+
 bool CollisionHandler::checkAABBCollision(const PhysicalObjectShPtr obj1,
                                           const PhysicalObjectShPtr obj2)
 {
@@ -140,25 +178,15 @@ void CollisionHandler::handleCollision(MovableObjectShPtr movable_obj,
 {
     if (checkAABBCollision(movable_obj, static_obj))
     {
-        // std::cout << "Collision" << std::endl;
-
-        // std::cout << "Tile upper bound coord = " << tile->getPosition().y << std::endl;
-        // std::cout << "Player lower bound coord = " << player->getPosition().y + player->getGlobalBounds().height << std::endl;
-
         float delta = movable_obj->getPosition().y +
                       movable_obj->getGlobalBounds().height -
                       static_obj->getPosition().y;
 
-        // std::cout << "delta =" << delta << std::endl;
-
         sf::Vector2f movable_obj_pos = movable_obj->getPosition();
-        // std::cout << "player_pos_y = " << player_pos.y << std::endl;
 
         movable_obj_pos.y -= delta;
-        // std::cout << "player_new_pos_y = " << player_pos.y << std::endl;
 
         movable_obj->setPosition(movable_obj_pos);
-        // std::cout << "player_pos_y = " << player->getPosition().y << std::endl;
 
         movable_obj->setVelocity(sf::Vector2f(movable_obj->getVelocity().x, 0));
         movable_obj->slowDown();

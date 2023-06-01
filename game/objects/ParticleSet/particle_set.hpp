@@ -12,7 +12,7 @@ protected:
     unsigned int particles_count_;
     sf::Vector2f position_;
     sf::Vector2f size_;
-    TYPE type_;
+    ParticleType type_;
     bool exists_;
 
     void clear();
@@ -22,14 +22,14 @@ protected:
 
 public:
     ParticleSet();
-    
+
     ParticleSet(const unsigned int particles_count, const sf::Vector2f size,
-                const sf::Vector2f position, TYPE type);
+                const sf::Vector2f position, ParticleType type);
     virtual ~ParticleSet();
 
     // Setters
     void setPosition(const sf::Vector2f &position);
-    
+
     void update(const sf::Event &event, const float delta_time);
     void draw(sf::RenderTarget &target, sf::RenderStates state) const;
     void generate();

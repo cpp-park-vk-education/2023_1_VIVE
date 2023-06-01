@@ -64,7 +64,7 @@ void GameEngine::render() {
     while (!heap.empty())
     {
         ObjectShPtr obj = heap.top();
-        if (obj->getPriority() == PRIORITY::PLAYER_USER_INTERFACE)
+        if (obj->getPriority() == Priority::PLAYER_USER_INTERFACE)
         {
             window_.setView(window_.getDefaultView());
         }

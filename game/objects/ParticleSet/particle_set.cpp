@@ -33,7 +33,7 @@ ParticleSet::ParticleSet()
 
 ParticleSet::ParticleSet(const unsigned int particles_count,
                          const sf::Vector2f size, const sf::Vector2f position,
-                         TYPE type)
+                         ParticleType type)
     : particles_count_(particles_count),
       position_(position),
       size_(size),

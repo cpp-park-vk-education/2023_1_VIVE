@@ -24,6 +24,7 @@ public:
     sf::Vector2f getCenter() const;
 
     void remove();
+    void appear();
 
     // Setters
     void setPosition(const sf::Vector2f position);
