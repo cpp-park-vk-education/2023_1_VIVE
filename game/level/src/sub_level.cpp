@@ -227,7 +227,10 @@ void SubLevel::updatePlayer(const sf::Event &event, const float delta_time)
             // attacks
             for (auto &enemy : enemies_)
             {
-                player->updateAttack(event, enemy, delta_time);
+                if (checkObjectInCamera(enemy))
+                {
+                    player->updateAttack(event, enemy, delta_time);
+                }
             }
             if (boss_)
             {
