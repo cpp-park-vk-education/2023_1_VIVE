@@ -226,6 +226,7 @@ void SubLevel::updatePlayer(const sf::Event &event, const float delta_time)
         {
             if (player->checkDeathFreeze(delta_time))
             {
+                background_->restart();
                 spawnPlayer(player);
             }
         }

@@ -66,6 +66,10 @@ void BackGround::draw(sf::RenderTarget &target, sf::RenderStates state) const {
     }
 }
 
+void BackGround::restart() {
+    is_first_entry_ = true;
+}
+
 void BackGround::move(sf::Vector2f goal_coor, char current_state) {
     if (!is_parallax_) {
         sprites_[0].setPosition(goal_coor);

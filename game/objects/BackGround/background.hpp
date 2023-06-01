@@ -35,6 +35,8 @@ public:
     ~BackGround();
     
     void move(sf::Vector2f goal_coor, char current_state);
+
+    void restart();
 };
 
 using BackGroundShPtr = std::shared_ptr<BackGround>;
