@@ -14,6 +14,7 @@ mana    0 objects/Mana.png
 coin    0 objects/Coin.png
 level   0 objects/Level.png
 sword   0 objects/Sword.png
+ground_portal 0 objects/GroundPortal.png
 enemy_animation 0 animation/enemy_animation.png
 player_animation 0 animation/player_animation.png
 ground_world_level 0 level_objects/ground_world_objects.png

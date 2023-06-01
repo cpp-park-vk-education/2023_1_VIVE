@@ -7,8 +7,6 @@ class Trigger : public PhysicalObject
 protected:
     bool trigger;
 
-    sf::RectangleShape shape_;
-
     // Initions
     void initSprite() override;
     void initPhysics() override{};

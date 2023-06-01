@@ -4,12 +4,9 @@
 
 void Trigger::initSprite()
 {
-    shape_.setFillColor(sf::Color::Blue);
-    shape_.setSize(hitbox_.getSize());
-    shape_.setPosition(hitbox_.getPosition());
-    // std::cout << shape_.getPosition().x << ", " << shape_.getPosition().y
-    //           << "\t" << hitbox_.getPosition().x << ", "
-    //           << hitbox_.getPosition().y << std::endl;
+    sprite_.setTexture(AssetManager::getInstance()->getTexture("ground_portal"));
+    sprite_.setScale(0.20f, 0.20f);
+    sprite_.setPosition(hitbox_.getPosition().x - 80.0f, hitbox_.getPosition().y - 50.0f);
 }
 
 Trigger::Trigger(const sf::Vector2f size, const sf::Vector2f position)
@@ -36,7 +33,7 @@ void Trigger::update(const sf::Event &event, const float delta_time)
 
 void Trigger::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
-    target.draw(shape_);
+    target.draw(sprite_);
 }
 
 void Trigger::changeTrigger()
