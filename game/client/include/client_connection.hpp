@@ -19,7 +19,7 @@ class ClientConnection : public std::enable_shared_from_this<ClientConnection>
 public:
     ClientConnection(const std::string& ip, const std::string& port);
 
-    void startConnect();
+    void startIOContext();
     bool isConnected() const;
 
     void write(const std::string& msg);
@@ -27,7 +27,7 @@ public:
     void close();
 
 private:
-    void handleConnect(boost::system::error_code ec, const tcp::endpoint&);
+    void doConnect();
 
     void doReadHeader();
     void doReadBody();

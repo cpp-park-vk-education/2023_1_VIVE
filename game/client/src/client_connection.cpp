@@ -10,25 +10,24 @@ using namespace boost::placeholders;
 ClientConnection::ClientConnection(const std::string &ip, const std::string &port) :
         io_context_(), socket_(io_context_),
         resolver_(io_context_), endpoint_(resolver_.resolve(ip, port)) {
+    doConnect();
 }
 
-void ClientConnection::startConnect() {
-    std::cout << "\t--- connect: start " << std::this_thread::get_id() << std::endl;
+void ClientConnection::doConnect() {
     boost::asio::async_connect(socket_, endpoint_,
-                               boost::bind(&ClientConnection::handleConnect, this, _1, _2));
-    io_context_.run();
+                               [this](boost::system::error_code ec, const tcp::endpoint &) {
+                                   if (!ec) {
+                                       std::cout << "\t--- connect: done " << std::this_thread::get_id() << std::endl;
+                                       doReadHeader();
+                                   } else {
+                                       std::cout << "\t--- connect: failed " << ec.message() << "  "
+                                                 << std::this_thread::get_id() << std::endl;
+                                   }
+                               });
 }
 
-void ClientConnection::handleConnect(boost::system::error_code ec, const tcp::endpoint &) {
-    if (!ec) {
-        std::cout << "\t--- connect: done " << std::this_thread::get_id()
-                  << std::endl;
-        doReadHeader();
-    } else {
-        std::cout << ec.what() << std::endl;
-        std::cout << "\t--- connect: failed " << ec.message() << "  "
-                  << std::this_thread::get_id() << std::endl;
-    }
+void ClientConnection::startIOContext() {
+    io_context_.run();
 }
 
 void ClientConnection::write(const std::string &body) {
@@ -38,10 +37,15 @@ void ClientConnection::write(const std::string &body) {
     std::sprintf(header.data(), "%4d", static_cast<unsigned int>(body.size()));
     std::string message(header.data() + body); // добавил перед строкой длину сообщения
 
-
     std::cout << "\t--- start pushing message to write " << std::this_thread::get_id() << std::endl;
-    write_msgs_.push(message);
-    doWrite();
+
+    boost::asio::post(io_context_,
+                      [this, message]() {
+                          write_msgs_.push(message);
+                          std::cout << "\t--- message pushed " << std::this_thread::get_id() << std::endl
+                                    << std::endl;
+                          doWrite();
+                      });
 }
 
 void ClientConnection::close() {
@@ -74,30 +78,29 @@ void ClientConnection::doReadHeader() {
 }
 
 void ClientConnection::doReadBody() {
-    if (!isConnected()) {
-        startConnect();
-    }
-
     std::cout << "\t--- read: start reading body  " << std::this_thread::get_id() << std::endl;
+    int msg_size = 0;
     try {
-        int msg_size = std::stoi(read_msg_size_);
-        boost::asio::async_read(socket_,
-                                boost::asio::buffer(read_msg_.data(), msg_size),
-                                [this](boost::system::error_code ec, std::size_t /*length*/) {
-                                    if (!ec) {
-                                        std::cout << "\t--- read: done " << std::this_thread::get_id() << std::endl
-                                                  << std::endl;
-                                        std::cout << "<< " << read_msg_.data() << std::endl;
-                                        doReadHeader();
-                                    } else {
-                                        std::cout << "\t--- read: failed " << ec.message() << " "
-                                                  << std::this_thread::get_id() << std::endl;
-                                        socket_.close();
-                                    }
-                                });
-    } catch (const std::exception &e) {
+        msg_size = std::stoi(read_msg_size_);
+    }
+    catch (const std::exception &e) {
         std::cerr << "Wrong read message size: " << e.what() << std::endl;
     }
+    boost::asio::async_read(socket_,
+                            boost::asio::buffer(read_msg_.data(), msg_size),
+                            [this](boost::system::error_code ec, std::size_t /*length*/) {
+                                if (!ec) {
+                                    std::cout << "\t--- read: done " << std::this_thread::get_id() << std::endl
+                                              << std::endl;
+                                    std::cout << "<< " << read_msg_.data() << std::endl;
+                                    doReadHeader();
+                                } else {
+                                    std::cout << "\t--- read: failed " << ec.message() << " "
+                                              << std::this_thread::get_id() << std::endl;
+                                    socket_.close();
+                                }
+                            });
+
 }
 
 void ClientConnection::doWrite() {
@@ -121,4 +124,3 @@ void ClientConnection::doWrite() {
                                  }
                              });
 }
-

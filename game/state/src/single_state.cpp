@@ -10,10 +10,12 @@ SingleState::SingleState()
 
 SingleState::~SingleState()
 {
+
 }
 
 void SingleState::readMessage(const proto::Response &msg)
 {
+
 }
 
 void SingleState::update(const sf::Event &event)

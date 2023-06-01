@@ -19,7 +19,7 @@ public:
     ~Client();
 
     void connect();
-    void disconnect();
+//    void disconnect();
     void readMessage(const std::string& msg_str);
     void writeMessage(const proto::Request &msg);
 
