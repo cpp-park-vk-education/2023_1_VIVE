@@ -57,6 +57,14 @@ public:
         animation_->changeAnimation(AnimStates::STAY_ANIM);
     }
 
+    AnimStates getCurrentState() const {
+        return animation_->getCurrentState();
+    }
+
+    bool isLeftRun() const {
+        return animation_->isLeftRun();
+    }
+
     // Getters
     int getExp();
     int getExpMax();

@@ -212,6 +212,7 @@ void Player::updateHP(const unsigned int damage)
     int new_hp = hp_ - damage;
     if (new_hp <= 0)
     {
+        SoundManager::getInstance()->playSoundEffect(SoundType::PLAYER_DEATH);
         hp_ = 0;
         alive_ = false;
         // hitbox_.remove();

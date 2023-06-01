@@ -18,6 +18,8 @@ public:
     void update(float delta_time) override;
     sf::Sprite getSpriteAnimation() const override;
 
+    AnimStates getCurrentState() const;
+
 private:
     void setStayAnimation();
     void setLeftRunAnimation();

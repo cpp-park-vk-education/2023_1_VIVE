@@ -18,19 +18,23 @@ enum TextureMap {
 class BackGround : public Object
 {
 private:
+    std::vector<float> layers_speed_;
+
     std::unordered_map<TextureMap, std::string> maps_;
     std::vector<sf::Sprite> sprites_;
     bool is_parallax_;
+    bool is_first_entry_;
     sf::Vector2u window_size_;
+    sf::Vector2f last_offset_;
 
-    void update(const sf::Event &event, const float delta_time) {}
+    void update(const sf::Event &event, const float delta_time);
     virtual void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 
 public:
     BackGround(const sf::Vector2u& window_size, bool parallax_effect = false);
     ~BackGround();
     
-    void move(sf::Vector2f goal_coor);
+    void move(sf::Vector2f goal_coor, char current_state);
 };
 
 using BackGroundShPtr = std::shared_ptr<BackGround>;

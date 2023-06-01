@@ -36,7 +36,6 @@ public:
 private:
 
     BackGroundShPtr background_;
-    // sf::Sprite background_;
     std::vector<TileShPtr> tiles_;
     std::vector<PlayerShPtr> players_;
     std::vector<EnemyShPtr> enemies_;
@@ -44,7 +43,7 @@ private:
     CollisionHandlerShPtr collision_handler_;
     // Boss boss_;
 
-    CameraTarget *camera_;
+    CameraTargetShPtr camera_;
     sf::Vector2u map_size_;
 
     // Time

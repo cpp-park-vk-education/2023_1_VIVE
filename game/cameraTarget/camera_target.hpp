@@ -1,6 +1,7 @@
 #pragma ocne
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class CameraTarget {
 public:
@@ -34,4 +35,4 @@ private:
     sf::FloatRect restriction_;
 };
 
-// using CameraTargetShPtr = std::shared_ptr<CameraTarget>;
+using CameraTargetShPtr = std::shared_ptr<CameraTarget>;

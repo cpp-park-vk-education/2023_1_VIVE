@@ -77,7 +77,7 @@ void SubLevel::initCamera()
     sf::Vector2f camera_size = sf::Vector2f(window_size.x, window_size.y);
     sf::FloatRect camera_restriction_ = sf::FloatRect(0, 0, getMapSize().x, getMapSize().y);
 
-    camera_ = new CameraTarget(camera_size, camera_restriction_);
+    camera_ = std::make_shared<CameraTarget>(camera_size, camera_restriction_);
     PlayerShPtr player = players_.front();
     camera_->setFollowByCoordinates(player->getCenter().x, player->getCenter().y);
 }
@@ -110,7 +110,19 @@ void SubLevel::spawnEnemies()
 }
 
 void SubLevel::updateBackGround() {
-    background_->move(camera_->getTopLeftCameraCoordinates());
+    AnimStates cur_state = players_[0]->getCurrentState();
+    switch (cur_state)
+    {
+    case AnimStates::STAY_ANIM:
+        background_->move(camera_->getTopLeftCameraCoordinates(), 's'); 
+        break;
+    default:
+        if (players_[0]->isLeftRun())
+            background_->move(camera_->getTopLeftCameraCoordinates(), 'l'); 
+        else
+            background_->move(camera_->getTopLeftCameraCoordinates(), 'r'); 
+        break;
+    }
 }
 
 void SubLevel::updatePlayer(const sf::Event &event, const float delta_time)
@@ -188,9 +200,6 @@ void SubLevel::updateEnemies(const sf::Event &event, const float delta_time)
 
 void SubLevel::updateNonExistentObjects()
 {
-    // Check player
-
-    // Check enemies
     for (auto it = enemies_.begin(); it != enemies_.end();)
     {
         if (!(*it)->doesExist())
@@ -202,8 +211,4 @@ void SubLevel::updateNonExistentObjects()
             ++it;
         }
     }
-    // if (enemies_.empty())
-    // {
-    //     std::cout << "Enemy disappeared" << std::endl;
-    // }
 }
