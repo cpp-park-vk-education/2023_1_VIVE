@@ -5,29 +5,33 @@
 
 #include <iostream>
 
-GameEngine* GameEngine::game_engine_;
+GameEngine *GameEngine::game_engine_;
 
-GameEngine *GameEngine::getInstance() {
+GameEngine *GameEngine::getInstance()
+{
     return game_engine_;
 }
 
-sf::RenderWindow& GameEngine::getWindow() {
-    GameEngine* game = getInstance();
+sf::RenderWindow &GameEngine::getWindow()
+{
+    GameEngine *game = getInstance();
     return game->window_;
 }
 
-StateManager *GameEngine::getStateManager() {
-    GameEngine* game = getInstance();
+StateManager *GameEngine::getStateManager()
+{
+    GameEngine *game = getInstance();
     return &game->state_manager_;
 }
 
-Client *GameEngine::getClient() {
-    GameEngine* game = getInstance();
+Client *GameEngine::getClient()
+{
+    GameEngine *game = getInstance();
     return &game->client_;
 }
 
-GameEngine::GameEngine():
-window_(sf::VideoMode(w_width_ / 2, w_height_ / 2), "ATOMIC GOD") {
+GameEngine::GameEngine() : window_(sf::VideoMode(w_width_ / 2, w_height_ / 2), "ATOMIC GOD")
+{
     GOOGLE_PROTOBUF_VERIFY_VERSION;
     game_engine_ = this;
     int window_pos_x = sf::VideoMode::getDesktopMode().width / 2 - window_.getSize().x / 2;
@@ -37,28 +41,42 @@ window_(sf::VideoMode(w_width_ / 2, w_height_ / 2), "ATOMIC GOD") {
     std::cout << "GameEngine constructor end" << std::endl;
 }
 
-void GameEngine::run() {
+void GameEngine::run()
+{
     window_.setPosition(sf::Vector2i(w_width_ / 4, w_height_ / 4));
 
     state_manager_.init();
-    while (window_.isOpen()) {
+    while (window_.isOpen())
+    {
         update();
         render();
     }
 }
 
-void GameEngine::update() {
+void GameEngine::update()
+{
     sf::Event event{};
-    while (window_.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
+    while (window_.pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed)
+        {
             window_.close();
             break;
         }
+        // TODO change updating current state
+        if (state_manager_.getState() != StateManager::EnState::SINGLE_STATE)
+        {
+            state_manager_.update(event);
+        }
+    }
+    if (state_manager_.getState() == StateManager::EnState::SINGLE_STATE)
+    {
         state_manager_.update(event);
     }
 }
 
-void GameEngine::render() {
+void GameEngine::render()
+{
     window_.clear(sf::Color::Green);
     ObjectsHeap heap = state_manager_.getHeap();
     while (!heap.empty())
@@ -74,16 +92,17 @@ void GameEngine::render() {
     window_.display();
 }
 
-GameEngine::~GameEngine() {
+GameEngine::~GameEngine()
+{
     google::protobuf::ShutdownProtobufLibrary();
 }
 
-void GameEngine::readMessage(const proto::Response &msg) {
+void GameEngine::readMessage(const proto::Response &msg)
+{
     getStateManager()->readMessage(msg);
 }
 
-void GameEngine::writeMessage(const proto::Request &msg) {
+void GameEngine::writeMessage(const proto::Request &msg)
+{
     getClient()->writeMessage(msg);
 }
-
-

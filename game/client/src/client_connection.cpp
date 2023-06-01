@@ -25,6 +25,7 @@ void ClientConnection::handleConnect(boost::system::error_code ec, const tcp::en
                   << std::endl;
         doReadHeader();
     } else {
+        // TODO check what's wrong
         // std::cout << ec.what() << std::endl;
         std::cout << "\t--- connect: failed " << ec.message() << "  "
                   << std::this_thread::get_id() << std::endl;
