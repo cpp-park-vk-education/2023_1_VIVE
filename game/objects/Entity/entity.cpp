@@ -29,7 +29,9 @@ bool Entity::isInDamageRadius(const PhysicalObjectShPtr target) const
 }
 
 Entity::Entity(const sf::Vector2f size, const sf::Vector2f position)
-    : MovableObject(size, position), damage_taken_(0)
+    : MovableObject(size, position),
+      damage_taken_(0),
+      initial_pos_(position)
 {
 }
 
@@ -54,6 +56,7 @@ unsigned int Entity::getDamage() const
 
 void Entity::spawn()
 {
+    setPosition(initial_pos_);
     hitbox_.appear();
     alive_ = true;
     hp_ = hp_max_;

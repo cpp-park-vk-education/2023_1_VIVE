@@ -37,6 +37,7 @@ protected:
 
     // Initions
     virtual void initStats() = 0;
+    sf::Vector2f initial_pos_;
 
     bool isInDamageRadius(const PhysicalObjectShPtr target) const;
 

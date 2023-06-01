@@ -129,8 +129,6 @@ void SubLevel::spawnEnemies()
 
 void SubLevel::spawnPlayer(PlayerShPtr player)
 {
-    int player_new_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
-    player->setPosition(sf::Vector2f(player_new_pos_x, 100.f));
     player->spawn();
     player->setStayAnimation();
 }
