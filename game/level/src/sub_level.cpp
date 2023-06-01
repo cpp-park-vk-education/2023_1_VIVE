@@ -38,7 +38,7 @@ std::vector<ObjectShPtr> SubLevel::getObjects()
     }
     res.push_back(player_user_interface_);
     res.push_back(background_);
-    if (boss_ && !boss_->isDead())
+    if (boss_)
     {
         res.push_back(boss_);
     }

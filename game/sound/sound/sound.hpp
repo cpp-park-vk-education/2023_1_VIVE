@@ -13,6 +13,8 @@ public:
 
     void loadSoundAndMusicForLevel(const std::string& level_name);
 
+    void playWinningMusic();
+
     void playMusic() override;
     void playSoundEffect(SoundType sound_type) override;
 

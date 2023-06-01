@@ -17,6 +17,12 @@ void SoundManager::loadSoundAndMusicForLevel(const std::string &level_name) {
     readConfigAndLoadMusic(level_name);
 }
 
+void SoundManager::playWinningMusic() {
+    musics_[current_music_]->stop();
+    current_music_ = 3;
+    musics_[current_music_]->play();
+}
+
 void SoundManager::playMusic() {
     if (current_music_ == -1) {
         ++current_music_;
