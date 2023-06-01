@@ -305,9 +305,7 @@ void SubLevel::updateEnemies(const sf::Event &event, const float delta_time)
 
 void SubLevel::updateBoss(const sf::Event &event, const float delta_time)
 {
-    if (boss_ &&
-        (checkObjectInCamera(boss_) ||
-         checkObjectInCamera(boss_->getFireBall())))
+    if (boss_)
     {
         boss_->update(event, delta_time, players_.front());
     }
