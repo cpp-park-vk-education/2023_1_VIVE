@@ -52,6 +52,10 @@ void Animation::updateSpriteSize(const sf::Vector2f &size_of_sprite) {
     size_of_sprite_ = size_of_sprite;
 }
 
+AnimStates Animation::getCurrentState() const {
+    return current_state_;
+}
+
 void Animation::changeAnimation(AnimStates current_state) {    
     if (current_state_ == AnimStates::DEATH_ANIM && current_state == AnimStates::DEATH_ANIM)
         return;

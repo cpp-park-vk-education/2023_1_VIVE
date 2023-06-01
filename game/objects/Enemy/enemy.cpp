@@ -3,8 +3,6 @@
 void Enemy::spawnParticles()
 {
     initParticles();
-    // coin_particles_->setPosition(getCenter());
-    // exp_particles_->setPosition(getCenter());
     coin_particles_->generate();
     exp_particles_->generate();
 }
@@ -47,6 +45,9 @@ void Enemy::initStats()
 
     hp_ = 100;
     hp_max_ = hp_;
+
+    death_cooldown_ = 0.0f;
+    death_anim_ = false;
 
     alive_ = true;
     attacking_ = false;
@@ -114,9 +115,10 @@ void Enemy::updateHP()
     int new_hp = hp_ - damage_taken_;
     if (new_hp <= 0)
     {
+        animation_->changeAnimation(AnimStates::DEATH_ANIM);
+        SoundManager::getInstance()->playSoundEffect(SoundType::ENEMY_DEATH);
         hp_ = 0;
         alive_ = false;
-        hitbox_.remove();
         spawnParticles();
     }
     else
@@ -137,8 +139,8 @@ void Enemy::updateAttack(const sf::Event &event, EntityShPtr target,
     if (isInDamageRadius(target) && !attacking_ &&
         sec_since_last_hit_ > attack_cooldown_)
     {
-        SoundManager::getInstance()->playSoundEffect(SoundType::ENEMY_CLOSE_ATTACK);
         animation_->changeAnimation(AnimStates::ATTACK_ANIM);
+        SoundManager::getInstance()->playSoundEffect(SoundType::ENEMY_CLOSE_ATTACK);
         attacking_ = true;
         attack(target);
         sec_since_last_hit_ = 0;
@@ -155,9 +157,9 @@ void Enemy::draw(sf::RenderTarget &target, sf::RenderStates state) const
     {
         coin_particles_->draw(target, state);
         exp_particles_->draw(target, state);
-    }
-    else
-    {
+    } 
+    
+    if (!death_anim_) {
         target.draw(sprite_);
     }
 }
@@ -168,7 +170,16 @@ void Enemy::update(const sf::Event &event, const float delta_time,
     // std::cout << "Enemy exists" << std::endl;
     if (isDead())
     {
-        SoundManager::getInstance()->playSoundEffect(SoundType::ENEMY_DEATH);
+        death_cooldown_ += delta_time;
+
+        if (death_cooldown_ <= 0.7f) {
+            animation_->update(delta_time);
+            sprite_ = animation_->getSpriteAnimation();
+            sprite_.setPosition(hitbox_.getPosition());
+        } else {
+            death_anim_ = true;
+            hitbox_.remove();
+        }
         coin_particles_->update(event, delta_time);
         exp_particles_->update(event, delta_time);
     }
