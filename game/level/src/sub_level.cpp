@@ -30,15 +30,21 @@ std::vector<ObjectShPtr> SubLevel::getObjects()
     }
     for (auto &tile : tiles_)
     {
-        res.push_back(tile);
+        if (checkObjectInCamera(tile))
+        {
+            res.push_back(tile);
+        }
     }
     for (auto &enemy : enemies_)
     {
-        res.push_back(enemy);
+        if (checkObjectInCamera(enemy))
+        {
+            res.push_back(enemy);
+        }
     }
     res.push_back(player_user_interface_);
     res.push_back(background_);
-    if (boss_ && !boss_->isDead())
+    if (boss_ && !boss_->isDead() && checkObjectInCamera(boss_))
     {
         res.push_back(boss_);
     }
