@@ -20,6 +20,8 @@ class Particle : public MovableObject
 protected:
     ParticleType type_;
     bool exists_;
+    float life_time;
+    float sec_since_creation;
 
     // TODO remove shape
     sf::RectangleShape shape_;

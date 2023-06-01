@@ -29,7 +29,7 @@ bool Entity::isInDamageRadius(const PhysicalObjectShPtr target) const
 }
 
 Entity::Entity(const sf::Vector2f size, const sf::Vector2f position)
-    : MovableObject(size, position)
+    : MovableObject(size, position), damage_taken_(0)
 {
 }
 

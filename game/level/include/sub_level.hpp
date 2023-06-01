@@ -54,6 +54,7 @@ private:
     sf::Clock clock_;
 
     bool checkObjectInCamera(const PhysicalObjectShPtr object);
+    // bool checkEnemyInCamera(const EnemyShPtr enemy);
 
     // Updates
     void updateBackGround();

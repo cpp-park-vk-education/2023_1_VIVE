@@ -51,6 +51,7 @@ void Particle::initVelocity(sf::Vector2f direction,
 void Particle::initPhysics()
 {
     drag_ = 0.1;
+    life_time = 10;
 
     if (type_ == ParticleType::FIRE_BALL)
     {
@@ -100,6 +101,7 @@ void Particle::create()
 {
     exists_ = true;
     hitbox_.appear();
+    sec_since_creation = 0;
 }
 
 void Particle::pop()
@@ -136,6 +138,16 @@ void Particle::update(const sf::Event &event, const float delta_time)
         if (type_ == ParticleType::FIRE_BALL)
         {
             shape_.setPosition(hitbox_.getPosition());
+        }
+
+        // life time handle
+        if (sec_since_creation > life_time)
+        {
+            pop();
+        }
+        else
+        {
+            sec_since_creation += delta_time;
         }
     }
 }

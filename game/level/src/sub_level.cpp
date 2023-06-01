@@ -149,10 +149,22 @@ bool SubLevel::checkObjectInCamera(const PhysicalObjectShPtr object)
     float camera_lower_bound = camera_->getCameraCenter().y +
                                camera_->getCameraSize().y / 2;
 
-    if (object->getCenter().x < camera_left_bound ||
-        object->getCenter().x > camera_right_bound ||
-        object->getCenter().y < camera_upper_bound ||
-        object->getCenter().y > camera_lower_bound)
+    float object_left_bound = object->getCenter().x -
+                              object->getGlobalBounds().width / 2;
+
+    float object_right_bound = object->getCenter().x +
+                               object->getGlobalBounds().width / 2;
+
+    float object_upper_bound = object->getCenter().y -
+                               object->getGlobalBounds().height / 2;
+
+    float object_lower_bound = object->getCenter().y +
+                               object->getGlobalBounds().height / 2;
+
+    if (object_right_bound < camera_left_bound ||
+        object_left_bound > camera_right_bound ||
+        object_lower_bound < camera_upper_bound ||
+        object_upper_bound > camera_lower_bound)
     {
         return false;
     }
@@ -161,6 +173,18 @@ bool SubLevel::checkObjectInCamera(const PhysicalObjectShPtr object)
         return true;
     }
 }
+
+// bool SubLevel::checkEnemyInCamera(const EnemyShPtr enemy)
+// {
+//     if (!enemy->isDead())
+//     {
+//         return checkObjectInCamera(enemy);
+//     }
+//     else
+//     {
+        
+//     }
+// }
 
 void SubLevel::updateBackGround()
 {
