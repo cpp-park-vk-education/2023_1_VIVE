@@ -14,6 +14,8 @@ SubLevel::SubLevel(const sf::Vector2u size,
       boss_(boss)
 {
     std::cout << "Creating SubLevel" << std::endl;
+    players_count_ = players_.size();
+    enemies_count_ = enemies_.size();
     init();
     clock_.restart();
     std::cout << "SubLevel Created" << std::endl;
@@ -111,10 +113,12 @@ void SubLevel::initCollisionHandler()
 
 void SubLevel::spawnEnemies()
 {
-    int enemy_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
-    EnemyShPtr enemy = std::make_shared<Enemy>(sf::Vector2f(BASE_SIZE * 2.5f, BASE_SIZE * 3), sf::Vector2f(enemy_pos_x, 100.f));
-
-    enemies_.push_back(enemy);
+    for (int i = 0; i < enemies_count_; ++i)
+    {
+        int enemy_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
+        EnemyShPtr enemy = std::make_shared<Enemy>(sf::Vector2f(BASE_SIZE * 2.5f, BASE_SIZE * 3), sf::Vector2f(enemy_pos_x, 100.f));
+        enemies_.push_back(enemy);
+    }
 }
 
 void SubLevel::spawnPlayer(PlayerShPtr player)
@@ -137,7 +141,10 @@ void SubLevel::updatePlayer(const sf::Event &event, const float delta_time)
         if (!player->isDead())
         {
             player->update(event, delta_time);
-            player->updateAttack(event, enemies_.front(), delta_time);
+            for (auto &enemy : enemies_)
+            {
+                player->updateAttack(event, enemy, delta_time);
+            }
 
             if (!player->isAttack() && !player->isJumping() && !player->isRunning())
                 player->setStayAnimation();
@@ -209,7 +216,10 @@ void SubLevel::updateEnemies(const sf::Event &event, const float delta_time)
 
 void SubLevel::updateBoss(const sf::Event &event, const float delta_time)
 {
-    boss_->update(event, delta_time, players_.front());
+    if (boss_)
+    {
+        boss_->update(event, delta_time, players_.front());
+    }
 }
 
 void SubLevel::updateNonExistentObjects()

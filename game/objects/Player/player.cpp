@@ -241,3 +241,13 @@ void Player::updateAttack(const sf::Event &event, EntityShPtr target,
         attacking_ = false;
     }
 }
+
+void Player::updateAttack(const sf::Event &event,
+                          std::vector<EntityShPtr> &targets,
+                          const float delta_time)
+{
+    for (auto &target : targets)
+    {
+        updateAttack(event, target, delta_time);
+    }
+}

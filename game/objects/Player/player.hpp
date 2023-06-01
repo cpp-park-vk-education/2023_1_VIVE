@@ -16,7 +16,7 @@ protected:
     int exp_max_;
     int curr_lvl_;
     int coins_count_;
-    
+
     float death_freeze_;
     float last_death_count_;
 
@@ -30,22 +30,27 @@ public:
     Player(const sf::Vector2f size, const sf::Vector2f position);
     virtual ~Player();
 
-    bool isRunning() const {
+    bool isRunning() const
+    {
         return is_moving;
     }
 
-    bool isJumping() const {
+    bool isJumping() const
+    {
         return is_jumping_;
     }
 
-    bool isAttack() const {
+    bool isAttack() const
+    {
         return attacking_;
     }
 
-    bool checkDeathFreeze(float delta_time) {
+    bool checkDeathFreeze(float delta_time)
+    {
         last_death_count_ += delta_time;
 
-        if (last_death_count_ >= death_freeze_) {
+        if (last_death_count_ >= death_freeze_)
+        {
             last_death_count_ = 0;
             return true;
         }
@@ -53,7 +58,8 @@ public:
         return false;
     }
 
-    void setStayAnimation() const {
+    void setStayAnimation() const
+    {
         animation_->changeAnimation(AnimStates::STAY_ANIM);
     }
 
@@ -79,7 +85,11 @@ public:
 
     // Entity overrides
     virtual void updateAttack(const sf::Event &event, EntityShPtr target,
-                              const float delta_time);
+                              const float delta_time) override;
+
+    void updateAttack(const sf::Event &event,
+                      std::vector<EntityShPtr> &targets,
+                      const float delta_time);
     // virtual void updateHP(const unsigned int damage);
 };
 

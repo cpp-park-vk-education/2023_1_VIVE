@@ -45,7 +45,9 @@ private:
     BossShPtr boss_;
     PUIShPtr player_user_interface_;
     CollisionHandlerShPtr collision_handler_;
-    // Boss boss_;
+
+    int players_count_;
+    int enemies_count_;
 
     CameraTarget *camera_;
     sf::Vector2u map_size_;
