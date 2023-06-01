@@ -44,6 +44,13 @@ std::vector<ObjectShPtr> SubLevel::getObjects()
             res.push_back(enemy);
         }
     }
+    for (auto &trigger : triggers_)
+    {
+        if (checkObjectInCamera(trigger))
+        {
+            res.push_back(trigger);
+        }
+    }
     res.push_back(player_user_interface_);
     res.push_back(background_);
     if (boss_ && !boss_->isDead() && checkObjectInCamera(boss_))

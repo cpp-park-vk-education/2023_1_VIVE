@@ -14,6 +14,7 @@ enum Priority : uint8_t
 {
     BACKGROUND,
     TILES,
+    TRIGGERS,
     ENEMIES,
     BOSSES,
     PARTICLES,
