@@ -6,11 +6,13 @@ SubLevel::SubLevel(const sf::Vector2u size,
                    std::vector<PlayerShPtr> players,
                    std::vector<TileShPtr> tiles,
                    std::vector<EnemyShPtr> enemies,
+                   std::vector<TriggerShPtr> triggers,
                    BossShPtr boss)
     : map_size_(size),
       players_(players),
       tiles_(tiles),
       enemies_(enemies),
+      triggers_(triggers),
       boss_(boss)
 {
     std::cout << "Creating SubLevel" << std::endl;
@@ -62,6 +64,7 @@ void SubLevel::update(const sf::Event &event)
     updatePUI();
     // updateTiles(event);
     updateEnemies(event, delta_time);
+    updateTriggers(event);
     updateBoss(event, delta_time);
     updateNonExistentObjects();
     updateCollision();
@@ -77,6 +80,11 @@ void SubLevel::setMapSize(const sf::Vector2u size)
 sf::Vector2u SubLevel::getMapSize() const
 {
     return map_size_;
+}
+
+std::vector<PlayerShPtr> &SubLevel::getPlayers()
+{
+    return players_;
 }
 
 void SubLevel::init()
@@ -267,6 +275,7 @@ void SubLevel::updateCollision()
             tiles.push_back(tile);
         }
     }
+
     std::vector<EnemyShPtr> enemies{};
     for (auto &enemy : enemies_)
     {
@@ -275,15 +284,23 @@ void SubLevel::updateCollision()
             enemies.push_back(enemy);
         }
     }
-    // std::cout << "Tiles: " << tiles.size() << "\t Enemies: " << enemies.size()
-    //           << std::endl
+    
+    std::vector<TriggerShPtr> triggers{};
+    for (auto &trigger : triggers_)
+    {
+        if (checkObjectInCamera(trigger))
+        {
+            triggers.push_back(trigger);
+        }
+    }
+
     if (boss_ && checkObjectInCamera(boss_))
     {
-        collision_handler_->run(players_, tiles, enemies, boss_);
+        collision_handler_->run(players_, tiles, enemies, triggers, boss_);
     }
     else
     {
-        collision_handler_->run(players_, tiles, enemies);
+        collision_handler_->run(players_, tiles, enemies, triggers);
     }
 }
 
@@ -300,6 +317,14 @@ void SubLevel::updateEnemies(const sf::Event &event, const float delta_time)
         {
             enemy->update(event, delta_time, players_.front());
         }
+    }
+}
+
+void SubLevel::updateTriggers(const sf::Event &event)
+{
+    for (auto &trigger : triggers_)
+    {
+        trigger->update(event, 0);
     }
 }
 

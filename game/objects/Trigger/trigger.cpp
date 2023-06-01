@@ -16,7 +16,9 @@ void Trigger::update(const sf::Event &event, const float delta_time)
 {
     if (trigger)
     {
-        
+        std::cout << "Trigger" << std::endl;
+        LevelManager::getInstance()->changeNext();
+        trigger = false;
     }
 }
 
