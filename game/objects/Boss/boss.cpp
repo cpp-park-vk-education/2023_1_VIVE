@@ -38,7 +38,7 @@ void Boss::initStats()
 {
     sight_radius_ = 500;
 
-    hp_ = 500;
+    hp_ = 50;
     hp_max_ = hp_;
 
     alive_ = true;
@@ -75,7 +75,8 @@ void Boss::updateFireBall(const sf::Event &event, const float delta_time)
 }
 
 Boss::Boss(const sf::Vector2f size, const sf::Vector2f position)
-    : Entity(size, position)
+    : Entity(size, position),
+      droped_(false)
 {
     priority_ = Priority::BOSSES;
     initAnimation();
@@ -97,6 +98,11 @@ ParticleShPtr Boss::getFireBall() const
 bool Boss::fireBallOut() const
 {
     return fireball_->doesExist();
+}
+
+bool Boss::didDrop() const
+{
+    return droped_;
 }
 
 void Boss::update(const sf::Event &event, const float delta_time,
@@ -133,6 +139,11 @@ void Boss::draw(sf::RenderTarget &target, sf::RenderStates state) const
             fireball_->draw(target, sf::RenderStates());
         }
     }
+}
+
+void Boss::drop()
+{
+    droped_ = true;
 }
 
 void Boss::updateMovement(const float delta_time)

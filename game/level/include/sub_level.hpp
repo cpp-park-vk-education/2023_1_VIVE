@@ -48,6 +48,8 @@ private:
     PUIShPtr player_user_interface_;
     CollisionHandlerShPtr collision_handler_;
 
+    std::vector<ParticleShPtr> drop_;
+
     int players_count_;
     int enemies_count_;
 
@@ -70,6 +72,7 @@ private:
     void updateEnemies(const sf::Event &event, const float delta_time);
     void updateTriggers(const sf::Event &event);
     void updateBoss(const sf::Event &event, const float delta_time);
+    void updateDrop(const sf::Event &event, const float delta_time);
     void updateNonExistentObjects();
     void updateOutOfBounds();
 

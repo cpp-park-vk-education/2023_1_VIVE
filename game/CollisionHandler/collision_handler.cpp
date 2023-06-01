@@ -69,6 +69,9 @@ void CollisionHandler::checkPlayerParticleCollision(PlayerShPtr player,
         case ParticleType::EXP:
             player->updateExp(1);
             break;
+        case ParticleType::GEM:
+            player->updateExp(100);
+            break;
 
         default:
             break;
@@ -101,6 +104,7 @@ void CollisionHandler::checkBossFireBallPlayerCollision(BossShPtr boss, PlayerSh
 
 void CollisionHandler::run(std::vector<PlayerShPtr> &players,
                            std::vector<TileShPtr> &tiles,
+                           std::vector<ParticleShPtr> &particles,
                            //    ParticleSetShPtrparticles,
                            std::vector<EnemyShPtr> &enemies,
                            std::vector<TriggerShPtr> &triggers)
@@ -112,7 +116,14 @@ void CollisionHandler::run(std::vector<PlayerShPtr> &players,
     }
 
     // Checking Particle/Tile collision
-    // checkParticleSetTileCollision(particles, tiles);
+    for (auto &particle : particles)
+    {
+        checkParticleTileCollision(particle, tiles);
+        for (auto &player : players)
+        {
+            checkPlayerParticleCollision(player, particle);
+        }
+    }
 
     // Checking Enemy/Tile and Player/Particle collisions
     for (auto &enemy : enemies)
@@ -160,11 +171,12 @@ void CollisionHandler::run(std::vector<PlayerShPtr> &players,
 
 void CollisionHandler::run(std::vector<PlayerShPtr> &players,
                            std::vector<TileShPtr> &tiles,
+                           std::vector<ParticleShPtr> &particles,
                            std::vector<EnemyShPtr> &enemies,
                            std::vector<TriggerShPtr> &triggers,
                            BossShPtr boss)
 {
-    run(players, tiles, enemies, triggers);
+    run(players, tiles, particles, enemies, triggers);
 
     // check Boss collision
     checkBossTileCollision(boss, tiles);

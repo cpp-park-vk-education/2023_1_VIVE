@@ -11,6 +11,7 @@ enum ParticleType
     COIN,
     EXP,
     FIRE_BALL,
+    GEM,
 };
 
 float random_float(const float max, const float min);
@@ -22,6 +23,8 @@ protected:
     bool exists_;
     float life_time;
     float sec_since_creation;
+
+    sf::RectangleShape shape_;
 
     // Initions
     void initAnimation() override;
