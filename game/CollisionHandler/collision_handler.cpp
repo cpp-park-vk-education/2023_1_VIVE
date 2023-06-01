@@ -102,7 +102,8 @@ void CollisionHandler::checkBossFireBallPlayerCollision(BossShPtr boss, PlayerSh
 void CollisionHandler::run(std::vector<PlayerShPtr> &players,
                            std::vector<TileShPtr> &tiles,
                            //    ParticleSetShPtrparticles,
-                           std::vector<EnemyShPtr> &enemies)
+                           std::vector<EnemyShPtr> &enemies,
+                           std::vector<TriggerShPtr> &triggers)
 {
     // Cheking Player/Tile collision
     for (auto &player : players)
@@ -143,14 +144,27 @@ void CollisionHandler::run(std::vector<PlayerShPtr> &players,
             checkEnemyTileCollision(enemy, tiles);
         }
     }
+
+    // Checking Player/Trigger collisions
+    for (auto &player : players)
+    {
+        for (auto &trigger : triggers)
+        {
+            if (checkAABBCollision(player, trigger))
+            {
+                trigger->changeTrigger();
+            }
+        }
+    }
 }
 
 void CollisionHandler::run(std::vector<PlayerShPtr> &players,
                            std::vector<TileShPtr> &tiles,
                            std::vector<EnemyShPtr> &enemies,
+                           std::vector<TriggerShPtr> &triggers,
                            BossShPtr boss)
 {
-    run(players, tiles, enemies);
+    run(players, tiles, enemies, triggers);
 
     // check Boss collision
     checkBossTileCollision(boss, tiles);

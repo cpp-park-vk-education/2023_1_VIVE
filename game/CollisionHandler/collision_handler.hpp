@@ -6,6 +6,7 @@
 #include "particle_set.hpp"
 #include "enemy.hpp"
 #include "boss.hpp"
+#include "trigger.hpp"
 
 #include <vector>
 #include <iostream>
@@ -45,12 +46,14 @@ public:
     void run(std::vector<PlayerShPtr> &players,
              std::vector<TileShPtr> &tiles,
              //  ParticleSetShPtrparticles,
-             std::vector<EnemyShPtr> &enemies);
+             std::vector<EnemyShPtr> &enemies,
+             std::vector<TriggerShPtr> &triggers);
 
     void run(std::vector<PlayerShPtr> &players,
              std::vector<TileShPtr> &tiles,
              //  ParticleSetShPtrparticles,
              std::vector<EnemyShPtr> &enemies,
+             std::vector<TriggerShPtr> &triggers,
              BossShPtr boss);
 };
 

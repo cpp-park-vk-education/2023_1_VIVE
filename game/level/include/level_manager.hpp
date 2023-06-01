@@ -6,6 +6,7 @@
 #include "background.hpp"
 #include "level.hpp"
 #include "sub_level.hpp"
+#include "trigger.hpp"
 
 #include <string>
 #include <fstream>
@@ -26,14 +27,16 @@ enum BLOCK_TYPE : char
     PLAYER = 'P',
     ENEMY = 'E',
     BOSS = 'B',
+    TRIGGER = 'T',
 };
 
 class LevelManager
 {
 private:
-    // std::vector<Level> levels_;
     LEVEL curr_level_num_;
     SUBLEVEL curr_sublevel_num_;
+
+    bool next_;
 
     Level *curr_level_;
     SubLevel *curr_sublevel_;
@@ -44,12 +47,22 @@ private:
     std::map<LEVEL, std::vector<SUBLEVEL>> level_info = {
         {LEVEL::L1, {
                         SUBLEVEL::SBL1,
+                        SUBLEVEL::SBL2,
                     }},
     };
 
-public:
     LevelManager();
     LevelManager(const LEVEL level, const SUBLEVEL sublevel);
+
+public:
+    LevelManager(const LevelManager &) = delete;
+    LevelManager(LevelManager &&) = delete;
+    LevelManager &operator=(const LevelManager &) = delete;
+    LevelManager &operator=(LevelManager &&) = delete;
+    static LevelManager *getInstance();
+
+    bool checkLevel(const LEVEL level);
+    bool checkSubLevel(const SUBLEVEL sublevel);
 
     void changeLevel(const LEVEL level);
     void changeSubLevel(const SUBLEVEL sublevel);
@@ -57,6 +70,10 @@ public:
     void loadLevel();
     void loadSubLevel();
     void load();
+    void unload();
+
+    void changeNext() { next_ = true; }
+    void nextLevel();
 
     void update(const sf::Event &event);
 

@@ -32,8 +32,42 @@ void LevelManager::load()
     std::cout << "Loaded successfully" << std::endl;
 }
 
+void LevelManager::unload()
+{
+}
+
+void LevelManager::nextLevel()
+{
+    // SUBLEVEL new_sublevel = static_cast<SUBLEVEL>(
+    //     static_cast<int>(curr_sublevel_num_) + 1);
+
+    // LEVEL new_level = static_cast<LEVEL>(
+    //     static_cast<int>(curr_level_num_) + 1);
+
+    // if (checkSubLevel(new_sublevel))
+    // {
+    //     changeSubLevel(new_sublevel);
+    // }
+    // else if (checkLevel(new_level))
+    // {
+    //     changeLevel(new_level);
+    //     changeSubLevel(SUBLEVEL::SBL1);
+    // }
+
+    changeSubLevel(SUBLEVEL::SBL2);
+
+    // auto players = curr_sublevel_->getPlayers();
+    delete curr_sublevel_;
+    loadSubLevel();
+}
+
 void LevelManager::update(const sf::Event &event)
 {
+    if (next_)
+    {
+        nextLevel();
+        next_ = false;
+    }
     curr_sublevel_->update(event);
 }
 
@@ -44,6 +78,7 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
     std::vector<TileShPtr> tiles;
     std::vector<PlayerShPtr> players;
     std::vector<EnemyShPtr> enemies;
+    std::vector<TriggerShPtr> triggers;
 
     std::ifstream level_file(file_path);
     char curr_block;
@@ -51,6 +86,7 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
     PlayerShPtr player{};
     EnemyShPtr enemy{};
     BossShPtr boss{};
+    TriggerShPtr trigger{};
 
     size_t x_coord = 0;
     size_t y_coord = 0;
@@ -86,11 +122,19 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
                 enemies.push_back(enemy);
                 x_coord += BASE_SIZE;
                 break;
-            
+
             case BLOCK_TYPE::BOSS:
                 boss = std::make_shared<Boss>(
                     sf::Vector2f(BASE_SIZE * 4, BASE_SIZE * 5),
                     sf::Vector2f(x_coord, y_coord));
+                x_coord += BASE_SIZE;
+                break;
+
+            case BLOCK_TYPE::TRIGGER:
+                trigger = std::make_shared<Trigger>(
+                    sf::Vector2f(BASE_SIZE, BASE_SIZE),
+                    sf::Vector2f(x_coord, y_coord));
+                triggers.push_back(trigger);
                 x_coord += BASE_SIZE;
                 break;
 
@@ -110,7 +154,7 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
             }
         }
         size.y = y_coord;
-        return new SubLevel(size, players, tiles, enemies, boss);
+        return new SubLevel(size, players, tiles, enemies, triggers, boss);
     }
     else
     {
@@ -129,35 +173,44 @@ LevelManager::LevelManager()
 
 LevelManager::LevelManager(const LEVEL level, const SUBLEVEL sublevel)
     : curr_level_num_(level),
-      curr_sublevel_num_(sublevel)
+      curr_sublevel_num_(sublevel),
+      next_(false)
 {
     // loadLevel();
     // loadSubLevel();
 }
 
-void LevelManager::changeLevel(const LEVEL level)
+LevelManager *LevelManager::getInstance()
 {
-    // Check if given level is in the game
-    if (level_info.find(level) != level_info.end())
-    {
-        curr_level_num_ = level;
-        loadLevel();
-    }
+    static LevelManager lm;
+    return &lm;
 }
 
-void LevelManager::changeSubLevel(const SUBLEVEL sublevel)
+bool LevelManager::checkLevel(const LEVEL level)
 {
-    // Check if given level is in the game
+    return level_info.find(level) != level_info.end();
+}
+
+bool LevelManager::checkSubLevel(const SUBLEVEL sublevel)
+{
     auto it = std::find(
         level_info[curr_level_num_].begin(),
         level_info[curr_level_num_].end(),
         sublevel);
 
-    if (it != level_info[curr_level_num_].end())
-    {
-        curr_sublevel_num_ = sublevel;
-        loadSubLevel();
-    }
+    return it != level_info[curr_level_num_].end();
+}
+
+void LevelManager::changeLevel(const LEVEL level)
+{
+    curr_level_num_ = level;
+    loadLevel();
+}
+
+void LevelManager::changeSubLevel(const SUBLEVEL sublevel)
+{
+    curr_sublevel_num_ = sublevel;
+    loadSubLevel();
 }
 
 std::vector<ObjectShPtr> LevelManager::getObjects()
