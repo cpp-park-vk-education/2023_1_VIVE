@@ -231,13 +231,31 @@ void SubLevel::updateTiles(const sf::Event &event)
 
 void SubLevel::updateCollision()
 {
-    if (boss_)
+    std::vector<TileShPtr> tiles{};
+    for (auto &tile : tiles_)
     {
-        collision_handler_->run(players_, tiles_, enemies_, boss_);
+        if (checkObjectInCamera(tile))
+        {
+            tiles.push_back(tile);
+        }
+    }
+    std::vector<EnemyShPtr> enemies{};
+    for (auto &enemy : enemies_)
+    {
+        if (checkObjectInCamera(enemy))
+        {
+            enemies.push_back(enemy);
+        }
+    }
+    // std::cout << "Tiles: " << tiles.size() << "\t Enemies: " << enemies.size()
+    //           << std::endl
+    if (boss_ && checkObjectInCamera(boss_))
+    {
+        collision_handler_->run(players_, tiles, enemies, boss_);
     }
     else
     {
-        collision_handler_->run(players_, tiles_, enemies_);
+        collision_handler_->run(players_, tiles, enemies);
     }
 }
 
