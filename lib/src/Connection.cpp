@@ -1,9 +1,13 @@
 #include "Connection.hpp"
 
-Connection::Connection(tcp::socket socket, SignalManagerUPtr room_manager) : socket_(std::move(socket)),
-                                                                            room_manager_(std::move(room_manager)),
-                                                                            room_actions(std::make_unique<RoomSignals>(*room_manager))
+Connection::Connection(tcp::socket socket, SignalManagerShPtr room_manager) : socket_(std::move(socket)),
+                                                                              room_manager_(room_manager),
+                                                                              room_actions(std::make_unique<RoomSignals>())
 {
+    //room_actions = std::make_unique<RoomSignals>();
+    std::cout << "ROOM MANAGER IS " << (room_manager_ == nullptr) << std::endl;
+    room_actions->connect(*room_manager_);
+    std::cout << "ROOM ACTIONS IS " << (room_actions == nullptr) << std::endl;
     std::cout << "Building connection" << std::endl;
     buf_to_read_in_.prepare(1024);
 }
@@ -103,7 +107,7 @@ void Connection::doReadBody(int body_size)
 
                     request_.ParseFromString(string_buf);
 
-                    std::cout << "Body read " << string_buf << std::endl;
+                    std::cout << "Body read " << string_buf.size() << std::endl;
                     sendSignal();
                     doReadHeader();
                 }
@@ -145,11 +149,14 @@ void Connection::sendSignal()
 
     if (request_.has_init_multiplayer_state())
     {
-        int result = *room_actions->requestNewRoom();
+        std::cout << "Initiating multiplayer" << std::endl;
+        int result = *(room_actions->requestNewRoom());
 
         auto state = new response::Response::InitMultiplayerState;
         state->set_code(std::to_string(result));
         
+        std::cout << "Room ID " << result << std::endl;
+
         response::Response response_;
         response_.set_allocated_init_multiplayer_state(state);
         sendResponse(response_);
@@ -229,9 +236,7 @@ void Connection::deliver(const response::Response& resp)
     resp_queue_to_write.push(resp);
 
     if (!write_in_progress)
-    {
         doWrite();
-    }
 }
 
 void Connection::close()

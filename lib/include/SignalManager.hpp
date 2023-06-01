@@ -13,7 +13,7 @@ class Server;
 using ServerShPtr = std::shared_ptr<Server>;
 
 class SignalManager;
-using SignalManagerUPtr = std::unique_ptr<SignalManager>;
+using SignalManagerShPtr = std::shared_ptr<SignalManager>;
 
 class Connection;
 using ConnectionShPtr = std::shared_ptr<Connection>;

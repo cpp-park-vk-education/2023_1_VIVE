@@ -21,13 +21,13 @@ private:
     request::Request request_;
     std::queue<response::Response> resp_queue_to_write;
 
+    SignalManagerShPtr room_manager_;
     RoomSignalsUPtr room_actions;
-    SignalManagerUPtr room_manager_;
 
     boost::asio::streambuf buf_to_read_in_;
 
 public:
-    Connection(tcp::socket socket, SignalManagerUPtr room_manager);
+    Connection(tcp::socket socket, SignalManagerShPtr room_manager);
     ~Connection();
 
     void start();

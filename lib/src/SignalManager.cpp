@@ -6,16 +6,22 @@ SignalManager::SignalManager(ServerShPtr server) : server_(server), room_(nullpt
 
 void SignalManager::setConnection(ConnectionShPtr connection)
 {
+    std::cout << "INVALID CONNECTION: " << (connection == nullptr) << std::endl;
     if (!connection_)
+    {
         connection_ = connection;
+        std::cout << "CONNECTION SET: " << (connection_ == nullptr) << std::endl;
+    }
     else
         std::cerr << "This SignalManager already has connection!" << std::endl;
 }
 
 int SignalManager::getNewRoom()
 {
-    if (!room_)
+    if (room_)
         room_->leave(connection_);
+
+    std::cout << "GET NEW ROOM CONNECTION IS: " << (connection_ == nullptr) << std::endl;
 
     auto new_room = server_->createNewRoom(connection_);
 

@@ -9,10 +9,11 @@ class SessionRoom
 {
 private:
     std::unordered_set<ConnectionShPtr> participants;
+    ConnectionShPtr host;
     GameCalculatorUPtr game_calc;
 
 public:
-    SessionRoom();
+    SessionRoom(ConnectionShPtr connection);
 
     void join(const ConnectionShPtr new_participant);
     void leave(const ConnectionShPtr participant_to_leave);

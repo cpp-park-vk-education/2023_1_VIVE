@@ -11,7 +11,9 @@ using RoomSignalsUPtr = std::unique_ptr<RoomSignals>;
 class RoomSignals
 {
 public:
-    RoomSignals(const SignalManager& room_manager)
+    RoomSignals() = default;
+
+    void connect(SignalManager& room_manager)
     {
         requestNewRoom.connect(std::bind(&SignalManager::getNewRoom, room_manager));
         joinRoom.connect(std::bind(&SignalManager::joinExistentRoom, room_manager, std::placeholders::_1));

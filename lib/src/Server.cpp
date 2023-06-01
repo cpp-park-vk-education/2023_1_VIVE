@@ -15,7 +15,7 @@ void Server::doAccept()
             if (!error)
             {
                 std::cout << "Connected" << std::endl;
-                auto new_connection = std::make_shared<Connection>(std::move(socket), std::make_unique<SignalManager>(shared_from_this()));
+                auto new_connection = std::make_shared<Connection>(std::move(socket), std::make_shared<SignalManager>(shared_from_this()));
                 free_connections.insert(new_connection);
                 new_connection->start();
             }
@@ -29,14 +29,16 @@ void Server::doAccept()
 
 std::pair<RoomShPtr, int> Server::createNewRoom(ConnectionShPtr connection)
 {
-    RoomShPtr new_room = std::make_shared<SessionRoom>();
+    std::cout << "Connection is Invalid: " << (connection == nullptr) << std::endl;
+    RoomShPtr new_room = std::make_shared<SessionRoom>(connection);
     bool success = id2room.insert(std::make_pair(++highest_room_id, new_room)).second;
 
     if (!success)
         return std::make_pair(nullptr, 0);
 
-    new_room->join(connection);
+    //new_room->join(connection);
     free_connections.erase(connection);
+    std::cout << "Free connections size: " << free_connections.size() << std::endl;
 
     return std::make_pair(new_room, highest_room_id);
 }
@@ -47,8 +49,12 @@ RoomShPtr Server::getRoom(int room_id, ConnectionShPtr connection)
     auto result = id2room.find(room_id);
     
     if (result == id2room.end())
+    {
+        std::cout << "Not found" << std::endl;
         return nullptr;
+    }
 
+    std::cout << "Found" << std::endl;
     result->second->join(connection);
     free_connections.erase(connection);
 
