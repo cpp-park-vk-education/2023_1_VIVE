@@ -14,6 +14,6 @@ void State::clearHeap()
     {
         heap_.pop();
     }
-    std::cout << "heap size in state: " << heap_.size() << std::endl;
+    // std::cout << "heap size in state: " << heap_.size() << std::endl;
 }
 

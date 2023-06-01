@@ -63,6 +63,7 @@ private:
     void updateEnemies(const sf::Event& event, const float delta_time);
     void updateBoss(const sf::Event& event, const float delta_time);
     void updateNonExistentObjects();
+    void updateOutOfBounds();
 
 
     // Initions
@@ -73,5 +74,6 @@ private:
 
     // Spawners
     void spawnEnemies();
+    void spawnPlayer(PlayerShPtr player);
 
 };

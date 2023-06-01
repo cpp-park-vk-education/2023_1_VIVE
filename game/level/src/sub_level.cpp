@@ -58,6 +58,7 @@ void SubLevel::update(const sf::Event &event)
     updateNonExistentObjects();
     updateCollision();
     // updateHeap();
+    updateOutOfBounds();
 }
 
 void SubLevel::setMapSize(const sf::Vector2u size)
@@ -116,7 +117,16 @@ void SubLevel::spawnEnemies()
     enemies_.push_back(enemy);
 }
 
-void SubLevel::updateBackGround() {
+void SubLevel::spawnPlayer(PlayerShPtr player)
+{
+    int player_new_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
+    player->setPosition(sf::Vector2f(player_new_pos_x, 100.f));
+    player->spawn();
+    player->setStayAnimation();
+}
+
+void SubLevel::updateBackGround()
+{
     background_->move(camera_->getTopLeftCameraCoordinates());
 }
 
@@ -136,10 +146,7 @@ void SubLevel::updatePlayer(const sf::Event &event, const float delta_time)
         {
             if (player->checkDeathFreeze(delta_time))
             {
-                int player_new_pos_x = random_int(0, GameEngine::getWindow().getSize().x);
-                player->setPosition(sf::Vector2f(player_new_pos_x, 100.f));
-                player->spawn();
-                player->setStayAnimation();
+                spawnPlayer(player);
             }
         }
         player->updateAnimation(delta_time);
@@ -225,4 +232,17 @@ void SubLevel::updateNonExistentObjects()
     // {
     //     std::cout << "Enemy disappeared" << std::endl;
     // }
+}
+
+void SubLevel::updateOutOfBounds()
+{
+    // check players
+    for (auto &player : players_)
+    {
+        if (player->getPosition().y > getMapSize().y)
+        {
+            std::cout << "Out" << std::endl;
+            spawnPlayer(player);
+        }
+    }
 }

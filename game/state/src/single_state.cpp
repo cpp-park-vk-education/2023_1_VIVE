@@ -31,10 +31,10 @@ void SingleState::load()
 
 void SingleState::updateHeap()
 {
-    std::cout << "heap size before update single state: " << heap_.size() << std::endl;
+    // std::cout << "heap size before update single state: " << heap_.size() << std::endl;
     for (auto& object : level_manager->getObjects())
     {
         heap_.push(object);
     }
-    std::cout << "heap size after update single state: " << heap_.size() << std::endl;
+    // std::cout << "heap size after update single state: " << heap_.size() << std::endl;
 }
