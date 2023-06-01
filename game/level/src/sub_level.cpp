@@ -254,3 +254,16 @@ void SubLevel::updateNonExistentObjects()
         }
     }
 }
+
+void SubLevel::updateOutOfBounds()
+{
+    // check players
+    for (auto &player : players_)
+    {
+        if (player->getPosition().y > getMapSize().y)
+        {
+            std::cout << "Out" << std::endl;
+            spawnPlayer(player);
+        }
+    }
+}
