@@ -38,7 +38,7 @@ void Boss::initStats()
 {
     sight_radius_ = 500;
 
-    hp_ = 50;
+    hp_ = 500;
     hp_max_ = hp_;
 
     death_cooldown_ = 0.0f;
