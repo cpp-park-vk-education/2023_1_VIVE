@@ -21,9 +21,6 @@ protected:
     ParticleType type_;
     bool exists_;
 
-    // TODO remove shape
-    sf::RectangleShape shape_;
-
     // Initions
     void initAnimation() override;
     void initSprite() override;

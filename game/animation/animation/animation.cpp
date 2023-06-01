@@ -38,6 +38,8 @@ Animation::Animation(const std::string& name_of_animation_object)
     file >> ap.begin_pos_x >> ap.begin_pos_y >> ap.offset_x >> ap.offset_y >> ap.frame_duration >> ap.looped >> ap.count_of_frames;
     anim_settigns_[AnimStates::JUMP_ANIM] = ap;
 
+    anim_settigns_[AnimStates::PARTICLE_ATTACK] = anim_settigns_[AnimStates::ATTACK_ANIM];
+
     if (!file.eof()) {
         file >> ap.begin_pos_x >> ap.begin_pos_y >> ap.offset_x >> ap.offset_y >> ap.frame_duration >> ap.looped >> ap.count_of_frames;
         anim_settigns_[AnimStates::GET_DAMMAGE] = ap;
@@ -100,6 +102,7 @@ void Animation::changeAnimation(AnimStates current_state) {
             setDeathAnimation();
             break;
     case AnimStates::ATTACK_ANIM:
+    case AnimStates::PARTICLE_ATTACK:
             setAttackAnimation();
             break;
     case AnimStates::GET_DAMMAGE:

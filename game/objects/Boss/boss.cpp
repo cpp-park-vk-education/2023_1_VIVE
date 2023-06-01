@@ -45,7 +45,7 @@ void Boss::initStats()
     attacking_ = false;
     damage_ = 50;
     damage_radius_ = 250;
-    attack_cooldown_ = 1;
+    attack_cooldown_ = 2;
     sec_since_last_hit_ = attack_cooldown_;
 }
 
@@ -152,6 +152,11 @@ void Boss::updateMovement(const float delta_time)
     {
         velocity_.x = (velocity_.x / std::abs(velocity_.x)) * max_speed_;
     }
+
+    if (std::abs(velocity_.y) > max_speed_)
+    {
+        velocity_.y = (velocity_.y / std::abs(velocity_.y)) * max_speed_;
+    }
 }
 
 void Boss::updateMovement(const float delta_time, EntityShPtr target)
@@ -164,6 +169,7 @@ void Boss::updateMovement(const float delta_time, EntityShPtr target)
     if (/* length < sight_radius_ &&  */ length > damage_radius_)
     {
         acceleration_.x = (speed_ * direction.x) / delta_time;
+        acceleration_.y = (speed_ * direction.y) / delta_time;
         updateMovement(delta_time);
     }
     else if (length < damage_radius_ * 0.9)
@@ -174,6 +180,7 @@ void Boss::updateMovement(const float delta_time, EntityShPtr target)
     else
     {
         acceleration_.x = 0;
+        acceleration_.y = 0;
         slowDown();
         updateMovement(delta_time);
     }
