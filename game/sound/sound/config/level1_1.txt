@@ -6,3 +6,5 @@ sounds/running.wav  14
 sounds/jump.wav 15
 sounds/player_death.wav 17
 sounds/enemy_death.wav  18
+sounds/coin_sound.wav 21
+sounds/exp_sound.wav 22

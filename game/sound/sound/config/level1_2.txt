@@ -6,3 +6,4 @@ sounds/get_damage.wav 13
 sounds/running.wav  14
 sounds/jump.wav 15
 sounds/player_death.wav 17
+sounds/gs_sound.wav 23

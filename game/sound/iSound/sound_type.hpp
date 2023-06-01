@@ -17,4 +17,7 @@ enum SoundType {
     PLAYER_DEATH = 17,
     ENEMY_DEATH = 18,
     LANDING_GROUND = 20,
+    COINT_GETTING = 21,
+    EXP_GETTING = 22,
+    GS_GETTING = 23,
 };

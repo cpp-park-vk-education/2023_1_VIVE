@@ -24,12 +24,7 @@ void Particle::initSprite()
         break;
 
     case ParticleType::GEM:
-        // initAnimation();
-        // sprite_ = animation_->getSpriteAnimation();
-        // TODO remove shape_
-        shape_.setFillColor(sf::Color::Green);
-        shape_.setPosition(hitbox_.getPosition());
-        shape_.setSize(hitbox_.getSize());
+        sprite_.setTexture(AssetManager::getInstance()->getTexture("ground_stone"));
         break;
 
     default:
@@ -37,10 +32,11 @@ void Particle::initSprite()
     }
 
     if (type_ != ParticleType::GEM)
-    {
         sprite_.setScale(0.05f, 0.05f);
-        sprite_.setPosition(hitbox_.getPosition());
-    }
+    else
+        sprite_.setScale(0.10f, 0.10f);
+
+    sprite_.setPosition(hitbox_.getPosition());
 }
 
 void Particle::initVelocity(sf::Vector2f direction,
@@ -144,7 +140,7 @@ void Particle::update(const sf::Event &event, const float delta_time)
         // TODO remove shape_
         if (type_ == ParticleType::GEM)
         {
-            shape_.setPosition(hitbox_.getPosition());
+            sprite_.setPosition(hitbox_.getPosition());
         }
         updateMovement(delta_time);
         if (type_ == ParticleType::FIRE_BALL)
@@ -170,15 +166,7 @@ void Particle::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
     if (exists_)
     {
-        // TODO remove shape_
-        if (type_ != ParticleType::GEM)
-        {
-            target.draw(sprite_);
-        }
-        else
-        {
-            target.draw(shape_);
-        }
+        target.draw(sprite_);
     }
 }
 

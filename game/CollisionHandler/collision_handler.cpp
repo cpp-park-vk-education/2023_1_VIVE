@@ -64,12 +64,15 @@ void CollisionHandler::checkPlayerParticleCollision(PlayerShPtr player,
         switch (particle->getType())
         {
         case ParticleType::COIN:
+            SoundManager::getInstance()->playSoundEffect(SoundType::COINT_GETTING);
             player->updateCoinsCount(1);
             break;
         case ParticleType::EXP:
+            SoundManager::getInstance()->playSoundEffect(SoundType::EXP_GETTING);
             player->updateExp(1);
             break;
         case ParticleType::GEM:
+            SoundManager::getInstance()->playSoundEffect(SoundType::GS_GETTING);
             player->updateExp(100);
             break;
 
