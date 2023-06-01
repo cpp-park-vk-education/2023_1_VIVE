@@ -10,9 +10,9 @@
 #include "state.hpp"
 #include "main_menu_state.hpp"
 #include "single_state.hpp"
-#include "coop_state.hpp"
 #include "init_multiplayer_state.hpp"
 #include "join_state.hpp"
+#include "host_coop_state.hpp"
 
 class StateManager {
 public:
@@ -23,6 +23,8 @@ public:
         SINGLE_STATE,
         COOP_STATE,
         GAME_MENU_STATE,
+        HOST_COOP_STATE,
+        GUEST_COOP_STATE,
     };
 
 public:
@@ -49,6 +51,7 @@ private:
             {INIT_MULTIPLAYER_STATE, std::make_shared<InitMultiplayerState>()},
             {JOIN_STATE, std::make_shared<JoinState>()},
             {SINGLE_STATE, std::make_shared<SingleState>()},
+            {HOST_COOP_STATE, std::make_shared<HostCoopState>()},
         //    {COOP_STATE, std::make_shared<CoopState>()},
     };
 };

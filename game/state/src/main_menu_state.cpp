@@ -8,7 +8,7 @@ MainMenuState::MainMenuState() {
 }
 
 void MainMenuState::update(const sf::Event &event) {
-    SoundManager::getInstance()->playMusic();
+//    SoundManager::getInstance()->playMusic();
 
     StateManager *manager = GameEngine::getStateManager();
     for (const auto &btn: buttons_) {
@@ -58,7 +58,6 @@ void MainMenuState::sendServerAboutInitMultiplayer_() {
     proto::Request msg;
     proto::Request::InitMultiplayerState state;
     *msg.mutable_init_multiplayer_state() = state;
-    std::cout << msg.has_init_multiplayer_state() << std::endl;
     GameEngine::getClient()->writeMessage(msg);
 }
 
