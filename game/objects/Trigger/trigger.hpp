@@ -7,8 +7,10 @@ class Trigger : public PhysicalObject
 protected:
     bool trigger;
 
+    sf::RectangleShape shape_;
+
     // Initions
-    void initSprite() override{};
+    void initSprite() override;
     void initPhysics() override{};
 
 public:
@@ -19,7 +21,7 @@ public:
     void update(const sf::Event &event, const float delta_time) override;
 
     virtual void draw(sf::RenderTarget &target,
-                      sf::RenderStates state) const override{};
+                      sf::RenderStates state) const override;
 
     void changeTrigger();
 };
