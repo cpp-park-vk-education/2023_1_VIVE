@@ -11,6 +11,8 @@ protected:
     // ParticleSet coin_particles_;
     float sight_radius_;
     float curr_fireball_lifetime_;
+    float death_cooldown_;
+    bool death_anim_;
 
     ParticleShPtr fireball_;
 
@@ -42,6 +44,8 @@ public:
     void draw(sf::RenderTarget &target, sf::RenderStates state) const override;
 
     virtual void setNewAnimation(AnimStates current_state) override {};
+
+    virtual void updateHP() override;
 
     // MovableObject overrides
     void updateMovement(const float delta_time) override;

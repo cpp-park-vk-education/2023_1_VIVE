@@ -41,11 +41,14 @@ void Boss::initStats()
     hp_ = 500;
     hp_max_ = hp_;
 
+    death_cooldown_ = 0.0f;
+    death_anim_ = false;
+
     alive_ = true;
     attacking_ = false;
     damage_ = 50;
     damage_radius_ = 250;
-    attack_cooldown_ = 2;
+    attack_cooldown_ = 1.5;
     sec_since_last_hit_ = attack_cooldown_;
 }
 
@@ -121,6 +124,18 @@ void Boss::update(const sf::Event &event, const float delta_time,
     {
         updateFireBall(event, delta_time);
     }
+    if (isDead()) {
+        death_cooldown_ += delta_time;
+
+        if (death_cooldown_ <= 1.5f) {
+            animation_->update(delta_time);
+            sprite_ = animation_->getSpriteAnimation();
+            sprite_.setPosition(hitbox_.getPosition());
+        } else {
+            death_anim_ = true;
+            hitbox_.remove();
+        }
+    }
 }
 
 void Boss::draw(sf::RenderTarget &target, sf::RenderStates state) const
@@ -133,6 +148,30 @@ void Boss::draw(sf::RenderTarget &target, sf::RenderStates state) const
             fireball_->draw(target, sf::RenderStates());
         }
     }
+    if (!death_anim_) {
+        target.draw(sprite_);
+    }
+}
+
+void Boss::updateHP() {
+    int new_hp = hp_ - damage_taken_;
+
+    if (damage_taken_ > 0) {
+        SoundManager::getInstance()->playSoundEffect(SoundType::ENEMY_GET_DAMAGE);
+    }
+
+    if (new_hp <= 0)
+    {
+        animation_->changeAnimation(AnimStates::DEATH_ANIM);
+        SoundManager::getInstance()->playWinningMusic();
+        hp_ = 0;
+        alive_ = false;
+    }
+    else
+    {
+        hp_ = new_hp;
+    }
+    damage_taken_ = 0;
 }
 
 void Boss::updateMovement(const float delta_time)
@@ -247,6 +286,7 @@ void Boss::attack(EntityShPtr target)
 
     sf::Vector2f attack_dir(dir_x, dir_y);
 
+    SoundManager::getInstance()->playSoundEffect(SoundType::ENEMY_FIRE_ATTACK);
     animation_->changeAnimation(AnimStates::ATTACK_ANIM);
     fireball_->shoot(getCenter(), attack_dir);
     curr_fireball_lifetime_ = 0;
