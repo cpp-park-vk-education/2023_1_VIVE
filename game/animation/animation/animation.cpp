@@ -38,6 +38,11 @@ Animation::Animation(const std::string& name_of_animation_object)
     file >> ap.begin_pos_x >> ap.begin_pos_y >> ap.offset_x >> ap.offset_y >> ap.frame_duration >> ap.looped >> ap.count_of_frames;
     anim_settigns_[AnimStates::JUMP_ANIM] = ap;
 
+    if (!file.eof()) {
+        file >> ap.begin_pos_x >> ap.begin_pos_y >> ap.offset_x >> ap.offset_y >> ap.frame_duration >> ap.looped >> ap.count_of_frames;
+        anim_settigns_[AnimStates::GET_DAMMAGE] = ap;
+    }
+
     file.close();
 }
 
@@ -56,12 +61,16 @@ AnimStates Animation::getCurrentState() const {
     return current_state_;
 }
 
-void Animation::changeAnimation(AnimStates current_state) {    
+void Animation::changeAnimation(AnimStates current_state) { 
     if (current_state_ == AnimStates::DEATH_ANIM && current_state == AnimStates::DEATH_ANIM)
         return;
 
-    if (is_playing_ && current_state_ == AnimStates::ATTACK_ANIM)
+    if (is_playing_ && current_state_ == AnimStates::ATTACK_ANIM && current_state != AnimStates::GET_DAMMAGE)
             return;
+
+    if (is_playing_ && current_state_ == AnimStates::GET_DAMMAGE && current_state != AnimStates::GET_DAMMAGE) {
+        return;
+    }
 
     if (is_playing_ && current_state_ == AnimStates::JUMP_ANIM && current_state != AnimStates::ATTACK_ANIM) {
             if (current_state == AnimStates::LEFT_RUN_ANIM)
@@ -92,6 +101,9 @@ void Animation::changeAnimation(AnimStates current_state) {
             break;
     case AnimStates::ATTACK_ANIM:
             setAttackAnimation();
+            break;
+    case AnimStates::GET_DAMMAGE:
+            setDamageTakenAnimation();
             break;
     default:        
             break;
@@ -158,6 +170,11 @@ void Animation::setAttackAnimation() {
 
 void Animation::setJumpAnimation() {
     current_animation_ = anim_settigns_[AnimStates::JUMP_ANIM];
+    current_frame_ = 0;
+}
+
+void Animation::setDamageTakenAnimation() {
+    current_animation_ = anim_settigns_[AnimStates::GET_DAMMAGE];
     current_frame_ = 0;
 }
 
