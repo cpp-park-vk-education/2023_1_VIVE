@@ -54,7 +54,7 @@ void SubLevel::update(const sf::Event &event)
     updatePlayer(event, delta_time);
     updateCamera();
     updatePUI();
-    updateTiles(event);
+    // updateTiles(event);
     updateEnemies(event, delta_time);
     updateBoss(event, delta_time);
     updateNonExistentObjects();
@@ -129,18 +129,46 @@ void SubLevel::spawnPlayer(PlayerShPtr player)
     player->setStayAnimation();
 }
 
-void SubLevel::updateBackGround() {
+bool SubLevel::checkObjectInCamera(const PhysicalObjectShPtr object)
+{
+    float camera_left_bound = camera_->getCameraCenter().x -
+                              camera_->getCameraSize().x / 2;
+
+    float camera_right_bound = camera_->getCameraCenter().x +
+                               camera_->getCameraSize().x / 2;
+
+    float camera_upper_bound = camera_->getCameraCenter().y -
+                               camera_->getCameraSize().y / 2;
+
+    float camera_lower_bound = camera_->getCameraCenter().y +
+                               camera_->getCameraSize().y / 2;
+
+    if (object->getCenter().x < camera_left_bound ||
+        object->getCenter().x > camera_right_bound ||
+        object->getCenter().y < camera_upper_bound ||
+        object->getCenter().y > camera_lower_bound)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+void SubLevel::updateBackGround()
+{
     AnimStates cur_state = players_[0]->getCurrentState();
     switch (cur_state)
     {
     case AnimStates::STAY_ANIM:
-        background_->move(camera_->getTopLeftCameraCoordinates(), 's'); 
+        background_->move(camera_->getTopLeftCameraCoordinates(), 's');
         break;
     default:
         if (players_[0]->isLeftRun())
-            background_->move(camera_->getTopLeftCameraCoordinates(), 'l'); 
+            background_->move(camera_->getTopLeftCameraCoordinates(), 'l');
         else
-            background_->move(camera_->getTopLeftCameraCoordinates(), 'r'); 
+            background_->move(camera_->getTopLeftCameraCoordinates(), 'r');
         break;
     }
 }
@@ -220,22 +248,21 @@ void SubLevel::updateEnemies(const sf::Event &event, const float delta_time)
         spawnEnemies();
     }
 
-    for (const auto &enemy : enemies_)
+    for (auto &enemy : enemies_)
     {
-        // if (enemy->isDead)
-        // {
-        //     delete enemy
-        // }
-        enemy->update(event, delta_time, players_.front());
-        // enemy->updateAttack(event_, player_, delta_time);
+        if (checkObjectInCamera(enemy))
+        {
+            enemy->update(event, delta_time, players_.front());
+        }
     }
 }
 
 void SubLevel::updateBoss(const sf::Event &event, const float delta_time)
 {
-    if (boss_)
+    if (boss_ &&
+        (checkObjectInCamera(boss_) ||
+         checkObjectInCamera(boss_->getFireBall())))
     {
-        // std::cout << boss_->getHP() << "/" << boss_->getHPMax() << std::endl;
         boss_->update(event, delta_time, players_.front());
     }
 }

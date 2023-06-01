@@ -36,7 +36,6 @@ public:
     sf::Vector2u getMapSize() const;
 
 private:
-
     BackGroundShPtr background_;
     std::vector<TileShPtr> tiles_;
     std::vector<PlayerShPtr> players_;
@@ -54,18 +53,19 @@ private:
     // Time
     sf::Clock clock_;
 
+    bool checkObjectInCamera(const PhysicalObjectShPtr object);
+
     // Updates
     void updateBackGround();
-    void updatePlayer(const sf::Event& event, const float delta_time);
+    void updatePlayer(const sf::Event &event, const float delta_time);
     void updateCamera();
     void updatePUI();
-    void updateTiles(const sf::Event& event);
+    void updateTiles(const sf::Event &event);
     void updateCollision();
-    void updateEnemies(const sf::Event& event, const float delta_time);
-    void updateBoss(const sf::Event& event, const float delta_time);
+    void updateEnemies(const sf::Event &event, const float delta_time);
+    void updateBoss(const sf::Event &event, const float delta_time);
     void updateNonExistentObjects();
     void updateOutOfBounds();
-
 
     // Initions
     void init();
@@ -76,5 +76,4 @@ private:
     // Spawners
     void spawnEnemies();
     void spawnPlayer(PlayerShPtr player);
-
 };
