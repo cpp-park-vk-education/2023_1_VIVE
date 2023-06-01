@@ -56,7 +56,7 @@ void MainMenuState::load()
         name_to_en_btn_.insert({names_[i], en_buttons_[i]});
 
         ButtonShPtr btn = std::make_shared<Button>();
-        btn->setParams(names_[i], 60, 5, 15, sf::Color::Red);
+        btn->setParams(names_[i], 60, 5, 15, sf::Color::Green);
         btn->setPosition(100, (i + 1) * 100);
         btn->setHoverColor(sf::Color::Yellow);
         btn->setActiveColor(sf::Color(222, 238, 0));

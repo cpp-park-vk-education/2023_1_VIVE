@@ -46,6 +46,11 @@ void GameEngine::run()
     window_.setPosition(sf::Vector2i(w_width_ / 4, w_height_ / 4));
 
     state_manager_.init();
+
+    sf::Texture& txtr = AssetManager::getInstance()->getTexture("pixel_mountain");
+    bg_main_.setTexture(txtr);
+    bg_main_.setScale(float(window_.getSize().x) / txtr.getSize().x, float(window_.getSize().y) / txtr.getSize().y);
+
     while (window_.isOpen())
     {
         update();
@@ -77,7 +82,10 @@ void GameEngine::update()
 
 void GameEngine::render()
 {
-    window_.clear(sf::Color::Green);
+    if (state_manager_.getState() == StateManager::EnState::MAIN_MENU_STATE) {
+        window_.draw(bg_main_);
+    }
+
     ObjectsHeap heap = state_manager_.getHeap();
     while (!heap.empty())
     {

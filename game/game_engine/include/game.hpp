@@ -34,6 +34,8 @@ private:
 private:
     static GameEngine* game_engine_;
 
+    sf::Sprite bg_main_;
+
     unsigned int w_width_ = sf::VideoMode::getDesktopMode().width;
     unsigned int w_height_ = sf::VideoMode::getDesktopMode().height;
 
