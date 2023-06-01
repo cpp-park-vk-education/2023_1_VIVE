@@ -93,7 +93,7 @@ void BackGround::move(sf::Vector2f goal_coor, char current_state) {
         factor = -1;
     }
 
-    if (current_state != 's' && last_offset_.x - goal_coor.x != 0) {
+    if (last_offset_.x - goal_coor.x != 0) {
         for (int i = 1; i < sprites_.size(); i += 2) {
             sprites_[i].setPosition(sprites_[i].getPosition().x + (layers_speed_[i / 2 + 1] * factor), goal_coor.y);
             if (sprites_[i].getPosition().x >= goal_coor.x) {

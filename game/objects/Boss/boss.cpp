@@ -3,19 +3,14 @@
 
 void Boss::initAnimation()
 {
-    animation_ = std::make_unique<Animation>("player_animation");
+    animation_ = std::make_unique<Animation>("boss_animation");
     animation_->updateSpriteSize(hitbox_.getSize());
 }
 
 void Boss::initSprite()
 {
-    // sprite_ = animation_->getSpriteAnimation();
-    // sprite_.setPosition(hitbox_.getPosition());
-    // TODO remove shape
-    shape_.setSize(hitbox_.getSize());
-    shape_.setFillColor(sf::Color::Red);
-    shape_.setOutlineColor(sf::Color::Black);
-    shape_.setOutlineThickness(2);
+    sprite_ = animation_->getSpriteAnimation();
+    sprite_.setPosition(hitbox_.getPosition());
 }
 
 void Boss::initPhysics()
@@ -50,7 +45,7 @@ void Boss::initStats()
     attacking_ = false;
     damage_ = 50;
     damage_radius_ = 250;
-    attack_cooldown_ = 1;
+    attack_cooldown_ = 2;
     sec_since_last_hit_ = attack_cooldown_;
 }
 
@@ -110,10 +105,16 @@ void Boss::update(const sf::Event &event, const float delta_time,
     if (!isDead())
     {
         updateMovement(delta_time, target);
-        // TODO remove shape
-        shape_.setPosition(hitbox_.getPosition());
+        animation_->update(delta_time);
+        sprite_ = animation_->getSpriteAnimation();
+        sprite_.setPosition(hitbox_.getPosition());
         updateAttack(event, target, delta_time);
         updateFireBall(event, delta_time);
+
+        if (damage_taken_ > 0) {
+            animation_->changeAnimation(AnimStates::GET_DAMMAGE);
+        }
+
         updateHP();
     }
     else if (fireBallOut())
@@ -126,8 +127,7 @@ void Boss::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
     if (!isDead())
     {
-        // target.draw(sprite_);
-        target.draw(shape_);
+        target.draw(sprite_);
         if (fireball_->doesExist())
         {
             fireball_->draw(target, sf::RenderStates());
@@ -142,10 +142,20 @@ void Boss::updateMovement(const float delta_time)
 
     velocity_ = velocity_ + acceleration_ * delta_time;
 
+    if (velocity_.x < 0)
+        animation_->changeAnimation(AnimStates::LEFT_RUN_ANIM);
+    else
+        animation_->changeAnimation(AnimStates::RIGHT_RUN_ANIM);
+
     // Limit velocity.x
     if (std::abs(velocity_.x) > max_speed_)
     {
         velocity_.x = (velocity_.x / std::abs(velocity_.x)) * max_speed_;
+    }
+
+    if (std::abs(velocity_.y) > max_speed_)
+    {
+        velocity_.y = (velocity_.y / std::abs(velocity_.y)) * max_speed_;
     }
 }
 
@@ -159,6 +169,7 @@ void Boss::updateMovement(const float delta_time, EntityShPtr target)
     if (/* length < sight_radius_ &&  */ length > damage_radius_)
     {
         acceleration_.x = (speed_ * direction.x) / delta_time;
+        acceleration_.y = (speed_ * direction.y) / delta_time;
         updateMovement(delta_time);
     }
     else if (length < damage_radius_ * 0.9)
@@ -169,6 +180,7 @@ void Boss::updateMovement(const float delta_time, EntityShPtr target)
     else
     {
         acceleration_.x = 0;
+        acceleration_.y = 0;
         slowDown();
         updateMovement(delta_time);
     }
@@ -187,7 +199,6 @@ void Boss::updateAttack(const sf::Event &event, std::shared_ptr<Entity> target, 
         attacking_ = true;
         attack(target);
         sec_since_last_hit_ = 0;
-        // animation_->changeAnimation('a');
     }
     else if (attacking_)
     {
@@ -236,6 +247,7 @@ void Boss::attack(EntityShPtr target)
 
     sf::Vector2f attack_dir(dir_x, dir_y);
 
+    animation_->changeAnimation(AnimStates::ATTACK_ANIM);
     fireball_->shoot(getCenter(), attack_dir);
     curr_fireball_lifetime_ = 0;
 }

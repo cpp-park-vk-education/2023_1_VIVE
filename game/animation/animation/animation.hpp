@@ -27,6 +27,7 @@ private:
     void setDeathAnimation();
     void setAttackAnimation();
     void setJumpAnimation();
+    void setDamageTakenAnimation();
 
     void playAnimation(float delta_time);
     void playLeftRunAnimation(float delta_time);

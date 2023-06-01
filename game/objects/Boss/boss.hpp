@@ -6,7 +6,6 @@
 class Boss : public Entity
 {
 protected:
-    sf::RectangleShape shape_;
     // int type_;
     // ParticleSet exp_particles_;
     // ParticleSet coin_particles_;

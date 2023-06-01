@@ -1,7 +1,8 @@
 #include "particle.hpp"
 
-void Particle::initAnimation()
-{
+void Particle::initAnimation() {
+    animation_ = std::make_unique<Animation>("fire_ball_animation");
+    animation_->updateSpriteSize(hitbox_.getSize());
 }
 
 void Particle::initSprite()
@@ -17,23 +18,19 @@ void Particle::initSprite()
         break;
 
     case ParticleType::FIRE_BALL:
-        // TODO remove shape
-        shape_.setFillColor(sf::Color::Yellow);
-        shape_.setOutlineColor(sf::Color::Red);
-        shape_.setOutlineThickness(1);
-        shape_.setSize(hitbox_.getSize());
-        shape_.setPosition(hitbox_.getPosition());
+        initAnimation();
+        sprite_ = animation_->getSpriteAnimation();
         break;
 
     default:
         break;
     }
 
-    if (type_ != ParticleType::FIRE_BALL)
-    {
+    // if (type_ != ParticleType::FIRE_BALL)
+    // {
         sprite_.setScale(0.05f, 0.05f);
         sprite_.setPosition(hitbox_.getPosition());
-    }
+    // }
 }
 
 void Particle::initVelocity(sf::Vector2f direction,
@@ -92,6 +89,7 @@ Particle::~Particle()
 
 void Particle::shoot(const sf::Vector2f &init_pos, sf::Vector2f direction)
 {
+    animation_->changeAnimation(AnimStates::PARTICLE_ATTACK);
     create();
     setPosition(init_pos);
     initVelocity(direction, max_speed_);
@@ -137,7 +135,9 @@ void Particle::update(const sf::Event &event, const float delta_time)
         updateMovement(delta_time);
         if (type_ == ParticleType::FIRE_BALL)
         {
-            shape_.setPosition(hitbox_.getPosition());
+            animation_->update(delta_time);
+            sprite_ = animation_->getSpriteAnimation();
+            sprite_.setPosition(hitbox_.getPosition());
         }
 
         // life time handle
@@ -156,14 +156,7 @@ void Particle::draw(sf::RenderTarget &target, sf::RenderStates state) const
 {
     if (exists_)
     {
-        if (type_ != ParticleType::FIRE_BALL)
-        {
-            target.draw(sprite_);
-        }
-        else
-        {
-            target.draw(shape_);
-        }
+        target.draw(sprite_);
     }
 }
 

@@ -89,7 +89,7 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
             
             case BLOCK_TYPE::BOSS:
                 boss = std::make_shared<Boss>(
-                    sf::Vector2f(BASE_SIZE * 3, BASE_SIZE * 3),
+                    sf::Vector2f(BASE_SIZE * 4, BASE_SIZE * 5),
                     sf::Vector2f(x_coord, y_coord));
                 x_coord += BASE_SIZE;
                 break;

@@ -17,6 +17,8 @@ enum AnimStates {
     STAY_ANIM,
     DEATH_ANIM,
     ATTACK_ANIM,
+    GET_DAMMAGE,
+    PARTICLE_ATTACK,
 };
 
 class IAnimatable {

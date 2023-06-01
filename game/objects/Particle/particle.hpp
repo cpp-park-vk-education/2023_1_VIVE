@@ -23,9 +23,6 @@ protected:
     float life_time;
     float sec_since_creation;
 
-    // TODO remove shape
-    sf::RectangleShape shape_;
-
     // Initions
     void initAnimation() override;
     void initSprite() override;
