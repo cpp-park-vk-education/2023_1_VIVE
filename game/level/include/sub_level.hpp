@@ -14,6 +14,7 @@
 enum SUBLEVEL
 {
     SBL1 = 1,
+    SBL2,
 };
 
 class SubLevel

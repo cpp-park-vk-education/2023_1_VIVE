@@ -1,5 +1,7 @@
 #include "level_manager.hpp"
 
+LevelManager *LevelManager::level_manager_;
+
 void LevelManager::loadLevel()
 {
     curr_level_ = new Level(curr_level_num_);
@@ -30,6 +32,27 @@ void LevelManager::load()
     std::cout << "Loading SubLevel #" << curr_sublevel_num_ << std::endl;
     loadSubLevel();
     std::cout << "Loaded successfully" << std::endl;
+}
+
+void LevelManager::nextLevel()
+{
+    SUBLEVEL new_sublevel = static_cast<SUBLEVEL>(
+        static_cast<int>(curr_sublevel_num_) + 1);
+    
+    LEVEL new_level = static_cast<LEVEL>(
+        static_cast<int>(curr_level_num_) + 1);
+    
+    if (checkSubLevel(new_sublevel))
+    {
+        changeSubLevel(new_sublevel);
+    }
+    else if (checkLevel(new_level))
+    {
+        changeLevel(new_level);
+        changeSubLevel(SUBLEVEL::SBL1);
+    }
+
+    
 }
 
 void LevelManager::update(const sf::Event &event)
@@ -86,7 +109,7 @@ SubLevel *LevelManager::parseLevelFile(const std::string &file_path)
                 enemies.push_back(enemy);
                 x_coord += BASE_SIZE;
                 break;
-            
+
             case BLOCK_TYPE::BOSS:
                 boss = std::make_shared<Boss>(
                     sf::Vector2f(BASE_SIZE * 3, BASE_SIZE * 3),
@@ -135,29 +158,36 @@ LevelManager::LevelManager(const LEVEL level, const SUBLEVEL sublevel)
     // loadSubLevel();
 }
 
-void LevelManager::changeLevel(const LEVEL level)
+LevelManager *LevelManager::getInstance()
 {
-    // Check if given level is in the game
-    if (level_info.find(level) != level_info.end())
-    {
-        curr_level_num_ = level;
-        loadLevel();
-    }
+    return level_manager_;
 }
 
-void LevelManager::changeSubLevel(const SUBLEVEL sublevel)
+bool LevelManager::checkLevel(const LEVEL level)
 {
-    // Check if given level is in the game
+    return level_info.find(level) != level_info.end();
+}
+
+bool LevelManager::checkSubLevel(const SUBLEVEL sublevel)
+{
     auto it = std::find(
         level_info[curr_level_num_].begin(),
         level_info[curr_level_num_].end(),
         sublevel);
 
-    if (it != level_info[curr_level_num_].end())
-    {
-        curr_sublevel_num_ = sublevel;
-        loadSubLevel();
-    }
+    return it != level_info[curr_level_num_].end();
+}
+
+void LevelManager::changeLevel(const LEVEL level)
+{
+    curr_level_num_ = level;
+    loadLevel();
+}
+
+void LevelManager::changeSubLevel(const SUBLEVEL sublevel)
+{
+    curr_sublevel_num_ = sublevel;
+    loadSubLevel();
 }
 
 std::vector<ObjectShPtr> LevelManager::getObjects()

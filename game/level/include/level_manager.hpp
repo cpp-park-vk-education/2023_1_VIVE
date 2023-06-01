@@ -31,6 +31,8 @@ enum BLOCK_TYPE : char
 class LevelManager
 {
 private:
+    static LevelManager* level_manager_;
+
     // std::vector<Level> levels_;
     LEVEL curr_level_num_;
     SUBLEVEL curr_sublevel_num_;
@@ -44,12 +46,20 @@ private:
     std::map<LEVEL, std::vector<SUBLEVEL>> level_info = {
         {LEVEL::L1, {
                         SUBLEVEL::SBL1,
+                        SUBLEVEL::SBL2,
                     }},
     };
 
 public:
     LevelManager();
     LevelManager(const LEVEL level, const SUBLEVEL sublevel);
+    LevelManager(const LevelManager& other) = delete;
+    LevelManager& operator=(const LevelManager& other) = delete;
+
+    static LevelManager *getInstance();
+
+    bool checkLevel(const LEVEL level);
+    bool checkSubLevel(const SUBLEVEL sublevel);
 
     void changeLevel(const LEVEL level);
     void changeSubLevel(const SUBLEVEL sublevel);
@@ -57,6 +67,8 @@ public:
     void loadLevel();
     void loadSubLevel();
     void load();
+
+    void nextLevel();
 
     void update(const sf::Event &event);
 
