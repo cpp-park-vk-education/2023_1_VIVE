@@ -13,14 +13,10 @@ void Client::connect() {
             c_->startIOContext();
         });
         t.detach();
-    } catch (...) {
-        std::cout << "error!!" << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "\t error in client: " << e.what() << std::endl;
     }
 }
-
-//void Client::disconnect() {
-//    c_->close();
-//}
 
 void Client::write(const std::string &msg) {
     try {
