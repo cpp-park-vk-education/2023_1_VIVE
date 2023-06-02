@@ -10,39 +10,44 @@ using namespace boost::placeholders;
 ClientConnection::ClientConnection(const std::string &ip, const std::string &port) :
         io_context_(), socket_(io_context_),
         resolver_(io_context_), endpoint_(resolver_.resolve(ip, port)) {
+    doConnect();
+    read_buffer_.prepare(max_body_size);
 }
 
-void ClientConnection::startConnect() {
-    std::cout << "\t--- connect: start " << std::this_thread::get_id() << std::endl;
+void ClientConnection::doConnect() {
     boost::asio::async_connect(socket_, endpoint_,
-                               boost::bind(&ClientConnection::handleConnect, this, _1, _2));
-    io_context_.run();
+                               [this](boost::system::error_code ec, const tcp::endpoint &) {
+                                   if (!ec) {
+                                       std::cout << "\t--- connect: done " << std::this_thread::get_id() << std::endl;
+                                       doReadHeader();
+                                   } else {
+                                       std::cout << "\t--- connect: failed " << ec.message() << "  "
+                                                 << std::this_thread::get_id() << std::endl;
+                                   }
+                               });
 }
 
-void ClientConnection::handleConnect(boost::system::error_code ec, const tcp::endpoint &) {
-    if (!ec) {
-        std::cout << "\t--- connect: done " << std::this_thread::get_id()
-                  << std::endl;
-        doReadHeader();
-    } else {
-        // TODO check what's wrong
-        // std::cout << ec.what() << std::endl;
-        std::cout << "\t--- connect: failed " << ec.message() << "  "
-                  << std::this_thread::get_id() << std::endl;
-    }
+void ClientConnection::startIOContext() {
+    io_context_.run();
 }
 
 void ClientConnection::write(const std::string &body) {
 
-    std::cout << ">>" << body << "size: " << body.size() << std::endl;
+    std::cout << "\t" << body << "size: " << body.size() << std::endl;
     std::string header;
     std::sprintf(header.data(), "%4d", static_cast<unsigned int>(body.size()));
     std::string message(header.data() + body); // добавил перед строкой длину сообщения
-
+    std::cout << "\t>>\"" << message << "\"" << std::endl;
 
     std::cout << "\t--- start pushing message to write " << std::this_thread::get_id() << std::endl;
-    write_msgs_.push(message);
-    doWrite();
+
+    boost::asio::post(io_context_,
+                      [this, message]() {
+                          write_msgs_.push(message);
+                          std::cout << "\t--- message pushed " << std::this_thread::get_id() << std::endl
+                                    << std::endl;
+                          doWrite();
+                      });
 }
 
 void ClientConnection::close() {
@@ -54,18 +59,23 @@ bool ClientConnection::isConnected() const {
 }
 
 void ClientConnection::doReadHeader() {
-
     std::cout << "\t--- read: start reading " << std::this_thread::get_id() << std::endl;
-    read_msg_.clear();
-    read_msg_size_.clear();
     boost::asio::async_read(socket_,
-                            boost::asio::buffer(read_msg_size_.data(), 4),
+                            read_buffer_,
+                            boost::asio::transfer_exactly(header_size),
                             [this](boost::system::error_code ec, std::size_t /*length*/) {
                                 if (!ec) {
-                                    std::cout << read_msg_size_ << std::endl;
                                     std::cout << "\t--- read: done " << std::this_thread::get_id() << std::endl;
-                                    std::cout << "\t--- size of read message " << read_msg_size_.data() << std::endl;
-                                    doReadBody();
+                                    std::string read_message_size(net::buffers_begin(read_buffer_.data()),
+                                                net::buffers_end(read_buffer_.data()));
+
+                                    std::cout << "\t--- size of read message " << read_message_size << std::endl;
+                                    int body_size = decodeHeader(read_message_size);
+
+                                    read_buffer_.consume(read_buffer_.size());
+                                    read_buffer_.prepare(max_body_size);
+
+                                    doReadBody(body_size);
                                 } else {
                                     std::cout << "\t--- read: failed " << ec.message() << " "
                                               << std::this_thread::get_id() << std::endl;
@@ -74,31 +84,33 @@ void ClientConnection::doReadHeader() {
                             });
 }
 
-void ClientConnection::doReadBody() {
-    if (!isConnected()) {
-        startConnect();
-    }
-
+void ClientConnection::doReadBody(int body_size) {
     std::cout << "\t--- read: start reading body  " << std::this_thread::get_id() << std::endl;
-    try {
-        int msg_size = std::stoi(read_msg_size_);
-        boost::asio::async_read(socket_,
-                                boost::asio::buffer(read_msg_.data(), msg_size),
-                                [this](boost::system::error_code ec, std::size_t /*length*/) {
-                                    if (!ec) {
-                                        std::cout << "\t--- read: done " << std::this_thread::get_id() << std::endl
-                                                  << std::endl;
-                                        std::cout << "<< " << read_msg_.data() << std::endl;
-                                        doReadHeader();
-                                    } else {
-                                        std::cout << "\t--- read: failed " << ec.message() << " "
-                                                  << std::this_thread::get_id() << std::endl;
-                                        socket_.close();
-                                    }
-                                });
-    } catch (const std::exception &e) {
-        std::cerr << "Wrong read message size: " << e.what() << std::endl;
-    }
+    boost::asio::async_read(socket_,
+                            read_buffer_,
+                            boost::asio::transfer_exactly(body_size),
+                            [this](boost::system::error_code ec, std::size_t /*length*/) {
+                                if (!ec) {
+                                    std::cout << "\t--- read: done " << std::this_thread::get_id() << std::endl
+                                              << std::endl;
+
+                                    std::string string_buf{buffers_begin(read_buffer_.data()),
+                                                           buffers_end(read_buffer_.data())};
+                                    std::cout << "<< " << string_buf << std::endl;
+
+                                    read_buffer_.consume(read_buffer_.size());
+                                    read_buffer_.prepare(max_body_size);
+
+                                    GameEngine::getClient()->readMessage(string_buf);
+
+                                    doReadHeader();
+                                } else {
+                                    std::cout << "\t--- read: failed " << ec.message() << " "
+                                              << std::this_thread::get_id() << std::endl;
+                                    socket_.close();
+                                }
+                            });
+
 }
 
 void ClientConnection::doWrite() {
@@ -112,6 +124,7 @@ void ClientConnection::doWrite() {
                                      std::cout << "\t--- write: done " << std::this_thread::get_id() << std::endl
                                                << std::endl;
                                      write_msgs_.pop();
+                                     std::cout << "size of queue write_msg: " << write_msgs_.size() << std::endl;
                                      if (!write_msgs_.empty()) {
                                          doWrite();
                                      }
@@ -121,5 +134,15 @@ void ClientConnection::doWrite() {
                                      socket_.close();
                                  }
                              });
+}
+
+int ClientConnection::decodeHeader(const std::string &header_string) {
+    int size = 0;
+    try {
+        size = std::stoi(header_string);
+    } catch(const std::exception& e) {
+        std::cout << "\t ERROR! " << e.what() << std::endl;
+    }
+    return size;
 }
 

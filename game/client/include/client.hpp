@@ -19,7 +19,7 @@ public:
     ~Client();
 
     void connect();
-    void disconnect();
+//    void disconnect();
     void readMessage(const std::string& msg_str);
     void writeMessage(const proto::Request &msg);
 
@@ -28,10 +28,10 @@ private:
 
     ClientConnectionShPtr c_ = nullptr;
 
-//    std::string ip_ = "25.18.161.202";
-//    std::string port_ = "1234";
+    std::string ip_ = "25.18.161.202";
+    std::string port_ = "1234";
 
-    std::string ip_ = "127.0.0.1";
-    std::string port_ = "5555";
+//    std::string ip_ = "127.0.0.1";
+//    std::string port_ = "5555";
 };
 

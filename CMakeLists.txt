@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0.0)
 project(ATOMIC_GOD)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak")
 
 # # Подключаем SFML
 set(SFML_DIR "SFML/lib/cmake/SFML")

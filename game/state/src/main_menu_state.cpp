@@ -4,55 +4,45 @@
 
 #include "main_menu_state.hpp"
 
-MainMenuState::MainMenuState()
-{
+MainMenuState::MainMenuState() {
 }
 
-void MainMenuState::update(const sf::Event &event)
-{
-    SoundManager::getInstance()->playMusic();
+void MainMenuState::update(const sf::Event &event) {
+//    SoundManager::getInstance()->playMusic();
 
     StateManager *manager = GameEngine::getStateManager();
-    for (const auto &btn : buttons_)
-    {
+    for (const auto &btn: buttons_) {
         btn->update(event, 0);
         handlePressedButton(btn, manager, event);
         heap_.push(btn);
     }
 }
 
-void MainMenuState::handlePressedButton(const ButtonShPtr &btn, StateManager *manager, const sf::Event &event)
-{
+void MainMenuState::handlePressedButton(const ButtonShPtr &btn, StateManager *manager, const sf::Event &event) {
     if (event.type == sf::Event::MouseButtonPressed &&
         event.mouseButton.button == sf::Mouse::Left &&
-        btn->isMouseOver(GameEngine::getWindow()))
-    {
+        btn->isMouseOver(GameEngine::getWindow())) {
 
         EnButton en_btn = name_to_en_btn_[btn->getText()];
-        if (en_btn == START)
-        {
+        if (en_btn == START) {
             manager->changeState(StateManager::SINGLE_STATE);
         }
-        if (en_btn == START_MULTIPLAYER)
-        {
+        if (en_btn == START_MULTIPLAYER) {
             manager->changeState(StateManager::INIT_MULTIPLAYER_STATE);
             sendServerAboutInitMultiplayer_();
         }
-        if (en_btn == JOIN)
-        {
+        if (en_btn == JOIN) {
             manager->changeState(StateManager::JOIN_STATE);
         }
     }
 }
 
-void MainMenuState::load()
-{
+void MainMenuState::load() {
     AssetManager::getInstance()->loadAssets("main_menu");
     SoundManager::getInstance()->loadSoundAndMusicForLevel("main_menu");
     SoundManager::getInstance()->setVolumeMusic(50);
 
-    for (int i = 0; i < names_.size(); ++i)
-    {
+    for (int i = 0; i < names_.size(); ++i) {
         name_to_en_btn_.insert({names_[i], en_buttons_[i]});
 
         ButtonShPtr btn = std::make_shared<Button>();
@@ -64,16 +54,13 @@ void MainMenuState::load()
     }
 }
 
-void MainMenuState::sendServerAboutInitMultiplayer_()
-{
+void MainMenuState::sendServerAboutInitMultiplayer_() {
     proto::Request msg;
     proto::Request::InitMultiplayerState state;
-    msg.set_allocated_init_multiplayer_state(&state);
-    std::cout << msg.has_init_multiplayer_state() << std::endl;
+    *msg.mutable_init_multiplayer_state() = state;
     GameEngine::getClient()->writeMessage(msg);
 }
 
-void MainMenuState::readMessage(const proto::Response &msg)
-{
+void MainMenuState::readMessage(const proto::Response &msg) {
 
 }

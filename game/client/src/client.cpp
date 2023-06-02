@@ -8,25 +8,28 @@
 
 void Client::connect() {
     c_ = std::make_shared<ClientConnection>(ip_, port_);
-    std::thread t ([this](){
-        c_->startConnect();
-    });
-    t.detach();
-}
-
-void Client::disconnect() {
-    c_->close();
+    try {
+        std::thread t([this]() {
+            c_->startIOContext();
+        });
+        t.detach();
+    } catch (const std::exception& e) {
+        std::cout << "\t error in client: " << e.what() << std::endl;
+    }
 }
 
 void Client::write(const std::string &msg) {
-    if (!c_) {
-        connect();
+    try {
+        if (!c_ || !c_->isConnected()) {
+            connect();
+        }
+        c_->write(msg);
+    } catch (...) {
+        std::cout << "error!!" << std::endl;
     }
-    c_->write(msg);
-
 }
 
-void Client::readMessage(const std::string& msg_str) {
+void Client::readMessage(const std::string &msg_str) {
     proto::Response msg;
     if (!msg.ParseFromString(msg_str)) {
         std::cout << "\tError in deserializing message!" << std::endl;
