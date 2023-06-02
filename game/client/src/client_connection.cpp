@@ -15,6 +15,7 @@ ClientConnection::ClientConnection(const std::string &ip, const std::string &por
 }
 
 void ClientConnection::doConnect() {
+    std::cout << "\t--- connect: start " << std::this_thread::get_id() << std::endl;
     boost::asio::async_connect(socket_, endpoint_,
                                [this](boost::system::error_code ec, const tcp::endpoint &) {
                                    if (!ec) {

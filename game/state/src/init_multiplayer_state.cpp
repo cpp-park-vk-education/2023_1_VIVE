@@ -87,7 +87,7 @@ void InitMultiplayerState::readMessage(const proto::Response &msg) {
         is_waiting_ = false;
     }
     if (msg.has_join_state()) {
-        GameEngine::getStateManager()->changeState(StateManager::MAIN_MENU_STATE);
+        GameEngine::getStateManager()->changeState(StateManager::SINGLE_STATE);
 
 //        // пишем другому игроку о запуске игры
 //        proto::Request ans;

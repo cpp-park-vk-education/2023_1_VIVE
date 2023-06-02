@@ -70,7 +70,7 @@ void JoinState::sendCodeToServer_(const std::string &code) {
 void JoinState::readMessage(const proto::Response &msg) {
     if (msg.has_join_state()) {
         if (msg.join_state().ok()) {
-            GameEngine::getStateManager()->changeState(StateManager::MAIN_MENU_STATE);
+            GameEngine::getStateManager()->changeState(StateManager::SINGLE_STATE);
         }
     }
 }
