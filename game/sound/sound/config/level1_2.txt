@@ -1,0 +1,9 @@
+music/boss_theme.wav 0
+music/win_theme.wav 0
+sounds/close_attack.wav 1
+sounds/fire_cast.wav 12
+sounds/get_damage.wav 13
+sounds/running.wav  14
+sounds/jump.wav 15
+sounds/player_death.wav 17
+sounds/gs_sound.wav 23

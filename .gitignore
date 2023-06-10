@@ -1,0 +1,10 @@
+build/*
+.vscode/
+cmake-build-debug
+.idea
+boost
+*ObjectManager/
+build.sh
+*test*
+
+# protoc -I=messages --cpp_out=messages messages/message.proto   генерация классов для сообщения

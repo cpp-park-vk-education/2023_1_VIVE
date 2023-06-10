@@ -1,0 +1,10 @@
+music/song1_ground_world_level1.wav 0
+music/song2_ground_world_level1.wav 0
+sounds/close_attack.wav 1
+sounds/enemy_close_attack.wav   10
+sounds/running.wav  14
+sounds/jump.wav 15
+sounds/player_death.wav 17
+sounds/enemy_death.wav  18
+sounds/coin_sound.wav 21
+sounds/exp_sound.wav 22

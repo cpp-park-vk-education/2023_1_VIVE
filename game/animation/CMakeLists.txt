@@ -1,0 +1,5 @@
+add_subdirectory(iAnimation)
+add_subdirectory(animation)
+
+target_include_directories(i_animation PUBLIC iAnimation)
+target_include_directories(animation PUBLIC animation)

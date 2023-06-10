@@ -1,0 +1,2 @@
+eight_bits  1    fonts/EightBits.ttf
+pixel_mountain 0 objects/PixelMountain.jpg
